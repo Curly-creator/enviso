@@ -14,8 +14,6 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-///
-
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -68,8 +66,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '281535895651',
     projectId: 'enviso',
     storageBucket: 'enviso.appspot.com',
-    iosClientId:
-        '281535895651-cdoo71jeqgpm6ih5416d5i2elkm41h3q.apps.googleusercontent.com',
+    iosClientId: '281535895651-cdoo71jeqgpm6ih5416d5i2elkm41h3q.apps.googleusercontent.com',
     iosBundleId: 'com.example.enviso',
   );
 
@@ -79,8 +76,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '281535895651',
     projectId: 'enviso',
     storageBucket: 'enviso.appspot.com',
-    iosClientId:
-        '281535895651-cdoo71jeqgpm6ih5416d5i2elkm41h3q.apps.googleusercontent.com',
+    iosClientId: '281535895651-cdoo71jeqgpm6ih5416d5i2elkm41h3q.apps.googleusercontent.com',
     iosBundleId: 'com.example.enviso',
   );
 }
