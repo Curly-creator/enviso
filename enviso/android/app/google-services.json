@@ -7,7 +7,43 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:281535895651:android:57383f5c11618981bec056",
+        "mobilesdk_app_id": "1:281535895651:android:a0e1f0e41d2dd048bec056",
+        "android_client_info": {
+          "package_name": "com.contra.enviso"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281535895651-21l7sec2aolrtk0mt1glldd5kq65m3rh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgZGMLnlf98v4H9p2mTTqKMsvf1a6wsRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281535895651-21l7sec2aolrtk0mt1glldd5kq65m3rh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "281535895651-66c32opug7vmlmiuc48afasorg2toij4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.heeyunlee.cccc"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281535895651:android:9fca6d467c3fd6dbbec056",
         "android_client_info": {
           "package_name": "com.example.enviso"
         }
@@ -31,10 +67,10 @@
               "client_type": 3
             },
             {
-              "client_id": "281535895651-cdoo71jeqgpm6ih5416d5i2elkm41h3q.apps.googleusercontent.com",
+              "client_id": "281535895651-66c32opug7vmlmiuc48afasorg2toij4.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.enviso"
+                "bundle_id": "com.heeyunlee.cccc"
               }
             }
           ]
