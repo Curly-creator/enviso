@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:enviso/main.dart';
+import 'package:enviso/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -91,17 +95,22 @@ class _LoginWidgetState extends State<SignUpWidget> {
   Future signUp() async {
     final isValid = fromKey.currentState!.validate();
     if (!isValid) return;
-
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
+
+    //register with email & password
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+      final user = FirebaseAuth.instance.currentUser!;
+      //create a new document for the user with the uid
+      print(user.uid);
+      await DatabaseService(uid: user.uid).updateUserData('vehicle', 0);
     } on Exception catch (e) {
       Utils.showSnackBar(e.toString());
     }

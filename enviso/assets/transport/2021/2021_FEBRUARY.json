@@ -1,0 +1,1884 @@
+{
+  "timelineObjects": [{
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 524644100,
+        "longitudeE7": 134776600,
+        "placeId": "ChIJo_x3XkFPqEcRBOzbQ0dnEi0",
+        "address": "Michael-Bohnen-Ring 14, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_HOME",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 83.44184,
+        "calibratedProbability": 70.85705
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T08:25:24.057Z",
+        "endTimestamp": "2021-02-01T08:31:58.097Z"
+      },
+      "placeConfidence": "MEDIUM_CONFIDENCE",
+      "centerLatE7": 524647867,
+      "centerLngE7": 134770933,
+      "visitConfidence": 94,
+      "otherCandidateLocations": [{
+        "latitudeE7": 524646200,
+        "longitudeE7": 134775800,
+        "placeId": "ChIJt3OHZ0FPqEcRa0VytsCylWI",
+        "address": "Michael-Bohnen-Ring 16, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_SEARCHED_ADDRESS",
+        "locationConfidence": 16.200712,
+        "calibratedProbability": 13.757302
+      }, {
+        "latitudeE7": 524647900,
+        "longitudeE7": 134773300,
+        "placeId": "ChIJiyGeaEFPqEcRhZne02Sn8fM",
+        "address": "Michael-Bohnen-Ring 18, 12057 Berlin, Deutschland",
+        "name": "Stadtteilkita Highdeck",
+        "locationConfidence": 0.14962126,
+        "calibratedProbability": 0.12705521
+      }, {
+        "latitudeE7": 524633985,
+        "longitudeE7": 134747418,
+        "placeId": "ChIJfzeozENPqEcR_ikWPVwJplo",
+        "address": "12057 Berlin, Deutschland",
+        "name": "Peter-Anders-Str. (Berlin)",
+        "locationConfidence": 0.07466223,
+        "calibratedProbability": 0.06340159
+      }, {
+        "latitudeE7": 524648015,
+        "longitudeE7": 134758622,
+        "placeId": "ChIJw-rhc0NPqEcR5Q2ovrOb-wc",
+        "address": "Berlin, Deutschland",
+        "name": "Südlicher Heidekampgraben",
+        "locationConfidence": 0.047121286,
+        "calibratedProbability": 0.0400144
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "locationConfidence": 68,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "MAIN"
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 524643978,
+        "longitudeE7": 134773387,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 524736724,
+        "longitudeE7": 134561489,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T08:31:58.097Z",
+        "endTimestamp": "2021-02-01T08:43:33Z"
+      },
+      "distance": 1460,
+      "activityType": "IN_PASSENGER_VEHICLE",
+      "confidence": "HIGH",
+      "activities": [{
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 81.53128623962402
+      }, {
+        "activityType": "STILL",
+        "probability": 4.450903832912445
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 4.158341512084007
+      }, {
+        "activityType": "CYCLING",
+        "probability": 3.5715974867343903
+      }, {
+        "activityType": "WALKING",
+        "probability": 3.452111780643463
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 2.189014106988907
+      }, {
+        "activityType": "RUNNING",
+        "probability": 0.34035714343190193
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.09855005191639066
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.09415881941094995
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 0.054965459275990725
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 0.0264616624917835
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.018955187988467515
+      }, {
+        "activityType": "SAILING",
+        "probability": 0.00997689348878339
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.003197046316927299
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 1.237774199580599E-4
+      }],
+      "waypointPath": {
+        "waypoints": [{
+          "latE7": 524643898,
+          "lngE7": 134769353
+        }, {
+          "latE7": 524705734,
+          "lngE7": 134642038
+        }, {
+          "latE7": 524740715,
+          "lngE7": 134555187
+        }],
+        "source": "INFERRED",
+        "roadSegment": [{
+          "placeId": "ChIJR2IUYkFPqEcR8B_Uf617gg8",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJfbw_ZkFPqEcRrhBrbQDPQz4",
+          "duration": "34s"
+        }, {
+          "placeId": "ChIJfbw_ZkFPqEcRrxBrbQDPQz4",
+          "duration": "34s"
+        }, {
+          "placeId": "ChIJTaIZZUFPqEcRLmkYRyr4pC8",
+          "duration": "6s"
+        }, {
+          "placeId": "ChIJR2IUYkFPqEcRH7Wl6qFvQKI",
+          "duration": "48s"
+        }, {
+          "placeId": "ChIJY-dMM0JPqEcR2mSCcQ74EVk",
+          "duration": "2s"
+        }, {
+          "placeId": "ChIJs2CtJUJPqEcRhXt6HIbaYow",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJFbSL9UFPqEcRtjk_5xNwmB8",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJFbSL9UFPqEcRqls_O0M1Cwg",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJ6RRp90FPqEcRmKVHc8FR7lo",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJhS9S_UFPqEcRcOpFBMC06BI",
+          "duration": "9s"
+        }, {
+          "placeId": "ChIJgah5DmpPqEcR4NAnBXmaJ0s",
+          "duration": "32s"
+        }, {
+          "placeId": "ChIJV2RYE2pPqEcRbbBJ8cUp_5U",
+          "duration": "2s"
+        }, {
+          "placeId": "ChIJhbeUampPqEcRAVYFO9QNudU",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJqwc7RGpPqEcRqMUzUajox6k",
+          "duration": "18s"
+        }, {
+          "placeId": "ChIJ6YzMT2pPqEcR3ECWFqaeA_E",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJ7_YwU2pPqEcRftvRmOQksOw",
+          "duration": "18s"
+        }, {
+          "placeId": "ChIJi1_9p2tPqEcRy1NyMVD02rw",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJL0qsDGtPqEcRgSGQvV69-XI",
+          "duration": "9s"
+        }, {
+          "placeId": "ChIJL0qsDGtPqEcRSJqsNcLn8gY",
+          "duration": "6s"
+        }, {
+          "placeId": "ChIJu5btcWtPqEcRY2KZ8__B4iU",
+          "duration": "2s"
+        }, {
+          "placeId": "ChIJETJkZWtPqEcRH1M6t5GxTis",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJcYrZYWtPqEcRpepCsiaSliM",
+          "duration": "18s"
+        }, {
+          "placeId": "ChIJweoSomxPqEcRApVxFRQtIF0",
+          "duration": "2s"
+        }, {
+          "placeId": "ChIJ3eIoo2xPqEcRUuikcBxpaNk",
+          "duration": "9s"
+        }, {
+          "placeId": "ChIJz7VsuWxPqEcRtCFoQwoMo_A",
+          "duration": "27s"
+        }, {
+          "placeId": "ChIJAdjMx2xPqEcRUhqnugESfQw",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJYbs1z2xPqEcR654Hrj9McRg",
+          "duration": "9s"
+        }, {
+          "placeId": "ChIJmQKrz2xPqEcRgWJrDnblUkM",
+          "duration": "2s"
+        }, {
+          "placeId": "ChIJ3RpKzmxPqEcR_aGQS_OZa-Y",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJ6fxn0WxPqEcR4ZryKer6KxE",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJxdrv1WxPqEcRewyW36-OSB8",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJd0e0K21PqEcRO69aiJkHHpw",
+          "duration": "6s"
+        }, {
+          "placeId": "ChIJLWJWLG1PqEcRu0T--2Lh8JM",
+          "duration": "6s"
+        }, {
+          "placeId": "ChIJiXKCMm1PqEcRh0fjmy_4H3o",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJmeMVM21PqEcREVt9GOq7xIM",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJ4e8GsxJPqEcRL2FxbURusnk",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJF5ZHVg1PqEcRJyoztU96_sM",
+          "duration": "6s"
+        }, {
+          "placeId": "ChIJxa4yVw1PqEcRBbWzt3yg0qQ",
+          "duration": "11s"
+        }, {
+          "placeId": "ChIJ7SRyRQ1PqEcRx9s5WYYEd2w",
+          "duration": "13s"
+        }, {
+          "placeId": "ChIJy2YXRw1PqEcRNph_-H6FXdY",
+          "duration": "11s"
+        }, {
+          "placeId": "ChIJR3_aPg1PqEcRzOhlE0Fqy5E",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJLYaIIg1PqEcRrUzyMZwOCXI",
+          "duration": "29s"
+        }, {
+          "placeId": "ChIJO_3S4QxPqEcRFQ04vuoZAJg",
+          "duration": "2s"
+        }, {
+          "placeId": "ChIJO_3S4QxPqEcR9dKAeYGy1O4",
+          "duration": "4s"
+        }, {
+          "placeId": "ChIJKTwv5AxPqEcRTwfzjpVkv3c",
+          "duration": "25s"
+        }, {
+          "placeId": "ChIJPx6J7QxPqEcRkUSjKqOgl-E",
+          "duration": "11s"
+        }],
+        "distanceMeters": 2329.8213038060203,
+        "travelMode": "DRIVE",
+        "confidence": 1.0
+      },
+      "parkingEvent": {
+        "location": {
+          "latitudeE7": 525154184,
+          "longitudeE7": 134744474,
+          "accuracyMetres": 70
+        },
+        "method": "END_OF_ACTIVITY_SEGMENT",
+        "locationSource": "FROM_RAW_LOCATION",
+        "timestamp": "2021-02-01T08:53:11Z"
+      }
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 524728420,
+        "longitudeE7": 134553428,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 525154184,
+        "longitudeE7": 134744474,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T08:43:33Z",
+        "endTimestamp": "2021-02-01T08:53:11Z"
+      },
+      "distance": 5034,
+      "activityType": "IN_TRAIN",
+      "confidence": "MEDIUM",
+      "activities": [{
+        "activityType": "IN_TRAIN",
+        "probability": 74.85737800598145
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 9.315256774425507
+      }, {
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 6.478812545537949
+      }, {
+        "activityType": "WALKING",
+        "probability": 4.132731258869171
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 1.7362184822559357
+      }, {
+        "activityType": "CYCLING",
+        "probability": 1.2410582043230534
+      }, {
+        "activityType": "STILL",
+        "probability": 0.9771332144737244
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.9279004298150539
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 0.2276398940011859
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.05106765893287957
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.0376918469555676
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.01182338091894053
+      }, {
+        "activityType": "RUNNING",
+        "probability": 0.004413591523189098
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 4.512407940637786E-4
+      }, {
+        "activityType": "SAILING",
+        "probability": 4.177920345682651E-4
+      }],
+      "transitPath": {
+        "transitStops": [{
+          "latitudeE7": 524728420,
+          "longitudeE7": 134553428,
+          "placeId": "ChIJgY1k7wxPqEcRkgUKK2cpDzQ",
+          "address": "12055 Berlin, Deutschland",
+          "name": "S Sonnenallee"
+        }, {
+          "latitudeE7": 524939450,
+          "longitudeE7": 134614338,
+          "placeId": "ChIJz4ha4AFPqEcRYVFjG8IRfH8",
+          "address": "12435 Berlin, Deutschland",
+          "name": "Treptower Park"
+        }, {
+          "latitudeE7": 525031531,
+          "longitudeE7": 134693263,
+          "placeId": "ChIJubnwoPBOqEcRCmSGhHgqMl8",
+          "address": "10317 Berlin, Deutschland",
+          "name": "Berlin Ostkreuz Station"
+        }, {
+          "latitudeE7": 525149919,
+          "longitudeE7": 134745687,
+          "placeId": "ChIJYb-zzoxOqEcR2JulbVGNrTI",
+          "address": "Im U-Bhf. Frankfurter Allee Zugang, Möllendorffstraße, 10247 Berlin, Deutschland",
+          "name": "Frankfurter Allee"
+        }],
+        "name": "S42",
+        "hexRgbColor": "4C9046",
+        "linePlaceId": "ChIJ1b8_j7tPqEcRwTeQXe7k9G8",
+        "stopTimesInfo": [{
+          "scheduledDepartureTimestamp": "2021-02-01T08:45:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-01T08:48:00Z",
+          "scheduledDepartureTimestamp": "2021-02-01T08:48:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-01T08:50:00Z",
+          "scheduledDepartureTimestamp": "2021-02-01T08:51:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-01T08:52:00Z"
+        }],
+        "source": "INFERRED",
+        "confidence": 0.9149327755490693,
+        "distanceMeters": 5034.0
+      },
+      "simplifiedRawPath": {
+        "points": [{
+          "latE7": 524736724,
+          "lngE7": 134561489,
+          "accuracyMeters": 10,
+          "timestamp": "2021-02-01T08:43:33Z"
+        }, {
+          "latE7": 524991766,
+          "lngE7": 134663929,
+          "accuracyMeters": 24,
+          "timestamp": "2021-02-01T08:49:48.405Z"
+        }, {
+          "latE7": 525101396,
+          "lngE7": 134755038,
+          "accuracyMeters": 5,
+          "timestamp": "2021-02-01T08:52:25Z"
+        }, {
+          "latE7": 525121905,
+          "lngE7": 134756873,
+          "accuracyMeters": 10,
+          "timestamp": "2021-02-01T08:52:40Z"
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 4941.895784726107
+      }
+    }
+  }, {
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 525149919,
+        "longitudeE7": 134745687,
+        "placeId": "ChIJYb-zzoxOqEcR2JulbVGNrTI",
+        "address": "Im U-Bhf. Frankfurter Allee Zugang, Möllendorffstraße, 10247 Berlin, Deutschland",
+        "name": "Frankfurter Allee",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 77.59537,
+        "calibratedProbability": 56.257755
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T08:53:11Z",
+        "endTimestamp": "2021-02-01T08:59:42.704Z"
+      },
+      "placeConfidence": "MEDIUM_CONFIDENCE",
+      "centerLatE7": 525150933,
+      "centerLngE7": 134745433,
+      "visitConfidence": 85,
+      "otherCandidateLocations": [{
+        "latitudeE7": 525142878,
+        "longitudeE7": 134740815,
+        "placeId": "ChIJEbHJuYxOqEcRVrmIcHOa-9Q",
+        "address": "Frankfurter Allee 113-117, 10365 Berlin, Deutschland",
+        "name": "Ring-Center Berlin 2 + 3",
+        "locationConfidence": 17.21464,
+        "calibratedProbability": 12.480862
+      }, {
+        "latitudeE7": 525150024,
+        "longitudeE7": 134735085,
+        "placeId": "ChIJOZAmnoxOqEcRYrS_svsUF44",
+        "address": "Rigaer Str. 56, 10247 Berlin, Deutschland",
+        "name": "Fröhliche Bäckerei",
+        "locationConfidence": 1.0615853,
+        "calibratedProbability": 0.7696646
+      }, {
+        "latitudeE7": 525146074,
+        "longitudeE7": 134747636,
+        "placeId": "ChIJ9XiWvYxOqEcRTd4fErGJN-g",
+        "locationConfidence": 0.9516188,
+        "calibratedProbability": 0.6899373
+      }, {
+        "latitudeE7": 525147794,
+        "longitudeE7": 134741189,
+        "placeId": "ChIJxzeMmIxOqEcRutoWK5Y4LBA",
+        "address": "Rigaer Str. 56, 10247 Berlin, Deutschland",
+        "name": "Rigaer Kiosk",
+        "locationConfidence": 0.33329612,
+        "calibratedProbability": 0.24164447
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "locationConfidence": 62,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "TRANSITIONAL"
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 525146881,
+        "longitudeE7": 134748064,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 525191905,
+        "longitudeE7": 134692058,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T08:59:42.704Z",
+        "endTimestamp": "2021-02-01T09:04:36.172Z"
+      },
+      "distance": 627,
+      "activityType": "WALKING",
+      "confidence": "MEDIUM",
+      "activities": [{
+        "activityType": "WALKING",
+        "probability": 67.7362859249115
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 15.308509767055511
+      }, {
+        "activityType": "CYCLING",
+        "probability": 7.735218852758408
+      }, {
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 4.211905598640442
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 1.540218759328127
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 1.5396668575704098
+      }, {
+        "activityType": "STILL",
+        "probability": 0.7374424021691084
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.6950142793357372
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 0.3010897431522608
+      }, {
+        "activityType": "RUNNING",
+        "probability": 0.09403987205587327
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.05798351485282183
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.0309216498862952
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.01072821905836463
+      }, {
+        "activityType": "SAILING",
+        "probability": 6.881986791995587E-4
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 2.8003196348436177E-4
+      }],
+      "waypointPath": {
+        "waypoints": [{
+          "latE7": 525145874,
+          "lngE7": 134744777
+        }, {
+          "latE7": 525159759,
+          "lngE7": 134727067
+        }, {
+          "latE7": 525191879,
+          "lngE7": 134692401
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 690.8270210139265,
+        "travelMode": "WALK",
+        "confidence": 0.0
+      }
+    }
+  }, {
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 525190846,
+        "longitudeE7": 134689783,
+        "placeId": "ChIJ9c37HIpOqEcRxjpgBCpzWzY",
+        "address": "Voigtstraße 27, 10247 Berlin, Deutschland",
+        "semanticType": "TYPE_SEARCHED_ADDRESS",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 77.093185,
+        "calibratedProbability": 79.5582
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T09:04:36.172Z",
+        "endTimestamp": "2021-02-01T13:39:05.553Z"
+      },
+      "placeConfidence": "HIGH_CONFIDENCE",
+      "centerLatE7": 525191693,
+      "centerLngE7": 134692660,
+      "visitConfidence": 94,
+      "otherCandidateLocations": [{
+        "latitudeE7": 525190846,
+        "longitudeE7": 134689783,
+        "placeId": "ChIJvR9N9SpPqEcRCc4VTnsB2w8",
+        "address": "Voigtstraße 27, 10247 Berlin, Deutschland",
+        "name": "Storebox - Dein Lager nebenan",
+        "locationConfidence": 6.3824267,
+        "calibratedProbability": 6.5865016
+      }, {
+        "latitudeE7": 525193744,
+        "longitudeE7": 134692012,
+        "placeId": "ChIJFf58-IlOqEcRa_FFBGU4d2A",
+        "address": "Voigtstraße 26, 10247 Berlin, Deutschland",
+        "name": "Kleine Spielgesellschaft gGmbH - Kita Mumpelmonster",
+        "locationConfidence": 0.35759884,
+        "calibratedProbability": 0.3690329
+      }, {
+        "latitudeE7": 525190500,
+        "longitudeE7": 134689600,
+        "placeId": "ChIJyTZgZ29OqEcRM1apJMVciTE",
+        "address": "Voigtstraße 29, 10247 Berlin, Deutschland",
+        "name": "picibird GmbH",
+        "locationConfidence": 0.27553892,
+        "calibratedProbability": 0.28434914
+      }, {
+        "latitudeE7": 525203880,
+        "longitudeE7": 134679820,
+        "placeId": "ChIJAbwVJ2BOqEcRHMIJ2rVmSUY",
+        "address": "Eldenaer Str. 34A, 10247 Berlin, Deutschland",
+        "name": "Lidl",
+        "locationConfidence": 0.26534095,
+        "calibratedProbability": 0.2738251
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "locationConfidence": 62,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "MAIN"
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 525192505,
+        "longitudeE7": 134695796,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 524645976,
+        "longitudeE7": 134778181,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T13:39:05.553Z",
+        "endTimestamp": "2021-02-01T17:09:59.276Z"
+      },
+      "distance": 6102,
+      "activityType": "IN_PASSENGER_VEHICLE",
+      "confidence": "LOW",
+      "activities": [{
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 55.48918843269348
+      }, {
+        "activityType": "CYCLING",
+        "probability": 23.03154766559601
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 7.961411029100418
+      }, {
+        "activityType": "WALKING",
+        "probability": 7.355741411447525
+      }, {
+        "activityType": "STILL",
+        "probability": 3.1849779188632965
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 1.1670615524053574
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 0.9655154310166836
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 0.29415301978588104
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.2632491756230593
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.10387154761701822
+      }, {
+        "activityType": "RUNNING",
+        "probability": 0.0853253179229796
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.06620270432904363
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.022522296058014035
+      }, {
+        "activityType": "SAILING",
+        "probability": 0.009153602150036022
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 6.929106461939227E-5
+      }],
+      "waypointPath": {
+        "waypoints": [{
+          "latE7": 525192718,
+          "lngE7": 134693183
+        }, {
+          "latE7": 524935226,
+          "lngE7": 134599637
+        }, {
+          "latE7": 524647216,
+          "lngE7": 134778251
+        }],
+        "source": "INFERRED",
+        "roadSegment": [{
+          "placeId": "ChIJiwvaHYpOqEcRYWWUJ7IQoWk",
+          "duration": "257s"
+        }, {
+          "placeId": "ChIJI9MnFYpOqEcRPf36I3EC8fM",
+          "duration": "277s"
+        }, {
+          "placeId": "ChIJiefIaYpOqEcR36kwbAP_1lk",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJEfudZ4pOqEcRkxwJDJ_l2RA",
+          "duration": "216s"
+        }, {
+          "placeId": "ChIJH2E9fYpOqEcRMbZELfLYyZI",
+          "duration": "288s"
+        }, {
+          "placeId": "ChIJo6FP0mFOqEcRD9usr_xftCQ",
+          "duration": "164s"
+        }, {
+          "placeId": "ChIJa36RM2BOqEcRtwsZul328d0",
+          "duration": "247s"
+        }, {
+          "placeId": "ChIJbdIQFmBOqEcRMS7Bs04IYGE",
+          "duration": "391s"
+        }, {
+          "placeId": "ChIJCYGLDmBOqEcRqQsafGz2nO8",
+          "duration": "102s"
+        }, {
+          "placeId": "ChIJMyRECWBOqEcRlDmZduDnHWA",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJpd_ECGBOqEcRRITdbwi8uEM",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJDe72j19OqEcRfsfQwN__LdI",
+          "duration": "205s"
+        }, {
+          "placeId": "ChIJ9UI6eF9OqEcRkO4BADqSY-M",
+          "duration": "123s"
+        }, {
+          "placeId": "ChIJTdhtel9OqEcREZ83OQjzhTE",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJuw2Del9OqEcReZP20qSiq-s",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJCUk5Q19OqEcRoRWFuMxXeU0",
+          "duration": "247s"
+        }, {
+          "placeId": "ChIJnz_WTF9OqEcR31M7y_2CtbM",
+          "duration": "319s"
+        }, {
+          "placeId": "ChIJOxyfsFhOqEcRR3uDOxaTufY",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJY_jak1hOqEcRr2IRGtpjvno",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJq_VR6VhOqEcRB8cq43kIEUs",
+          "duration": "102s"
+        }, {
+          "placeId": "ChIJZV1q71hOqEcREYZ5SMHKsUs",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJzxvJWVhOqEcRgzTqnoGbIF4",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJAcrAWlhOqEcRiUTHScIQdd8",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJ-d6_R1hOqEcRczgpEbgVyks",
+          "duration": "133s"
+        }, {
+          "placeId": "ChIJz2o2JVhOqEcR9Ycmx04jw6g",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJQRI-iFdOqEcR-4NTIZM6828",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJOU8ikFdOqEcR8W06NdqiWxw",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJz2m8l1dOqEcRykJm9K6J3UE",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJqcThvFdOqEcRM2uZ_UZpEP0",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJI30Xu1dOqEcRDWqdWS5i49M",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJo41GsFdOqEcRDVxWJZkE6gc",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJFwb0sVdOqEcR2Wiqzxc3zoE",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJ9XhXTVZOqEcRcVTSqP3QaYU",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJkZYIUFZOqEcRV3Nqp0m4WYw",
+          "duration": "123s"
+        }, {
+          "placeId": "ChIJo13mXFZOqEcRK2KWWGuEgKQ",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJeVWaZ1ZOqEcRBR19NrvNH9Q",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJm-pYZlZOqEcRIzjdV5Lhi3M",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJD8leA1ZOqEcRlPviwacNMLs",
+          "duration": "51s"
+        }, {
+          "placeId": "ChIJYyojqfhOqEcR3n77Xt82lPI",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJSxbms_hOqEcR3jZWYDRv0m8",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJey1yyvhOqEcRioBY1F4wNwk",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJhet-y_hOqEcRWFCIRVNgSXo",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJj9Lgr_5OqEcRtcVtvcuZx9g",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJIVh6pv5OqEcRKf5B2lqiHiI",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJhQ9rof5OqEcR4o12OPqsQyc",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJd61mYf5OqEcRgdS9n_NR2PI",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJgU5bYf5OqEcRRReXCV4JeyQ",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJG_fpZv5OqEcReeltLo1h-vI",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJZaW0Z_5OqEcRF81jXzf-DPY",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJrw9V0QFPqEcRG3JJJYEiraQ",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJyahx0QFPqEcRXLWD7ERgMIw",
+          "duration": "51s"
+        }, {
+          "placeId": "ChIJ7cS2zAFPqEcRNXSG9pn_0Aw",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJt9ypNABPqEcRZbOq6GP_IBM",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJ-UDmNABPqEcR57PtlqBPXRo",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJcSwwTABPqEcR41qS4Mn2bXk",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJ062tTQBPqEcRQS7AXQcgCe8",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJP3dGTQBPqEcR61YTbLs2Fx8",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJGThfrQFPqEcR-a_ZsZjmhV0",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJScGfrQFPqEcRzfdJkpsmisQ",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJi5207ANPqEcRWtrys6MXsls",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJ-SH3gQRPqEcR5CkQa6tfQoo",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJCUQbgwRPqEcRgm_rxb0cCu0",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJjbiCnARPqEcRblAGPoUH-OI",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJecl3mQRPqEcRz4t3w0AyDug",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJlfFJmARPqEcRB6r5RsHsODc",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJOboEmARPqEcRRrvQgpU7yMI",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJDWY8vQRPqEcRSHhzhrReAdE",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJRyBytgRPqEcRfi93gDc3J94",
+          "duration": "123s"
+        }, {
+          "placeId": "ChIJLaeB_hpPqEcRiOknqOaMudU",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJPVDLWhpPqEcRWkh9ihpDxAA",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJeQp_GRpPqEcRfkbEUaA3Dmc",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJ4bBqHRpPqEcRBlzJTBOJJbA",
+          "duration": "51s"
+        }, {
+          "placeId": "ChIJA-CW-RlPqEcRWlxFR-xW95c",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJh_kq-hlPqEcR8P9uGePssGU",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJd-pq-xlPqEcRSrPExAxIdfc",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJGX6j4xlPqEcRJivA_hQ0vqo",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJj56AYxdPqEcREtQB5AkVrdg",
+          "duration": "113s"
+        }, {
+          "placeId": "ChIJT-2knRdPqEcRAgC_rbIo0ok",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJ1TY_xxdPqEcRWKQg7VvzPOE",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJk1jyvhdPqEcRp7I0ZOMFD_0",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJk1jyvhdPqEcRlSnTObJnZA0",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJWyf7xhdPqEcR4AOKCOu3LOs",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJB28tfj1PqEcRWEqQ3A68D-k",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJrWa5gT1PqEcRuxbF76-h77I",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJVbawgD1PqEcRcxwjfcy_gV4",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJKdQRJhZPqEcRjyEt49EWY60",
+          "duration": "123s"
+        }, {
+          "placeId": "ChIJy_3TIhZPqEcRXzuA2v0alyA",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJ1zqYFhZPqEcRV-QRsncPzDs",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJFRwHzRVPqEcR0hFSHeub7x4",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJSR_jNBRPqEcRAaGUiIkq1VI",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJxW0gShRPqEcRTOcVZ1ZSauU",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJ4YqdSRRPqEcRA0ace6u8Rpk",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJp8osTxRPqEcRrkufe0lrtCo",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJHel6TxRPqEcRmM0phW6RT_Q",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJ6cUwRRRPqEcRz5RL33qWluk",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJswxSXhRPqEcRFROUI0YLnuA",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJD8aoihRPqEcRocpHm8qShhs",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJyYEAixRPqEcRUQFfCgfj5xw",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJ90yUixRPqEcR759hTrPYRv8",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJy8j0jhRPqEcRRoLCU5-Sb4o",
+          "duration": "51s"
+        }, {
+          "placeId": "ChIJf91zkBRPqEcR-t1pALPMtQg",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJTWd8mRRPqEcRqx7IKvEZpAI",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJK_nQURNPqEcRP2YvYaledRo",
+          "duration": "102s"
+        }, {
+          "placeId": "ChIJi3GzTRNPqEcRw_95fLaBEaQ",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJr6elTBNPqEcRLY5_LrYamAM",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJD5zitWxPqEcRhXSBSOnLIOg",
+          "duration": "175s"
+        }, {
+          "placeId": "ChIJhTGKyGxPqEcR8z4mpzy2Zf0",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJAdjMx2xPqEcRcTw9Xru2XXY",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJAdjMx2xPqEcRkS4-_nAAQqw",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJrc56x2xPqEcROMRLifGIDrY",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJlX0BvWxPqEcRSC7lp9xxZSc",
+          "duration": "133s"
+        }, {
+          "placeId": "ChIJS3uXY2tPqEcR6YKTSYHqBn8",
+          "duration": "144s"
+        }, {
+          "placeId": "ChIJdWfEp2tPqEcR7I0rdN0eTBg",
+          "duration": "61s"
+        }, {
+          "placeId": "ChIJxf0rrWtPqEcRGIqAQ3v74Ao",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJ5dpaTmpPqEcR6ILSWjUcwKw",
+          "duration": "20s"
+        }, {
+          "placeId": "ChIJew5-RmpPqEcRwf-8PTYFShk",
+          "duration": "82s"
+        }, {
+          "placeId": "ChIJ48JsQGpPqEcR5POFkInZaBQ",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJ2SrgFGpPqEcRXBFm6tIhLxw",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJd5EmEmpPqEcRhCFYhSWTux4",
+          "duration": "72s"
+        }, {
+          "placeId": "ChIJ-96cCGpPqEcRzlKyZI8d9P4",
+          "duration": "92s"
+        }, {
+          "placeId": "ChIJRWEq-EFPqEcRaACF1wCSTp0",
+          "duration": "30s"
+        }, {
+          "placeId": "ChIJk_oq-EFPqEcRDt-ZNy9iHBg",
+          "duration": "41s"
+        }, {
+          "placeId": "ChIJk_oq-EFPqEcR_ybKDTe6b7E",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJ2QtgvkNPqEcR8Ir2RFff-Ak",
+          "duration": "0s"
+        }, {
+          "placeId": "ChIJ6XBvvkNPqEcRH7tdaSvGmzQ",
+          "duration": "10s"
+        }, {
+          "placeId": "ChIJR2IUYkFPqEcR8B_Uf617gg8",
+          "duration": "185s"
+        }, {
+          "placeId": "ChIJfbw_ZkFPqEcRrhBrbQDPQz4",
+          "duration": "144s"
+        }],
+        "distanceMeters": 9033.899245664887,
+        "travelMode": "DRIVE",
+        "confidence": 0.998022191933488
+      },
+      "parkingEvent": {
+        "location": {
+          "latitudeE7": 524645976,
+          "longitudeE7": 134778181,
+          "accuracyMetres": 80
+        },
+        "method": "END_OF_ACTIVITY_SEGMENT",
+        "locationSource": "FROM_RAW_LOCATION",
+        "timestamp": "2021-02-01T17:09:59.276Z"
+      }
+    }
+  }, {
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 524644100,
+        "longitudeE7": 134776600,
+        "placeId": "ChIJo_x3XkFPqEcRBOzbQ0dnEi0",
+        "address": "Michael-Bohnen-Ring 14, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_HOME",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 84.242004,
+        "calibratedProbability": 71.22285
+      },
+      "duration": {
+        "startTimestamp": "2021-02-01T17:09:59.276Z",
+        "endTimestamp": "2021-02-02T05:09:01.301Z"
+      },
+      "placeConfidence": "HIGH_CONFIDENCE",
+      "centerLatE7": 524645921,
+      "centerLngE7": 134778128,
+      "visitConfidence": 94,
+      "otherCandidateLocations": [{
+        "latitudeE7": 524646200,
+        "longitudeE7": 134775800,
+        "placeId": "ChIJt3OHZ0FPqEcRa0VytsCylWI",
+        "address": "Michael-Bohnen-Ring 16, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_SEARCHED_ADDRESS",
+        "locationConfidence": 15.590064,
+        "calibratedProbability": 13.180701
+      }, {
+        "latitudeE7": 524648015,
+        "longitudeE7": 134758622,
+        "placeId": "ChIJw-rhc0NPqEcR5Q2ovrOb-wc",
+        "address": "Berlin, Deutschland",
+        "name": "Südlicher Heidekampgraben",
+        "locationConfidence": 0.06740829,
+        "calibratedProbability": 0.056990694
+      }, {
+        "latitudeE7": 524647900,
+        "longitudeE7": 134773300,
+        "placeId": "ChIJiyGeaEFPqEcRhZne02Sn8fM",
+        "address": "Michael-Bohnen-Ring 18, 12057 Berlin, Deutschland",
+        "name": "Stadtteilkita Highdeck",
+        "locationConfidence": 0.049270928,
+        "calibratedProbability": 0.041656364
+      }, {
+        "latitudeE7": 524633985,
+        "longitudeE7": 134747418,
+        "placeId": "ChIJfzeozENPqEcR_ikWPVwJplo",
+        "address": "12057 Berlin, Deutschland",
+        "name": "Peter-Anders-Str. (Berlin)",
+        "locationConfidence": 0.0140757095,
+        "calibratedProbability": 0.011900382
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "locationConfidence": 69,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "MAIN"
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 524717305,
+        "longitudeE7": 134671534,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 524732109,
+        "longitudeE7": 134578904,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-10T13:48:23.097Z",
+        "endTimestamp": "2021-02-10T13:58:50.574Z"
+      },
+      "distance": 564,
+      "activityType": "WALKING",
+      "confidence": "MEDIUM",
+      "activities": [{
+        "activityType": "WALKING",
+        "probability": 77.49027013778687
+      }, {
+        "activityType": "STILL",
+        "probability": 16.14757627248764
+      }, {
+        "activityType": "RUNNING",
+        "probability": 3.278912976384163
+      }, {
+        "activityType": "CYCLING",
+        "probability": 1.2946018017828465
+      }, {
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 0.8569451980292797
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 0.37109944969415665
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 0.19789556972682476
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.1971193589270115
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.054321903735399246
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 0.04717196279671043
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 0.028800740255974233
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.01836485753301531
+      }, {
+        "activityType": "SAILING",
+        "probability": 0.009668286656960845
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.007249456393765286
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 9.785827259634061E-7
+      }],
+      "waypointPath": {
+        "waypoints": [{
+          "latE7": 524717254,
+          "lngE7": 134671573
+        }, {
+          "latE7": 524726867,
+          "lngE7": 134585256
+        }, {
+          "latE7": 524739227,
+          "lngE7": 134557151
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 940.6936574554555,
+        "travelMode": "WALK",
+        "confidence": 1.0
+      }
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 524722235,
+        "longitudeE7": 134589413,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 524641857,
+        "longitudeE7": 134773858,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-10T14:05:11Z",
+        "endTimestamp": "2021-02-10T14:14:52.278Z"
+      },
+      "distance": 1777,
+      "activityType": "IN_BUS",
+      "confidence": "MEDIUM",
+      "activities": [{
+        "activityType": "IN_BUS",
+        "probability": 65.5741810798645
+      }, {
+        "activityType": "WALKING",
+        "probability": 17.43953675031662
+      }, {
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 8.373511582612991
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 4.522985965013504
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 1.551446970552206
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 0.7824623957276344
+      }, {
+        "activityType": "STILL",
+        "probability": 0.7117311004549265
+      }, {
+        "activityType": "CYCLING",
+        "probability": 0.6280712783336639
+      }, {
+        "activityType": "RUNNING",
+        "probability": 0.17833386082202196
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.14912449987605214
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 0.06407895707525313
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.017773981380742043
+      }, {
+        "activityType": "SAILING",
+        "probability": 0.005988240081933327
+      }, {
+        "activityType": "SKIING",
+        "probability": 7.634995199623518E-4
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 4.151506693972351E-7
+      }],
+      "transitPath": {
+        "transitStops": [{
+          "latitudeE7": 524728420,
+          "longitudeE7": 134553428,
+          "placeId": "ChIJgY1k7wxPqEcRkgUKK2cpDzQ",
+          "address": "12055 Berlin, Deutschland",
+          "name": "S Sonnenallee"
+        }, {
+          "latitudeE7": 524723589,
+          "longitudeE7": 134586754,
+          "placeId": "ChIJMzWJUA1PqEcR1WX4JPhUzs4",
+          "address": "12059 Berlin, Deutschland",
+          "name": "Ziegrastr. (Berlin)"
+        }, {
+          "latitudeE7": 524707718,
+          "longitudeE7": 134638820,
+          "placeId": "ChIJw1j_x2xPqEcRxFYCwH9RMQc",
+          "address": "12057 Berlin, Deutschland",
+          "name": "Dammweg/Sonnenallee (Berlin)"
+        }, {
+          "latitudeE7": 524691680,
+          "longitudeE7": 134675290,
+          "placeId": "ChIJ1XmsaWtPqEcRrjEor8KeP2M",
+          "address": "12057 Berlin, Deutschland",
+          "name": "Köllnische Heide station"
+        }, {
+          "latitudeE7": 524665450,
+          "longitudeE7": 134703550,
+          "placeId": "ChIJgUJJQWpPqEcR0UVAE3CEdro",
+          "address": "12057 Berlin, Deutschland",
+          "name": "Schulenburgpark (Berlin)"
+        }, {
+          "latitudeE7": 524647552,
+          "longitudeE7": 134727127,
+          "placeId": "ChIJfzra-UFPqEcR7ZQIr4AUrX4",
+          "address": "12057 Berlin, Deutschland",
+          "name": "Michael-Bohnen-Ring (Berlin)"
+        }, {
+          "latitudeE7": 524633985,
+          "longitudeE7": 134747418,
+          "placeId": "ChIJfzeozENPqEcR_ikWPVwJplo",
+          "address": "12057 Berlin, Deutschland",
+          "name": "Peter-Anders-Str. (Berlin)"
+        }],
+        "name": "M41",
+        "hexRgbColor": "000000",
+        "linePlaceId": "ChIJOQb0irVPqEcRUKiUFdqva_Y",
+        "stopTimesInfo": [{
+          "scheduledDepartureTimestamp": "2021-02-10T14:05:00Z",
+          "realtimeDepartureTimestamp": "2021-02-10T14:06:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-10T14:06:00Z",
+          "scheduledDepartureTimestamp": "2021-02-10T14:06:00Z",
+          "realtimeArrivalTimestamp": "2021-02-10T14:07:00Z",
+          "realtimeDepartureTimestamp": "2021-02-10T14:07:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-10T14:07:00Z",
+          "scheduledDepartureTimestamp": "2021-02-10T14:07:00Z",
+          "realtimeArrivalTimestamp": "2021-02-10T14:08:00Z",
+          "realtimeDepartureTimestamp": "2021-02-10T14:08:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-10T14:08:00Z",
+          "scheduledDepartureTimestamp": "2021-02-10T14:08:00Z",
+          "realtimeArrivalTimestamp": "2021-02-10T14:09:00Z",
+          "realtimeDepartureTimestamp": "2021-02-10T14:09:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-10T14:09:00Z",
+          "scheduledDepartureTimestamp": "2021-02-10T14:09:00Z",
+          "realtimeArrivalTimestamp": "2021-02-10T14:10:00Z",
+          "realtimeDepartureTimestamp": "2021-02-10T14:10:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-10T14:10:00Z",
+          "scheduledDepartureTimestamp": "2021-02-10T14:10:00Z",
+          "realtimeArrivalTimestamp": "2021-02-10T14:11:00Z",
+          "realtimeDepartureTimestamp": "2021-02-10T14:11:00Z"
+        }, {
+          "scheduleArrivalTimestamp": "2021-02-10T14:11:00Z",
+          "realtimeArrivalTimestamp": "2021-02-10T14:12:00Z"
+        }],
+        "source": "INFERRED",
+        "confidence": 0.9714814130735474,
+        "distanceMeters": 2180.0
+      },
+      "simplifiedRawPath": {
+        "points": [{
+          "latE7": 524722235,
+          "lngE7": 134589413,
+          "accuracyMeters": 5,
+          "timestamp": "2021-02-10T14:05:11Z"
+        }, {
+          "latE7": 524705710,
+          "lngE7": 134637965,
+          "accuracyMeters": 11,
+          "timestamp": "2021-02-10T14:06:13Z"
+        }, {
+          "latE7": 524632875,
+          "lngE7": 134738723,
+          "accuracyMeters": 84,
+          "timestamp": "2021-02-10T14:10:50.956Z"
+        }, {
+          "latE7": 524628620,
+          "lngE7": 134764459,
+          "accuracyMeters": 26,
+          "timestamp": "2021-02-10T14:12:51.956Z"
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 1998.6510101375009
+      }
+    }
+  }, {
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 524654600,
+        "longitudeE7": 134726900,
+        "placeId": "ChIJn5OC5EFPqEcRuX9WzW1w7AU",
+        "address": "Sonnenallee 319, 12057 Berlin, Deutschland",
+        "name": "Nachbarschaftstreff \"mittendrin\"",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 39.28291,
+        "calibratedProbability": 20.77311
+      },
+      "duration": {
+        "startTimestamp": "2021-02-15T21:27:55.443Z",
+        "endTimestamp": "2021-02-15T21:28:58.867Z"
+      },
+      "placeConfidence": "LOW_CONFIDENCE",
+      "centerLatE7": 524655520,
+      "centerLngE7": 134722272,
+      "visitConfidence": 81,
+      "otherCandidateLocations": [{
+        "latitudeE7": 524655257,
+        "longitudeE7": 134729477,
+        "placeId": "ChIJZ1lG90FPqEcRmvpdoM3UGwQ",
+        "address": "Sonnenallee 323, 12057 Berlin, Deutschland",
+        "name": "Howoge-High Deck Management",
+        "locationConfidence": 36.69065,
+        "calibratedProbability": 19.402302
+      }, {
+        "latitudeE7": 524654600,
+        "longitudeE7": 134726900,
+        "placeId": "ChIJn5OC5EFPqEcRdxpp9xkn4tE",
+        "address": "Sonnenallee 321, 12057 Berlin, Deutschland",
+        "name": "Restaurant Dalmatino",
+        "locationConfidence": 6.517658,
+        "calibratedProbability": 3.4465885
+      }, {
+        "latitudeE7": 524642240,
+        "longitudeE7": 134726870,
+        "placeId": "ChIJQTgCG0JPqEcRkL4vuicL2a0",
+        "address": "Sonnenallee 330, 12057 Berlin, Deutschland",
+        "name": "Sonnen Center",
+        "locationConfidence": 4.131528,
+        "calibratedProbability": 2.1847842
+      }, {
+        "latitudeE7": 524658343,
+        "longitudeE7": 134710679,
+        "placeId": "ChIJg9pgEWpPqEcR_0ma3jN8Hjg",
+        "address": "Eckkiosk Zeitungen, Jupiterstraße 1, 12057 Berlin, Deutschland",
+        "name": "Tante Emma Kiosk",
+        "locationConfidence": 1.9164755,
+        "calibratedProbability": 1.0134472
+      }, {
+        "latitudeE7": 524660238,
+        "longitudeE7": 134717873,
+        "placeId": "ChIJI-gmN51PqEcRAXBcUJ6uuv0",
+        "address": "Sonnenallee 311-313, 12057 Berlin, Deutschland",
+        "name": "BeSoWo Neukölln | Diakonie Eingliederungshilfe Simeon gGmbH",
+        "locationConfidence": 1.7496473,
+        "calibratedProbability": 0.9252271
+      }, {
+        "latitudeE7": 524657879,
+        "longitudeE7": 134709847,
+        "placeId": "ChIJw8lPEWpPqEcR4YplRJV9508",
+        "address": "Eckkiosk Zeitungen, Jupiterstraße 1, 12057 Berlin, Deutschland",
+        "name": "Hermes PaketShop",
+        "locationConfidence": 1.6226722,
+        "calibratedProbability": 0.8580817
+      }, {
+        "latitudeE7": 524683003,
+        "longitudeE7": 134695751,
+        "placeId": "ChIJLx_pAmtPqEcRurPe9AB5KQk",
+        "address": "Drosselbartstraße 6, 12057 Berlin, Deutschland",
+        "name": "Von-der-Schulenburg-Park",
+        "locationConfidence": 1.6005701,
+        "calibratedProbability": 0.84639394
+      }, {
+        "latitudeE7": 524652900,
+        "longitudeE7": 134723000,
+        "placeId": "ChIJ0bAi_UFPqEcRZ1fCXRvtq5c",
+        "address": "Sonnenallee 321, 12057 Berlin, Deutschland",
+        "locationConfidence": 1.3376843,
+        "calibratedProbability": 0.70737785
+      }, {
+        "latitudeE7": 524660170,
+        "longitudeE7": 134721336,
+        "placeId": "ChIJb3A6S3JPqEcR4elYSZ6FWlA",
+        "address": "Sonnenallee 311/315, 12057 Berlin, Deutschland",
+        "name": "Tabeakirche - Ev. Kirchengemeinde Rixdorf",
+        "locationConfidence": 1.2729766,
+        "calibratedProbability": 0.67315996
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "locationConfidence": 32,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "MAIN"
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 524655459,
+        "longitudeE7": 134722215,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 524701487,
+        "longitudeE7": 134651583,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-15T21:28:58.867Z",
+        "endTimestamp": "2021-02-15T21:37:45.426Z"
+      },
+      "distance": 403,
+      "activityType": "WALKING",
+      "confidence": "MEDIUM",
+      "activities": [{
+        "activityType": "WALKING",
+        "probability": 68.95357370376587
+      }, {
+        "activityType": "STILL",
+        "probability": 22.508618235588074
+      }, {
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 4.585186019539833
+      }, {
+        "activityType": "CYCLING",
+        "probability": 1.5070159919559956
+      }, {
+        "activityType": "RUNNING",
+        "probability": 1.018780842423439
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 0.7474026642739773
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 0.16598280053585768
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.12896045809611678
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.12031663209199905
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 0.10525529505684972
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 0.07812759140506387
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.04711130750365555
+      }, {
+        "activityType": "SAILING",
+        "probability": 0.02424096455797553
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.009421793220099062
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 2.1996434895754646E-6
+      }],
+      "waypointPath": {
+        "waypoints": [{
+          "latE7": 524655418,
+          "lngE7": 134722232
+        }, {
+          "latE7": 524683532,
+          "lngE7": 134679231
+        }, {
+          "latE7": 524701309,
+          "lngE7": 134651222
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 715.9020316267839,
+        "travelMode": "WALK",
+        "confidence": 0.9998345879834197
+      }
+    }
+  }, {
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 524701579,
+        "longitudeE7": 134617145,
+        "placeId": "ChIJlfFCI21PqEcRgqpzO5xFwLU",
+        "address": "Grenzallee 4, 12057 Berlin, Deutschland",
+        "name": "Neukölln Carree",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 55.980747,
+        "calibratedProbability": 66.78723
+      },
+      "duration": {
+        "startTimestamp": "2021-02-15T21:37:45.426Z",
+        "endTimestamp": "2021-02-15T21:48:01.243Z"
+      },
+      "placeConfidence": "MEDIUM_CONFIDENCE",
+      "centerLatE7": 524699950,
+      "centerLngE7": 134639683,
+      "visitConfidence": 91,
+      "otherCandidateLocations": [{
+        "latitudeE7": 524699500,
+        "longitudeE7": 134631800,
+        "placeId": "ChIJfVtd3mxPqEcRXU3WXwyW6No",
+        "address": "Grenzallee 4D, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_SEARCHED_ADDRESS",
+        "locationConfidence": 3.1256616,
+        "calibratedProbability": 3.7290373
+      }, {
+        "latitudeE7": 524691680,
+        "longitudeE7": 134675290,
+        "placeId": "ChIJ1XmsaWtPqEcRrjEor8KeP2M",
+        "address": "12057 Berlin, Deutschland",
+        "name": "Köllnische Heide",
+        "locationConfidence": 3.0650344,
+        "calibratedProbability": 3.6567066
+      }, {
+        "latitudeE7": 524707718,
+        "longitudeE7": 134638820,
+        "placeId": "ChIJw1j_x2xPqEcRxFYCwH9RMQc",
+        "address": "12057 Berlin, Deutschland",
+        "name": "Dammweg/Sonnenallee (Berlin)",
+        "locationConfidence": 2.7077198,
+        "calibratedProbability": 3.2304163
+      }, {
+        "latitudeE7": 524682825,
+        "longitudeE7": 134672830,
+        "placeId": "ChIJrZMCdGtPqEcR_qyvhTRzuzU",
+        "address": "Sonnenallee 292, 12057 Berlin, Deutschland",
+        "name": "Kösk 24 - Frühstück \u0026 Café",
+        "locationConfidence": 1.2986534,
+        "calibratedProbability": 1.5493445
+      }, {
+        "latitudeE7": 524698685,
+        "longitudeE7": 134647753,
+        "placeId": "ChIJm1AXwWxPqEcRTG6uP79-9uk",
+        "address": "Sonnenallee 282, 12057 Berlin, Deutschland",
+        "name": "Agentur für Arbeit Berlin Süd",
+        "locationConfidence": 0.7610801,
+        "calibratedProbability": 0.90799844
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "simplifiedRawPath": {
+        "points": [{
+          "latE7": 524701487,
+          "lngE7": 134651583,
+          "accuracyMeters": 27,
+          "timestamp": "2021-02-15T21:37:45.426Z"
+        }, {
+          "latE7": 524701387,
+          "lngE7": 134638799,
+          "accuracyMeters": 17,
+          "timestamp": "2021-02-15T21:39:46.257Z"
+        }, {
+          "latE7": 524695366,
+          "lngE7": 134622942,
+          "accuracyMeters": 12,
+          "timestamp": "2021-02-15T21:43:59.835Z"
+        }, {
+          "latE7": 524700705,
+          "lngE7": 134640203,
+          "accuracyMeters": 27,
+          "timestamp": "2021-02-15T21:46:01.024Z"
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 339.8351944804397
+      },
+      "locationConfidence": 45,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "MAIN"
+    }
+  }, {
+    "activitySegment": {
+      "startLocation": {
+        "latitudeE7": 524701985,
+        "longitudeE7": 134650945,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "endLocation": {
+        "latitudeE7": 524640396,
+        "longitudeE7": 134771564,
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        }
+      },
+      "duration": {
+        "startTimestamp": "2021-02-15T21:48:01.243Z",
+        "endTimestamp": "2021-02-15T22:04:07.894Z"
+      },
+      "distance": 1232,
+      "activityType": "WALKING",
+      "confidence": "HIGH",
+      "activities": [{
+        "activityType": "WALKING",
+        "probability": 95.0566291809082
+      }, {
+        "activityType": "IN_PASSENGER_VEHICLE",
+        "probability": 2.0265789702534676
+      }, {
+        "activityType": "CYCLING",
+        "probability": 0.9585827589035034
+      }, {
+        "activityType": "RUNNING",
+        "probability": 0.7531164214015007
+      }, {
+        "activityType": "STILL",
+        "probability": 0.6000651512295008
+      }, {
+        "activityType": "IN_BUS",
+        "probability": 0.2811461454257369
+      }, {
+        "activityType": "IN_FERRY",
+        "probability": 0.08363289525732398
+      }, {
+        "activityType": "MOTORCYCLING",
+        "probability": 0.07466335664503276
+      }, {
+        "activityType": "IN_SUBWAY",
+        "probability": 0.07362433825619519
+      }, {
+        "activityType": "IN_TRAIN",
+        "probability": 0.03084869240410626
+      }, {
+        "activityType": "IN_TRAM",
+        "probability": 0.03039248113054782
+      }, {
+        "activityType": "FLYING",
+        "probability": 0.014697427104692906
+      }, {
+        "activityType": "SKIING",
+        "probability": 0.009909142681863159
+      }, {
+        "activityType": "SAILING",
+        "probability": 0.00611061550443992
+      }, {
+        "activityType": "IN_VEHICLE",
+        "probability": 3.480995403037923E-6
+      }],
+      "waypointPath": {
+        "waypoints": [{
+          "latE7": 524701766,
+          "lngE7": 134650535
+        }, {
+          "latE7": 524683532,
+          "lngE7": 134679231
+        }, {
+          "latE7": 524635276,
+          "lngE7": 134749946
+        }, {
+          "latE7": 524630775,
+          "lngE7": 134769992
+        }, {
+          "latE7": 524640350,
+          "lngE7": 134770097
+        }],
+        "source": "INFERRED",
+        "distanceMeters": 1332.905508366388,
+        "travelMode": "WALK",
+        "confidence": 0.9915344604337686
+      },
+      "simplifiedRawPath": {
+        "points": [{
+          "latE7": 524637680,
+          "lngE7": 134748468,
+          "accuracyMeters": 55,
+          "timestamp": "2021-02-15T22:00:06.314Z"
+        }]
+      }
+    }
+  }, {
+    "placeVisit": {
+      "location": {
+        "latitudeE7": 524644100,
+        "longitudeE7": 134776600,
+        "placeId": "ChIJo_x3XkFPqEcRBOzbQ0dnEi0",
+        "address": "Michael-Bohnen-Ring 14, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_HOME",
+        "sourceInfo": {
+          "deviceTag": 1592715676
+        },
+        "locationConfidence": 82.409874,
+        "calibratedProbability": 69.65894
+      },
+      "duration": {
+        "startTimestamp": "2021-02-15T22:04:07.894Z",
+        "endTimestamp": "2021-02-17T14:49:06.417Z"
+      },
+      "placeConfidence": "HIGH_CONFIDENCE",
+      "centerLatE7": 524645230,
+      "centerLngE7": 134777025,
+      "visitConfidence": 94,
+      "otherCandidateLocations": [{
+        "latitudeE7": 524646200,
+        "longitudeE7": 134775800,
+        "placeId": "ChIJt3OHZ0FPqEcRa0VytsCylWI",
+        "address": "Michael-Bohnen-Ring 16, 12057 Berlin, Deutschland",
+        "semanticType": "TYPE_SEARCHED_ADDRESS",
+        "locationConfidence": 17.304811,
+        "calibratedProbability": 14.627312
+      }, {
+        "latitudeE7": 524648015,
+        "longitudeE7": 134758622,
+        "placeId": "ChIJw-rhc0NPqEcR5Q2ovrOb-wc",
+        "address": "Berlin, Deutschland",
+        "name": "Südlicher Heidekampgraben",
+        "locationConfidence": 0.1180481,
+        "calibratedProbability": 0.09978302
+      }, {
+        "latitudeE7": 524642240,
+        "longitudeE7": 134726870,
+        "placeId": "ChIJQTgCG0JPqEcRkL4vuicL2a0",
+        "address": "Sonnenallee 330, 12057 Berlin, Deutschland",
+        "name": "Sonnen Center",
+        "locationConfidence": 0.041447256,
+        "calibratedProbability": 0.0350343
+      }, {
+        "latitudeE7": 524647900,
+        "longitudeE7": 134773300,
+        "placeId": "ChIJiyGeaEFPqEcRhZne02Sn8fM",
+        "address": "Michael-Bohnen-Ring 18, 12057 Berlin, Deutschland",
+        "name": "Stadtteilkita Highdeck",
+        "locationConfidence": 0.033839952,
+        "calibratedProbability": 0.02860404
+      }],
+      "editConfirmationStatus": "NOT_CONFIRMED",
+      "locationConfidence": 67,
+      "placeVisitType": "SINGLE_PLACE",
+      "placeVisitImportance": "MAIN"
+    }
+  }]
+}
