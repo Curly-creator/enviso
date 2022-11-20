@@ -1,9 +1,10 @@
+import 'package:enviso/services/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:enviso/screens/home/home_page.dart';
-import 'package:enviso/screens/authenticate/login_widget.dart';
+import 'package:enviso/screens/authenticate/auth_page.dart';
 
 
 void main() async {
@@ -21,15 +22,15 @@ class MyApp extends StatelessWidget {
   static const String title = 'eNVISO';
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    navigatorKey: navigatorKey,
-    debugShowCheckedModeBanner: false,
-    title: title,
-    theme: ThemeData.dark().copyWith(
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)
-    ),
-    home: MainPage(),
-  );
+  Widget build(BuildContext context) => MaterialApp(  
+        //scaffoldMessengerKey: Utils.messengerKey,  **** needs to be fixed
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: title,
+        theme: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)),
+        home: MainPage(),
+      );
 }
 
 class MainPage extends StatelessWidget {
@@ -49,7 +50,7 @@ class MainPage extends StatelessWidget {
               } else if (snapshot.hasData) {
                 return HomePage();
               } else {
-                return LoginWidget();
+                return AuthPage();
               }
             }),
       );

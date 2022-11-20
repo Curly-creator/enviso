@@ -1,4 +1,5 @@
 import 'package:enviso/main.dart';
+import 'package:enviso/services/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ class LoginWidget extends StatefulWidget {
   const LoginWidget({
     Key? key,
     required this.OnClickedSignUp,
-  }) : super (key: key);
+  }) : super(key: key);
 
   final VoidCallback OnClickedSignUp;
 
@@ -52,26 +53,22 @@ class _LoginWidgetState extends State<LoginWidget> {
                 label: const Text(
                   'Sign In',
                   style: TextStyle(fontSize: 24),
-                )
-                ),
-                SizedBox(height: 24),
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                )),
+            const SizedBox(height: 24),
+            RichText(
+                text: TextSpan(
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                     text: 'No account? ',
                     children: [
-                      TextSpan(
-                        recognizer: TapGestureRecognizer()
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
                         ..onTap = widget.OnClickedSignUp,
-                        text: 'Sign Up',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Theme.of(context).colorScheme.secondary,
-                        )
-                      )
-                    ]
-                  ))
-
+                      text: 'Sign Up',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ))
+                ]))
           ],
         ),
       );
@@ -80,7 +77,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
+        builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
     try {
@@ -88,8 +85,8 @@ class _LoginWidgetState extends State<LoginWidget> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on Exception catch (e) {
-      print(e);
+      Utils.showSnackBar(e.toString());
     }
-    navigatorKey.currentState!.popUntil((route) => route.isActive);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
