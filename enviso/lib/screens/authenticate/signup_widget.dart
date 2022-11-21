@@ -1,7 +1,8 @@
 import 'dart:convert';
-
+import 'package:enviso/services/firestore.dart';
 import 'package:enviso/main.dart';
 import 'package:enviso/services/database.dart';
+import 'package:enviso/services/userdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -109,8 +110,13 @@ class _LoginWidgetState extends State<SignUpWidget> {
           password: passwordController.text.trim());
       final user = FirebaseAuth.instance.currentUser!;
       //create a new document for the user with the uid
-      print(user.uid);
-      await DatabaseService(uid: user.uid).updateUserData('vehicle', 0);
+
+      UserData test = UserData(uid: user.uid);
+      test.name = 'Fenia';
+      await DataBaseFireStore().updateUserData(test);
+
+      // print(user.uid);
+      // await DatabaseService(uid: user.uid).updateUserData('vehicle', 0);
     } on Exception catch (e) {
       Utils.showSnackBar(e.toString());
     }
