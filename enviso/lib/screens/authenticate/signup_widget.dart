@@ -108,15 +108,11 @@ class _LoginWidgetState extends State<SignUpWidget> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      final user = FirebaseAuth.instance.currentUser!;
+
       //create a new document for the user with the uid
-
+      final user = FirebaseAuth.instance.currentUser!;
       UserData test = UserData(uid: user.uid);
-      test.name = 'Fenia';
       await DataBaseFireStore().updateUserData(test);
-
-      // print(user.uid);
-      // await DatabaseService(uid: user.uid).updateUserData('vehicle', 0);
     } on Exception catch (e) {
       Utils.showSnackBar(e.toString());
     }
