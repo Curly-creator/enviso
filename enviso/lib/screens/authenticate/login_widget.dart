@@ -27,6 +27,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

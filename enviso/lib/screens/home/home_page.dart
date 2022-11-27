@@ -1,4 +1,3 @@
-import 'dart:convert';
 //import 'package:enviso/dummydata/transport/2020/2020_APRIL.json' as dummydata;
 import 'package:enviso/screens/name_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';

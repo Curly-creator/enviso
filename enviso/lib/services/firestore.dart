@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enviso/services/userdata.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class DataBaseFireStore {
   final CollectionReference userCollection =
