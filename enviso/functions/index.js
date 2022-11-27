@@ -8,11 +8,6 @@ admin.initializeApp();
 const database = admin.firestore();
 const app = express();
 
-var distance;
-var vehicle;
-var co2e;
-var activity_id;
-
 exports.onUserCreate = functions.firestore.document('user/{userid}').onCreate(async (snap, context) => {
   const userid = context.params.userid;
   await database.collection('user').doc(userid).collection('transport').doc('_calculations').set({
@@ -20,31 +15,29 @@ exports.onUserCreate = functions.firestore.document('user/{userid}').onCreate(as
     air: 0,
     sub: 0,
     train: 0,
-    bus: 0
+    bus: 0,
+    total: 0,
   })
   return await database.collection('user').doc(userid).collection('transport').add({
     vehicle: 'car',
-    distance: 500,
+    distance: 250,
     co2e: null
   })
 })
 
 exports.onTransportCreate = functions.firestore.document('user/{userid}/transport/{transportid}').onCreate(async (snap, context) => {
   if (context.params.transportid === '_calculations') return null;
-  if (snap.get('distance') != null && snap.get('distance') != null) {
-    distance = snap.get('distance');
-    vehicle = snap.get('vehicle');
-  }
-  else return null;
+  const distance = snap.get('distance');
+  const vehicle = snap.get('vehicle');
 
   const userid = context.params.userid;
   const transportid = context.params.transportid;
-  activity_id = setActivityId(vehicle);
-  functions.logger.log('activity_id: ', activity_id);
-  await fetchclimatiq();
 
-  return await database.collection('user').doc(userid).collection('transport').doc(transportid).update({ co2e: co2e })
+  const activity_id = setActivityId(vehicle);
 
+  const co2test = await fetchclimatiq(activity_id, distance);
+
+  return database.collection('user').doc(userid).collection('transport').doc(transportid).update({ co2e: co2test });
 })
 
 exports.onTransportUpdate = functions.firestore.document('user/{userid}/transport/{transportid}').onUpdate(async (change, context) => {
@@ -52,15 +45,18 @@ exports.onTransportUpdate = functions.firestore.document('user/{userid}/transpor
   const transportid = context.params.transportid;
   if (change.before.get('co2e') === change.after.get('co2e')) return null;
 
-  const new_co2e = change.after.get('co2e');
+  const newValue = change.after.get('co2e');
+  const oldValue = change.before.get('co2');
+  const addValue = newValue - oldValue;
+
   const calc = database.collection('user').doc(userid).collection('transport').doc('_calculations');
 
-  return await calc.update({ car: admin.firestore.FieldValue.increment(1) });
+  return await calc.update({ car: admin.firestore.FieldValue.increment(addValue) });
 })
 
 
-const fetchclimatiq = async () => {
-  fetch('https://beta3.api.climatiq.io/estimate', {
+const fetchclimatiq = async (activity_id, distance) => {
+  const response = await fetch('https://beta3.api.climatiq.io/estimate', {
     method: "POST",
     headers: {
       "Authorization": "Bearer " + "6PSXPVTWR245D5J9S7HCM42J7ZVM",
@@ -80,24 +76,16 @@ const fetchclimatiq = async () => {
         "distance_unit": "km"
       }
     })
-  })
-    .then((res) => {
-      if (!res.ok) { throw res }
-      return res.json();
-    })
-    .then(data => {
-      co2e = data.co2e;
-      return null;
-    })
-    .catch(e => {
-      e.text().then(errorMessage => functions.logger.log('Error: ', errorMessage))
-    });
+  });
+  if (!response.ok) { throw response };
+  const data = await response.json();
+  return data.co2e;
 }
 
 function setActivityId(vehicle) {
   switch (vehicle) {
     case "car":
-      return "passenger_vehicle-vehicle_type_car-fuel_source_bio_petrol-distance_na-engine_size_medium"
+      return "passenger_vehicle-vehicle_type_car-fuel_source_diesel-distance_na-engine_size_medium"
     case "air":
       return "passenger_flight-route_type_domestic-aircraft_type_na-distance_na-class_na-rf_na"
     case "train":
