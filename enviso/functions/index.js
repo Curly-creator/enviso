@@ -35,24 +35,72 @@ exports.onTransportCreate = functions.firestore.document('user/{userid}/transpor
 
   const activity_id = setActivityId(vehicle);
 
-  const co2test = await fetchclimatiq(activity_id, distance);
+  const climatiqCo2e = await fetchclimatiq(activity_id, distance);
 
-  return database.collection('user').doc(userid).collection('transport').doc(transportid).update({ co2e: co2test });
+  return database.collection('user').doc(userid).collection('transport').doc(transportid).update({ co2e: climatiqCo2e });
 })
 
 exports.onTransportUpdate = functions.firestore.document('user/{userid}/transport/{transportid}').onUpdate(async (change, context) => {
-  const userid = context.params.userid;
-  const transportid = context.params.transportid;
   if (change.before.get('co2e') === change.after.get('co2e')) return null;
+  const userid = context.params.userid;
 
-  const newValue = change.after.get('co2e');
-  const oldValue = change.before.get('co2');
+  const newValue = await change.after.get('co2e');
+  const oldValue = await change.before.get('co2e');
+  const vehicle = await change.after.get('vehicle');
   const addValue = newValue - oldValue;
 
   const calc = database.collection('user').doc(userid).collection('transport').doc('_calculations');
 
-  return await calc.update({ car: admin.firestore.FieldValue.increment(addValue) });
+  switch (vehicle) {
+    case 'car':
+      return await calc.update({ car: admin.firestore.FieldValue.increment(addValue) });
+    case 'train':
+      return await calc.update({ train: admin.firestore.FieldValue.increment(addValue) });
+    case 'bus':
+      return await calc.update({ bus: admin.firestore.FieldValue.increment(addValue) });
+    case 'sub':
+      return await calc.update({ sub: admin.firestore.FieldValue.increment(addValue) });
+    case 'air':
+      return await calc.update({ air: admin.firestore.FieldValue.increment(addValue) });
+  }
 })
+
+exports.onCalculationUpdate = functions.firestore.document('user/{userid}/transport/_calculations').onUpdate(async (change, context) => {
+  if (change.before.get('total') !== change.after.get('total')) return null;
+  const userid = context.params.userid;
+  const calc = database.collection('user').doc(userid).collection('transport').doc('_calculations');
+  const doc = await calc.get();
+
+  console.log('Doc: ', doc.data());
+  const addValue = await calcValue(change, doc);
+
+  console.log('addValoutside: ', addValue);
+  return await calc.update({ total: admin.firestore.FieldValue.increment(addValue) });
+})
+
+exports.onTransportDelete = functions.firestore.document('user/{userid}/transport/{transportid}').onDelete(async (snap, context) => {
+  const userid = context.params.userid;
+  const calc = database.collection('user').doc(userid).collection('transport').doc('_calculations');
+
+  const delValue = await snap.get('co2e');
+
+  return await calc.update({ car: admin.firestore.FieldValue.increment(0 - delValue) });
+})
+
+const calcValue = async (change, doc) => {
+  vehicles = ['car', 'air', 'bus', 'sub', 'train'];
+  let addValue = 0;
+  for await (vehicle of vehicles) {
+    console.log('element: ', vehicle);
+    let oldValue = await change.before.get(vehicle);
+    let newValue = await change.after.get(vehicle);
+    if (oldValue != newValue) {
+      addValue += newValue - oldValue;
+      console.log('addVal inside: ', addValue);
+    }
+  }
+  return addValue;
+}
 
 
 const fetchclimatiq = async (activity_id, distance) => {
