@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:enviso/services/transportdata.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
-  final String uid;
-  DatabaseService({required this.uid});
-  // colection reference
-  final CollectionReference transportCollection =
-      FirebaseFirestore.instance.collection('transport');
+  final user = FirebaseAuth.instance.currentUser!;
 
-  Future updateUserData(String vehicle, int distance) async { 
-    return await transportCollection.doc(uid).set({
-      'vehicle': vehicle,
-      'disctance': distance,
+  CollectionReference get transportCollection => FirebaseFirestore.instance
+      .collection('user')
+      .doc(user.uid)
+      .collection('transport');
+
+  Future updateTransportData(TransportData transportData) async {
+    return await transportCollection.add({
+      //'date': transportData.timestamp,
+      'vehicle': transportData.vehicle,
+      'distance': transportData.distance! / 1000,
+      'co2e': null,
     });
   }
 }
