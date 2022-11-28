@@ -7,17 +7,10 @@ import 'package:flutter/material.dart';
 import '../../services/database.dart';
 import '../../services/transportapi.dart';
 import '../../services/transportdata.dart';
+import '../data_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  setTransportData() async {
-    final List<TransportData> dataSet = await TransportApi().getData();
-    for (var data in dataSet) {
-      DatabaseService().updateTransportData(data);
-      print(data);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +45,10 @@ class HomePage extends StatelessWidget {
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: setTransportData(),
+              onPressed: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DataSite()));
+              },
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(

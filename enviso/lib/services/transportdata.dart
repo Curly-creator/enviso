@@ -10,7 +10,7 @@ class TransportData {
 
   factory TransportData.fromJson(Map<String, dynamic> json) {
     return TransportData(
-      timestamp: json['duration']['startTimestamp'],
+      //timestamp: json['duration']['startTimestamp'],
       vehicle: json['activityType'],
       distance: json['distance'],
     );
@@ -18,5 +18,4 @@ class TransportData {
 
   Map<String, dynamic> toJson() =>
       {'timestamp': timestamp, 'vehicle': vehicle, 'distance': distance};
-
 }
