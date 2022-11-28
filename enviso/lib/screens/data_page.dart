@@ -2,6 +2,8 @@ import 'package:enviso/services/transportdata.dart';
 import 'package:flutter/material.dart';
 import 'package:enviso/services/transportapi.dart';
 
+import '../services/database.dart';
+
 class DataSite extends StatelessWidget {
   
   @override
@@ -38,12 +40,8 @@ class DataSite extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemCount: transportData.length,
         itemBuilder: (context, index) {
-          final transport = transportData[index];
-          return ListTile(
-            title: Text('vehicle:' +
-                transport.vehicle +
-                " distance: " +
-                transport.distance.toString()),
+          final transport = DatabaseService.getTransportData();
+          return transport;
           );
         },
       );
