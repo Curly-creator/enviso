@@ -3,10 +3,21 @@ import 'dart:convert';
 import 'package:enviso/screens/name_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:enviso/screens/data_page.dart';
+
+import '../../services/database.dart';
+import '../../services/transportapi.dart';
+import '../../services/transportdata.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  setTransportData() async {
+    final List<TransportData> dataSet = await TransportApi().getData();
+    for (var data in dataSet) {
+      DatabaseService().updateTransportData(data);
+      print(data);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +52,7 @@ class HomePage extends StatelessWidget {
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DataSite()));
-              },
+              onPressed: setTransportData(),
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(

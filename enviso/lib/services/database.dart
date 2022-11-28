@@ -12,19 +12,10 @@ class DatabaseService {
 
   Future updateTransportData(TransportData transportData) async {
     return await transportCollection.add({
-      'date': transportData.date,
+      'date': transportData.timestamp,
       'vehicle': transportData.vehicle,
       'distance': transportData.distance,
       'co2e' : null,
     });
-  }
-
-  Future getTransportData(TransportData transportData, uid) async {
-    final ref = transportCollection.doc(uid).withConverter(
-         toFirestore: TransportData.getJsonData(),
-        //: (TransportData transportData, _) => transportData.toJson());
-    //final docSnap = await ref.get();
-    //final user = docSnap.data();
-    
   }
 }
