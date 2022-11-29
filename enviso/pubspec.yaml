@@ -68,17 +68,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/transport/2020/2020_JANUARY.json
-    - assets/transport/2020/2020_FEBRUARY.json
-    - assets/transport/2020/2020_MARCH.json
-    - assets/transport/2020/2020_APRIL.json
-    - assets/transport/2020/2020_MAY.json
-    - assets/transport/2020/2020_JULY.json
-    - assets/transport/2020/2020_JUNE.json
-    - assets/transport/2020/2020_SEPTEMBER.json
-    - assets/transport/2020/2020_OCTOBER.json
-    - assets/transport/2020/2020_NOVEMBER.json
-    - assets/transport/2020/2020_DECEMBER.json
+    - assets/transport/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

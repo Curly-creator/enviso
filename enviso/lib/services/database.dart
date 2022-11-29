@@ -14,9 +14,11 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('users');
 
   Future createUser() async {
-    return await userCollection
-        .doc(user.uid)
-        .set({'user_name': 'username', 'car_size': 1, 'fuel_type': 1});
+    return await userCollection.doc(user.uid).set({
+      'user_name': 'username',
+      'engine_size': 'medium',
+      'fuel_type': 'Petrol'
+    });
   }
 
   Future updateTransportData(TransportData transportData) async {
@@ -28,11 +30,15 @@ class DatabaseService {
     });
   }
 
-  Future updateCarSize(int carSize) async {
-    return await userCollection.doc(user.uid).update({'car_size': carSize});
+  Future updateEngineSize(int index) async {
+    var engineSize = convEngineSize(index);
+    return await userCollection
+        .doc(user.uid)
+        .update({'engine_size': engineSize});
   }
 
-  Future updateFuelType(int fuelType) async {
+  Future updateFuelType(int index) async {
+    var fuelType = convFuelType(index);
     return await userCollection.doc(user.uid).update({'fuel_type': fuelType});
   }
 
@@ -42,5 +48,35 @@ class DatabaseService {
 
   Future deleteuser() async {
     return await userCollection.doc(user.uid).delete();
+  }
+
+  String convEngineSize(index) {
+    switch (index) {
+      case 1:
+        return 'small';
+      case 2:
+        return 'medium';
+      case 3:
+        return 'large';
+      default:
+        return 'medium';
+    }
+  }
+
+  String convFuelType(index) {
+    switch (index) {
+      case 1:
+        return 'diesel';
+      case 2:
+        return 'petrol';
+      case 3:
+        return 'cng';
+      case 4:
+        return 'fcew';
+      case 5:
+        return 'bev';
+      default:
+        return 'petrol';
+    }
   }
 }

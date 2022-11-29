@@ -21,7 +21,7 @@ class AccountPage extends StatelessWidget {
       child: SettingsScreen(
         children: <Widget>[
           buildFuelType(),
-          buildCarSize(),
+          buildEngineSize(),
           buildName(),
         ],
       ));
@@ -31,24 +31,25 @@ class AccountPage extends StatelessWidget {
         title: 'Fuel Type',
         selected: 1,
         values: const <int, String>{
-          1: 'Petrol',
-          2: 'Diesel',
-          3: 'Electic',
-          4: 'LPG',
+          1: 'Diesel',
+          2: 'Petrol',
+          3: 'CNG',
+          4: 'Hydrogen',
+          5: 'Electric',
         },
         onChange: (fuelType) => DatabaseService().updateFuelType(fuelType),
       );
 
-  Widget buildCarSize() => DropDownSettingsTile(
+  Widget buildEngineSize() => DropDownSettingsTile(
         settingKey: keySize,
-        title: 'Car Size',
+        title: 'Engine Size',
         selected: 1,
         values: const <int, String>{
-          1: 'big',
+          1: 'small',
           2: 'medium',
-          3: 'small',
+          3: 'large',
         },
-        onChange: (carSize) => DatabaseService().updateCarSize(carSize),
+        onChange: (engineSize) => DatabaseService().updateEngineSize(engineSize),
       );
 
   Widget buildName() => TextInputSettingsTile(

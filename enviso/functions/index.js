@@ -25,13 +25,13 @@ exports.onTransportCreate = functions.firestore.document('users/{userid}/transpo
   if (context.params.transportid === '.calculations') return null;
   const distance = snap.get('distance');
   const vehicle = snap.get('vehicle');
-
   const userid = context.params.userid;
   const transportid = context.params.transportid;
+  const userSnapshot = await database.collection('users').doc(userid).get();
+  const engineSize = userSnapshot.get('engine_size');
+  const fuelType = userSnapshot.get('fuel_type');
 
-  const activity_id = setActivityId(vehicle);
-
-  const climatiqCo2e = await fetchclimatiq(activity_id, distance);
+  const climatiqCo2e = await fetchclimatiq(vehicle, engineSize, fuelType, distance);
 
   return database.collection('users').doc(userid).collection('transport').doc(transportid).update({ co2e: climatiqCo2e });
 })
@@ -108,8 +108,11 @@ const calcValue = async (change, doc) => {
   return addValue;
 }
 
+const fetchclimatiq = async (vehicle, engineSize, fuelType, distance) => {
 
-const fetchclimatiq = async (activity_id, distance) => {
+  const lca_activity = setLcaActivity(vehicle, fuelType);
+  const activity_id = setActivityId(vehicle, engineSize, fuelType);
+
   const response = await fetch('https://beta3.api.climatiq.io/estimate', {
     method: "POST",
     headers: {
@@ -122,7 +125,7 @@ const fetchclimatiq = async (activity_id, distance) => {
         "source": "UBA",
         "region": "DE",
         "year": "2020",
-        "lca_activity": "upstream-fuel_combustion"
+        "lca_activity": lca_activity
       },
       "parameters": {
         "passengers": 1,
@@ -136,10 +139,20 @@ const fetchclimatiq = async (activity_id, distance) => {
   return data.co2e;
 }
 
-function setActivityId(vehicle) {
+function setLcaActivity(vehicle, fuelType) {
+  if (vehicle == "IN_PASSENGER_VEHICLE" && fuelType == "petrol") { return "fuel_combustion"; }
+  if (vehicle == "IN_PASSENGER_VEHICLE" && fuelType == "bev") { return "upstream-electricity_consumption" }
+  return "upstream-fuel_combustion";
+}
+
+function setActivityId(vehicle, engineSize, fuelType) {
+  if (fuelType == "bev") { engineSize = 'na' }
+
+  if (engineSize == 'medium' && fuelType == "fcew") { engineSize = 'na' }
+
   switch (vehicle) {
     case "IN_PASSENGER_VEHICLE":
-      return "passenger_vehicle-vehicle_type_car-fuel_source_diesel-distance_na-engine_size_medium"
+      return "passenger_vehicle-vehicle_type_car-fuel_source_" + fuelType + "-distance_na-engine_size_" + engineSize
     case "FLYING":
       return "passenger_flight-route_type_domestic-aircraft_type_na-distance_na-class_na-rf_na"
     case "IN_TRAIN":
@@ -149,7 +162,7 @@ function setActivityId(vehicle) {
     case "IN_TRAM":
       return "passenger_train-route_type_local-fuel_source_diesel"
     case "IN_BUS":
-      return "passenger_vehicle-vehicle_type_bus_line-fuel_source_diesel-distance_na-engine_size_na"
+      return "passenger_vehicle-vehicle_type_bus-fuel_source_na-distance_na-engine_size_na"
     default:
       return null
   }

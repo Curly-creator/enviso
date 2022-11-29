@@ -17,7 +17,7 @@ class DataPage extends StatelessWidget {
           ],
         ),
         body: FutureBuilder(
-            future: TransportApi.getData(),
+            future: TransportApi.getTransportData(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
