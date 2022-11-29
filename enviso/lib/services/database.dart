@@ -6,16 +6,41 @@ class DatabaseService {
   final user = FirebaseAuth.instance.currentUser!;
 
   CollectionReference get transportCollection => FirebaseFirestore.instance
-      .collection('user')
+      .collection('users')
       .doc(user.uid)
       .collection('transport');
 
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  Future createUser() async {
+    return await userCollection
+        .doc(user.uid)
+        .set({'user_name': 'username', 'car_size': 1, 'fuel_type': 1});
+  }
+
   Future updateTransportData(TransportData transportData) async {
     return await transportCollection.add({
-      //'date': transportData.timestamp,
+      'timestamp': transportData.timestamp,
       'vehicle': transportData.vehicle,
       'distance': transportData.distance! / 1000,
       'co2e': null,
     });
+  }
+
+  Future updateCarSize(int carSize) async {
+    return await userCollection.doc(user.uid).update({'car_size': carSize});
+  }
+
+  Future updateFuelType(int fuelType) async {
+    return await userCollection.doc(user.uid).update({'fuel_type': fuelType});
+  }
+
+  Future updateUsername(String username) async {
+    return await userCollection.doc(user.uid).update({'user_name': username});
+  }
+
+  Future deleteuser() async {
+    return await userCollection.doc(user.uid).delete();
   }
 }

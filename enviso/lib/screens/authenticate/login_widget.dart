@@ -46,6 +46,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(labelText: 'Password'),
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(

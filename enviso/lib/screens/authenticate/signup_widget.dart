@@ -1,6 +1,5 @@
-import 'package:enviso/services/firestore.dart';
 import 'package:enviso/main.dart';
-import 'package:enviso/services/userdata.dart';
+import 'package:enviso/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +57,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => password != null && password.length < 6
                     ? 'Enter min. 6 characters'
@@ -100,18 +100,11 @@ class _LoginWidgetState extends State<SignUpWidget> {
         builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
-
-    //register with email & password
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-
-      //create a new document for the user with the uid
-      final user = FirebaseAuth.instance.currentUser!;
-      UserData test = UserData(uid: user.uid);
-      test.name = 'Bernd';
-      await DataBaseFireStore().updateUserData(test);
+      await DatabaseService().createUser();
     } on Exception catch (e) {
       Utils.showSnackBar(e.toString());
     }

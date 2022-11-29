@@ -1,13 +1,12 @@
-import 'package:enviso/services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class NameSite extends StatefulWidget {
+class NamePage extends StatefulWidget {
   @override
-  State<NameSite> createState() => _NameSiteState();
+  State<NamePage> createState() => _NameSiteState();
 }
 
-class _NameSiteState extends State<NameSite> {
+class _NameSiteState extends State<NamePage> {
   late dynamic name = 'Das ist ein Test';
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -18,7 +17,6 @@ class _NameSiteState extends State<NameSite> {
               icon: const Icon(Icons.storage),
               onPressed: () {
                 final user = FirebaseAuth.instance.currentUser!;
-                DataBaseFireStore().getUserName(user.uid);
                 setState(() {});
               },
             )

@@ -7,7 +7,7 @@ import 'database.dart';
 class TransportApi {
   static List<String> months = [
     'JANUARY',
-    'FEBURARY',
+    'FEBRUARY',
     'MARCH',
     'APRIL',
     'JULY',
@@ -22,7 +22,7 @@ class TransportApi {
   static Future<List<TransportData>> getData() async {
     var transportDataList = <TransportData>[];
     for (var month in months) {
-      const jsonString = 'assets/transport/2020/2020_APRIL.json';
+      var jsonString = 'transport/2020/2020_$month.json';
       final String response = await rootBundle.loadString(jsonString);
       var data = await jsonDecode(response);
       var jsonTimeline = data['timelineObjects'];
@@ -44,7 +44,7 @@ class TransportApi {
       }
     }
     for (var element in transportDataList) {
-      await DatabaseService().updateTransportData(element);
+      DatabaseService().updateTransportData(element);
     }
     return transportDataList;
   }

@@ -1,10 +1,9 @@
-import 'package:enviso/services/database.dart';
 import 'package:enviso/services/transportdata.dart';
 import 'package:flutter/material.dart';
 import 'package:enviso/services/transportapi.dart';
 
-class DataSite extends StatelessWidget {
-  const DataSite({super.key});
+class DataPage extends StatelessWidget {
+  const DataPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -17,10 +16,9 @@ class DataSite extends StatelessWidget {
             )
           ],
         ),
-        body: FutureBuilder<List<TransportData>>(
+        body: FutureBuilder(
             future: TransportApi.getData(),
             builder: (context, snapshot) {
-              final transportData = snapshot.data;
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
                   return const Center(child: CircularProgressIndicator());
@@ -28,7 +26,6 @@ class DataSite extends StatelessWidget {
                   if (snapshot.hasError) {
                     return const Center(child: Text('was für ein Bullshit'));
                   } else {
-                    
                     return const Center(child: Text('Es lebt!'));
                   }
               }

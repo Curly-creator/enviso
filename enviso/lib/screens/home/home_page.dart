@@ -1,11 +1,9 @@
 //import 'package:enviso/dummydata/transport/2020/2020_APRIL.json' as dummydata;
 import 'package:enviso/screens/name_page.dart';
+import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/database.dart';
-import '../../services/transportapi.dart';
-import '../../services/transportdata.dart';
 import '../data_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,9 +14,15 @@ class HomePage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      appBar: AppBar(title: const Text('Home'), actions: [
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage()));
+          },
+        )
+      ]),
       body: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
@@ -31,7 +35,6 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 8),
             const Text(
               'your Email',
-              //user.email,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -44,9 +47,9 @@ class HomePage extends StatelessWidget {
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DataSite()));
+                    MaterialPageRoute(builder: (context) => DataPage()));
               },
             ),
             const SizedBox(height: 20),
@@ -61,7 +64,7 @@ class HomePage extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NameSite()));
+                    MaterialPageRoute(builder: (context) => NamePage()));
               },
             ),
             const SizedBox(height: 20),
