@@ -146,9 +146,10 @@ function setLcaActivity(vehicle, fuelType) {
 }
 
 function setActivityId(vehicle, engineSize, fuelType) {
-  if (fuelType == "bev") { engineSize = 'na' }
-
-  if (engineSize == 'medium' && fuelType == "fcew") { engineSize = 'na' }
+  if (fuelType == "bev") { engineSize = "na" }
+  if (engineSize == "small" && fuelType == "petrol") { fuelType = "bio_petrol" }
+  if (engineSize == "medium" && fuelType == "petrol") { fuelType = "bio_petrol" }
+  if (engineSize == "medium" && fuelType == "fcev") { engineSize = "na" }
 
   switch (vehicle) {
     case "IN_PASSENGER_VEHICLE":

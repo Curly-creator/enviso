@@ -22,7 +22,7 @@ class AccountPage extends StatelessWidget {
         children: <Widget>[
           buildFuelType(),
           buildEngineSize(),
-          buildName(),
+          buildUsername(),
         ],
       ));
 
@@ -52,7 +52,7 @@ class AccountPage extends StatelessWidget {
         onChange: (engineSize) => DatabaseService().updateEngineSize(engineSize),
       );
 
-  Widget buildName() => TextInputSettingsTile(
+  Widget buildUsername() => TextInputSettingsTile(
         settingKey: keyName,
         title: 'Username',
         initialValue: 'Username',

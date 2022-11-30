@@ -72,7 +72,7 @@ class DatabaseService {
       case 3:
         return 'cng';
       case 4:
-        return 'fcew';
+        return 'fcev';
       case 5:
         return 'bev';
       default:

@@ -1,26 +1,20 @@
-//import 'package:enviso/dummydata/transport/2020/2020_APRIL.json' as dummydata;
-import 'package:enviso/screens/name_page.dart';
 import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../data_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Home'), actions: [
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsPage()));
+                MaterialPageRoute(builder: (context) => const SettingsPage()));
           },
         )
       ]),
@@ -48,26 +42,7 @@ class HomePage extends StatelessWidget {
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: () => TransportApi.getTransportData(),
-              // onPressed: () {
-              //   Navigator.push(context,
-              //       MaterialPageRoute(builder: (context) => DataPage()));
-              // },
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              icon: const Icon(Icons.data_array, size: 32),
-              label: const Text(
-                'Get Name',
-                style: TextStyle(fontSize: 24),
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NamePage()));
-              },
+              onPressed: TransportApi.getTransportData,
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(

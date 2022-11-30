@@ -1,5 +1,4 @@
 import 'package:enviso/screens/settings/account_page.dart';
-import 'package:enviso/services/database.dart';
 import 'package:enviso/widgets/icon_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +52,7 @@ class SettingsPage extends StatelessWidget {
           color: Colors.red,
         ),
         onTap: () {
-          DatabaseService().deleteuser();
+          //await DatabaseService().deleteuser();
           FirebaseAuth.instance.currentUser!.delete();
         },
       );

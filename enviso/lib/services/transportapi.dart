@@ -19,8 +19,8 @@ class TransportApi {
     'DECEMBER'
   ];
   static List<String> years = [
-    // '2020',
-    // '2021',
+    '2020',
+    '2021',
     '2022',
   ];
 
