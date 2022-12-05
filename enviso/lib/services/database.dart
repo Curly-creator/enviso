@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enviso/services/transportdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
-  final user = FirebaseAuth.instance.currentUser!;
+  static final user = FirebaseAuth.instance.currentUser!;
 
-  CollectionReference get transportCollection => FirebaseFirestore.instance
-      .collection('users')
-      .doc(user.uid)
-      .collection('transport');
+  static CollectionReference get transportCollection =>
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('transport');
 
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
@@ -44,6 +47,16 @@ class DatabaseService {
 
   Future updateUsername(String username) async {
     return await userCollection.doc(user.uid).update({'user_name': username});
+  }
+
+  static Map<String, double> getCalculationData() {
+    Map<String, double> mapData = {'zero':2, 'ksj':3} ;
+    final docRef = transportCollection.doc(".calculations");
+    docRef.get().then(
+        (DocumentSnapshot doc) => mapData = doc.data() as Map<String, double>,
+        onError: (e) => print("Error getting document: $e"));
+    print(mapData);
+    return mapData;
   }
 
   Future deleteuser() async {

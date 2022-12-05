@@ -4,22 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+import '../../services/database.dart';
+
 class HomePage extends StatelessWidget {
    HomePage({super.key});
-
-  final dataMap = <String, double>{
-    "Flutter": 5,
-    "React": 3,
-    "Xamarin": 2,
-    "Ionic": 2,
-  };
 
   final colorList = <Color>[
     const Color(0xfffdcb6e),
     const Color(0xff0984e3),
-    const Color(0xfffd79a8),
-    const Color(0xffe17055),
-    const Color(0xff6c5ce7),
+    const Color(0xfffdcb6e),
+    const Color(0xff0984e3)
   ];
   
 
@@ -51,7 +45,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             PieChart(
-              dataMap: dataMap,
+              dataMap: DatabaseService.getCalculationData(),
               animationDuration: const Duration(milliseconds: 800),
               ringStrokeWidth: MediaQuery.of(context).size.width/8,
               chartRadius: MediaQuery.of(context).size.width / 3.2,
