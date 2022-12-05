@@ -2,9 +2,26 @@ import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+   HomePage({super.key});
+
+  final dataMap = <String, double>{
+    "Flutter": 5,
+    "React": 3,
+    "Xamarin": 2,
+    "Ionic": 2,
+  };
+
+  final colorList = <Color>[
+    const Color(0xfffdcb6e),
+    const Color(0xff0984e3),
+    const Color(0xfffd79a8),
+    const Color(0xffe17055),
+    const Color(0xff6c5ce7),
+  ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +49,22 @@ class HomePage extends StatelessWidget {
               'your Email',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            PieChart(
+              dataMap: dataMap,
+              animationDuration: const Duration(milliseconds: 800),
+              ringStrokeWidth: MediaQuery.of(context).size.width/8,
+              chartRadius: MediaQuery.of(context).size.width / 3.2,
+              colorList: colorList,
+              initialAngleInDegree: 0,
+              chartType: ChartType.ring,
+              centerText: "t CO2e / Jahr",
+              chartValuesOptions: const ChartValuesOptions(
+                showChartValuesOutside: true),
+              legendOptions:
+                  const LegendOptions(showLegendsInRow: false, showLegends: false),
+            ),   
+            const SizedBox(height: 100),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
@@ -55,7 +87,7 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontSize: 24),
               ),
               onPressed: () => FirebaseAuth.instance.signOut(),
-            )
+            ),
           ],
         ),
       ),
