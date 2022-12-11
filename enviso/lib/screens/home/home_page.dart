@@ -1,6 +1,7 @@
 import 'dart:convert';
 //import 'package:enviso/dummydata/transport/2020/2020_APRIL.json' as dummydata;
 import 'package:enviso/screens/name_page.dart';
+import 'package:enviso/screens/plaid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class HomePage extends StatelessWidget {
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => DataSite()));
               },
@@ -63,6 +64,21 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NameSite()));
+              },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+              ),
+              icon: const Icon(Icons.data_array, size: 32),
+              label: const Text(
+                'Plaid',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PlaidScreen()));
               },
             ),
             const SizedBox(height: 20),
