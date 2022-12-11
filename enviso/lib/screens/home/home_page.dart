@@ -7,15 +7,9 @@ import 'package:pie_chart/pie_chart.dart';
 import '../../services/database.dart';
 
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
+  HomePage({super.key});
 
-  final colorList = <Color>[
-    const Color(0xfffdcb6e),
-    const Color(0xff0984e3),
-    const Color(0xfffdcb6e),
-    const Color(0xff0984e3)
-  ];
-  
+  final colorList = <Color>[const Color(0xfffdcb6e), const Color(0xff0984e3)];
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +41,17 @@ class HomePage extends StatelessWidget {
             PieChart(
               dataMap: DatabaseService.getCalculationData(),
               animationDuration: const Duration(milliseconds: 800),
-              ringStrokeWidth: MediaQuery.of(context).size.width/8,
+              ringStrokeWidth: MediaQuery.of(context).size.width / 8,
               chartRadius: MediaQuery.of(context).size.width / 3.2,
               colorList: colorList,
               initialAngleInDegree: 0,
               chartType: ChartType.ring,
               centerText: "t CO2e / Jahr",
-              chartValuesOptions: const ChartValuesOptions(
-                showChartValuesOutside: true),
-              legendOptions:
-                  const LegendOptions(showLegendsInRow: false, showLegends: false),
-            ),   
+              chartValuesOptions:
+                  const ChartValuesOptions(showChartValuesOutside: true),
+              legendOptions: const LegendOptions(
+                  showLegendsInRow: false, showLegends: false),
+            ),
             const SizedBox(height: 100),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(

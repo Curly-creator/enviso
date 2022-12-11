@@ -49,12 +49,16 @@ class DatabaseService {
     return await userCollection.doc(user.uid).update({'user_name': username});
   }
 
-  static Map<String, double> getCalculationData() {
-    Map<String, double> mapData = {'zero':2, 'ksj':3} ;
+  static Future<Map<String, double>?> getCalculationData() async {
+    Map<String, double>? mapData = {};
     final docRef = transportCollection.doc(".calculations");
-    docRef.get().then(
-        (DocumentSnapshot doc) => mapData = doc.data() as Map<String, double>,
-        onError: (e) => print("Error getting document: $e"));
+    await docRef.get().then((DocumentSnapshot doc){
+      if (doc.exists) {
+         Map<String, dynamic>? tryData = doc.data() as Map<String, dynamic>?;
+        mapData =
+            tryData?.map((key, value) => MapEntry(key, value?.toDouble()));
+        return mapData;
+      }}, onError: (e) => print("Error getting document: $e"));
     print(mapData);
     return mapData;
   }
