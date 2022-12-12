@@ -11,7 +11,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Name'),
+          title: const Text('Einstellungen'),
         ),
         body: SafeArea(
             child: ListView(
@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
         subtitle: '',
         leading: const IconWidget(
           icon: Icons.logout,
-          color: Colors.green,
+          color: Color.fromRGBO(30, 201, 105, 1.0),
         ),
         onTap: () => FirebaseAuth.instance.signOut(),
       );

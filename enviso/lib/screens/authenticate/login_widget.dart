@@ -33,41 +33,72 @@ class _LoginWidgetState extends State<LoginWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 40),
+            const Text(
+              'Login',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Inter',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
+            const Text(
+              'E-Mail',
+              style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  color: Color.fromRGBO(30, 201, 105, 1.0),
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
             TextField(
               controller: emailController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'E-Mail eingeben'),
             ),
             const SizedBox(height: 4),
+            const Text(
+              'Passwort',
+              style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  color: Color.fromRGBO(30, 201, 105, 1.0),
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
             TextField(
               controller: passwordController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Passwort eingeben'),
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            ElevatedButton.icon(
+            ElevatedButton(
                 onPressed: signIn,
-                icon: const Icon(Icons.lock_open, size: 32),
-                label: const Text(
-                  'Sign In',
-                  style: TextStyle(fontSize: 24),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(30, 201, 105, 1.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0))),
+                child: const Text(
+                  'Anmelden',
+                  style: TextStyle(fontSize: 12, fontFamily: 'Inter'),
+                  textAlign: TextAlign.center,
                 )),
             const SizedBox(height: 24),
             RichText(
                 text: TextSpan(
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
-                    text: 'No account? ',
+                    style: const TextStyle(color: Colors.black, fontSize: 12),
+                    text: 'Du hast kein Konto? ',
                     children: [
                   TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = widget.onClickedSignUp,
-                      text: 'Sign Up',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Theme.of(context).colorScheme.secondary,
+                      text: 'Registrieren',
+                      style: const TextStyle(
+                        color: Color.fromRGBO(30, 201, 105, 1.0),
+                        fontWeight: FontWeight.bold,
                       ))
                 ]))
           ],

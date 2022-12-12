@@ -39,14 +39,14 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.dark,
                 scaffoldBackgroundColor: Colors.grey[800],
                 canvasColor: Colors.grey[600],
-                fontFamily: 'Georgia',
+                fontFamily: 'Inter',
               )
             : ThemeData(
-                primaryColor: Colors.purple,
-                brightness: Brightness.dark,
-                scaffoldBackgroundColor: Colors.grey[800],
-                canvasColor: Colors.grey[600],
-                fontFamily: 'Georgia',
+                primaryColor: const Color.fromRGBO(30, 201, 105, 1.0),
+                brightness: Brightness.light,
+                scaffoldBackgroundColor: Colors.white,
+                canvasColor: Colors.white,
+                fontFamily: 'Inter',
               ),
         home: const MainPage(),
       ),
@@ -69,7 +69,7 @@ class MainPage extends StatelessWidget {
                   child: Text('Something went wrong'),
                 );
               } else if (snapshot.hasData) {
-                return  HomePage();
+                return HomePage();
               } else {
                 return const AuthPage();
               }

@@ -38,43 +38,33 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            PieChart(
-              dataMap: DatabaseService.getCalculationData(),
-              animationDuration: const Duration(milliseconds: 800),
-              ringStrokeWidth: MediaQuery.of(context).size.width / 8,
-              chartRadius: MediaQuery.of(context).size.width / 3.2,
-              colorList: colorList,
-              initialAngleInDegree: 0,
-              chartType: ChartType.ring,
-              centerText: "t CO2e / Jahr",
-              chartValuesOptions:
-                  const ChartValuesOptions(showChartValuesOutside: true),
-              legendOptions: const LegendOptions(
-                  showLegendsInRow: false, showLegends: false),
-            ),
+            // PieChart(
+            //   dataMap: DatabaseService.getCalculationData(),
+            //   animationDuration: const Duration(milliseconds: 800),
+            //   ringStrokeWidth: MediaQuery.of(context).size.width / 8,
+            //   chartRadius: MediaQuery.of(context).size.width / 3.2,
+            //   colorList: colorList,
+            //   initialAngleInDegree: 0,
+            //   chartType: ChartType.ring,
+            //   centerText: "t CO2e / Jahr",
+            //   chartValuesOptions:
+            //       const ChartValuesOptions(showChartValuesOutside: true),
+            //   legendOptions: const LegendOptions(
+            //       showLegendsInRow: false, showLegends: false),
+            // ),
             const SizedBox(height: 100),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
+                  minimumSize: const Size.fromHeight(50),
+                  backgroundColor: const Color.fromRGBO(30, 201, 105, 1.0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0))),
               icon: const Icon(Icons.data_array, size: 32),
               label: const Text(
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
               onPressed: TransportApi.getTransportData,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              icon: const Icon(Icons.arrow_back, size: 32),
-              label: const Text(
-                'Sign Out',
-                style: TextStyle(fontSize: 24),
-              ),
-              onPressed: () => FirebaseAuth.instance.signOut(),
             ),
           ],
         ),
