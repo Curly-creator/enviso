@@ -1,5 +1,6 @@
 //import 'package:enviso/services/utils.dart';
 import 'package:enviso/screens/settings/settings_page.dart';
+import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
@@ -35,20 +36,21 @@ class MyApp extends StatelessWidget {
         title: title,
         theme: isDarkMode
             ? ThemeData(
-                primaryColor: Colors.purple,
+                primaryColor: colorGreen,
                 brightness: Brightness.dark,
-                scaffoldBackgroundColor: Colors.grey[800],
+                scaffoldBackgroundColor: colorBlackLight,
                 canvasColor: Colors.grey[600],
                 fontFamily: 'Inter',
               )
             : ThemeData(
-                primaryColor: const Color.fromRGBO(30, 201, 105, 1.0),
+                primaryColor: colorGreen,
                 brightness: Brightness.light,
-                scaffoldBackgroundColor: Colors.white,
-                canvasColor: Colors.white,
+                scaffoldBackgroundColor: colorWhite,
+                canvasColor: colorWhite,
                 fontFamily: 'Inter',
               ),
-        home: const MainPage(),
+        //home: const MainPage(),
+        home: HomePage(),
       ),
     );
   }

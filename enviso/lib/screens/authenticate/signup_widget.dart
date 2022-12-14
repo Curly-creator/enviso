@@ -1,5 +1,6 @@
 import 'package:enviso/main.dart';
 import 'package:enviso/services/database.dart';
+import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,35 +41,29 @@ class _LoginWidgetState extends State<SignUpWidget> {
               const SizedBox(height: 40),
               const Text(
                 'Bitte melde dich an.',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Inter',
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+                style: headline1,
                 textAlign: TextAlign.left,
               ),
               const Text(
                 'Gib deine E-Mail Adresse an, um fortzufahren.',
-                style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    color: Color.fromRGBO(0, 0, 0, 0.8)),
+                style: headline6,
                 textAlign: TextAlign.left,
               ),
               const Text(
                 'E-Mail',
-                style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    color: Color.fromRGBO(30, 201, 105, 1.0),
-                    fontWeight: FontWeight.bold),
+                style: startText,
                 textAlign: TextAlign.left,
               ),
               TextFormField(
                 controller: emailController,
-                cursorColor: Colors.white,
+                cursorColor: colorWhite,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(labelText: 'E-Mail eingeben'),
+                decoration: const InputDecoration(
+                    labelText: 'E-Mail eingeben',
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen))),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     email != null && !EmailValidator.validate(email)
@@ -78,19 +73,19 @@ class _LoginWidgetState extends State<SignUpWidget> {
               const SizedBox(height: 4),
               const Text(
                 'Passwort',
-                style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    color: Color.fromRGBO(30, 201, 105, 1.0),
-                    fontWeight: FontWeight.bold),
+                style: headline5,
                 textAlign: TextAlign.left,
               ),
               TextFormField(
                 controller: passwordController,
-                cursorColor: Colors.white,
+                cursorColor: colorWhite,
                 textInputAction: TextInputAction.next,
-                decoration:
-                    const InputDecoration(labelText: 'Passwort eingeben'),
+                decoration: const InputDecoration(
+                    labelText: 'Passwort eingeben',
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen))),
                 obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => password != null && password.length < 6
@@ -101,26 +96,24 @@ class _LoginWidgetState extends State<SignUpWidget> {
               ElevatedButton(
                   onPressed: signUp,
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(30, 201, 105, 1.0),
+                      backgroundColor: colorGreen,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0))),
                   child: const Text(
                     'Anmelden',
-                    style: TextStyle(fontSize: 12, fontFamily: 'Inter'),
+                    style: buttonText,
                   )),
               const SizedBox(height: 24),
               RichText(
                   text: TextSpan(
-                      style: const TextStyle(color: Colors.black, fontSize: 12),
+                      style: headline5,
                       text: 'Du hast schon ein Konto? ',
                       children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignIn,
                         text: 'Login',
-                        style: const TextStyle(
-                          color: Color.fromRGBO(30, 201, 105, 1.0),
-                        ))
+                        style: startText)
                   ]))
             ],
           ),

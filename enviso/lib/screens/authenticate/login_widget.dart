@@ -1,4 +1,5 @@
 import 'package:enviso/main.dart';
+import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -35,71 +36,66 @@ class _LoginWidgetState extends State<LoginWidget> {
             const SizedBox(height: 40),
             const Text(
               'Login',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Inter',
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+              style: headline1,
               textAlign: TextAlign.left,
             ),
             const Text(
               'E-Mail',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  color: Color.fromRGBO(30, 201, 105, 1.0),
-                  fontWeight: FontWeight.bold),
+              style: startText,
               textAlign: TextAlign.left,
             ),
             TextField(
               controller: emailController,
-              cursorColor: Colors.white,
+              cursorColor: colorWhite,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'E-Mail eingeben'),
+              decoration: const InputDecoration(
+                  labelText: 'E-Mail eingeben',
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: colorGreen)),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: colorGreen))),
             ),
             const SizedBox(height: 4),
             const Text(
               'Passwort',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Inter',
-                  color: Color.fromRGBO(30, 201, 105, 1.0),
-                  fontWeight: FontWeight.bold),
+              style: startText,
               textAlign: TextAlign.left,
             ),
             TextField(
               controller: passwordController,
-              cursorColor: Colors.white,
+              cursorColor: colorWhite,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Passwort eingeben'),
+              decoration: const InputDecoration(
+                  labelText: 'Passwort eingeben',
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: colorGreen)),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: colorGreen))),
               obscureText: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: signIn,
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(30, 201, 105, 1.0),
+                    backgroundColor: colorGreen,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0))),
                 child: const Text(
                   'Anmelden',
-                  style: TextStyle(fontSize: 12, fontFamily: 'Inter'),
+                  style: headline5,
                   textAlign: TextAlign.center,
                 )),
             const SizedBox(height: 24),
             RichText(
                 text: TextSpan(
-                    style: const TextStyle(color: Colors.black, fontSize: 12),
+                    style: headline5,
                     text: 'Du hast kein Konto? ',
                     children: [
                   TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = widget.onClickedSignUp,
                       text: 'Registrieren',
-                      style: const TextStyle(
-                        color: Color.fromRGBO(30, 201, 105, 1.0),
-                        fontWeight: FontWeight.bold,
-                      ))
+                      style: startText)
                 ]))
           ],
         ),
