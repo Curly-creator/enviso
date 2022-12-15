@@ -59,7 +59,6 @@ class DatabaseService {
             tryData?.map((key, value) => MapEntry(key, value?.toDouble()));
         return mapData;
       }}, onError: (e) => print("Error getting document: $e"));
-    print(mapData);
     return mapData;
   }
 
