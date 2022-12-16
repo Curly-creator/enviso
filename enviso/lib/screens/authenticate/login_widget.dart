@@ -33,6 +33,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset('images/2zero.jpg', scale: 7.0),
             const SizedBox(height: 40),
             const Text(
               'Login',
@@ -50,8 +51,11 @@ class _LoginWidgetState extends State<LoginWidget> {
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                   labelText: 'E-Mail eingeben',
+                  labelStyle: TextStyle(
+                    color: colorBlackLight,
+                  ),
                   enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorGreen)),
+                      borderSide: BorderSide(color: colorBlackLight)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: colorGreen))),
             ),
@@ -67,8 +71,11 @@ class _LoginWidgetState extends State<LoginWidget> {
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                   labelText: 'Passwort eingeben',
+                  labelStyle: TextStyle(
+                    color: colorBlackLight,
+                  ),
                   enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorGreen)),
+                      borderSide: BorderSide(color: colorBlackLight)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: colorGreen))),
               obscureText: true,
@@ -82,7 +89,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         borderRadius: BorderRadius.circular(50.0))),
                 child: const Text(
                   'Anmelden',
-                  style: headline5,
+                  style: buttonText,
                   textAlign: TextAlign.center,
                 )),
             const SizedBox(height: 24),

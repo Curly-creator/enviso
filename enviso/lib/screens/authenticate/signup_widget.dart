@@ -38,6 +38,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset('images/2zero.jpg', scale: 7.0),
               const SizedBox(height: 40),
               const Text(
                 'Bitte melde dich an.',
@@ -60,8 +61,11 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                     labelText: 'E-Mail eingeben',
+                    labelStyle: TextStyle(
+                      color: colorBlackLight,
+                    ),
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorGreen)),
+                        borderSide: BorderSide(color: colorBlackLight)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: colorGreen))),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -73,7 +77,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
               const SizedBox(height: 4),
               const Text(
                 'Passwort',
-                style: headline5,
+                style: startText,
                 textAlign: TextAlign.left,
               ),
               TextFormField(
@@ -82,8 +86,36 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                     labelText: 'Passwort eingeben',
+                    labelStyle: TextStyle(
+                      color: colorBlackLight,
+                    ),
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorGreen)),
+                        borderSide: BorderSide(color: colorBlackLight)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen))),
+                obscureText: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (password) => password != null && password.length < 6
+                    ? 'Dein Passwort stimmt nicht überein.'
+                    : null,
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'Passwort wiederholen',
+                style: startText,
+                textAlign: TextAlign.left,
+              ),
+              TextFormField(
+                controller: passwordController,
+                cursorColor: colorWhite,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(
+                    labelText: 'Passwort eingeben',
+                    labelStyle: TextStyle(
+                      color: colorBlackLight,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorBlackLight)),
                     focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: colorGreen))),
                 obscureText: true,

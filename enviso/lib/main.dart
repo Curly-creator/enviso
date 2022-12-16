@@ -49,8 +49,7 @@ class MyApp extends StatelessWidget {
                 canvasColor: colorWhite,
                 fontFamily: 'Inter',
               ),
-        //home: const MainPage(),
-        home: HomePage(),
+        home: const MainPage(),
       ),
     );
   }
