@@ -47,6 +47,7 @@ dependencies:
   flutter_settings_screens: ^0.3.3-null-safety+2
   pie_chart: ^5.3.2
   fl_chart: ^0.55.2
+  plaid_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:
