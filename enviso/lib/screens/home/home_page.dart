@@ -42,7 +42,40 @@ class HomePage extends StatelessWidget {
                 'Get Data',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: TransportApi.getTransportData,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DataSite()));
+              },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+              ),
+              icon: const Icon(Icons.data_array, size: 32),
+              label: const Text(
+                'Get Name',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NameSite()));
+              },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+              ),
+              icon: const Icon(Icons.data_array, size: 32),
+              label: const Text(
+                'Plaid',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PlaidScreen()));
+              },
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
