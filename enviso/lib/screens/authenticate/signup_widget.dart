@@ -1,5 +1,6 @@
 import 'package:enviso/main.dart';
 import 'package:enviso/services/database.dart';
+import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -37,52 +38,114 @@ class _LoginWidgetState extends State<SignUpWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset('images/2zero.jpg', scale: 7.0),
               const SizedBox(height: 40),
+              const Text(
+                'Bitte melde dich an.',
+                style: headline1,
+                textAlign: TextAlign.left,
+              ),
+              const Text(
+                'Gib deine E-Mail Adresse an, um fortzufahren.',
+                style: headline6,
+                textAlign: TextAlign.left,
+              ),
+              const Text(
+                'E-Mail',
+                style: startText,
+                textAlign: TextAlign.left,
+              ),
               TextFormField(
                 controller: emailController,
-                cursorColor: Colors.white,
+                cursorColor: colorWhite,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                    labelText: 'E-Mail eingeben',
+                    labelStyle: TextStyle(
+                      color: colorBlackLight,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorBlackLight)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen))),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     email != null && !EmailValidator.validate(email)
-                        ? 'Enter a valid email'
+                        ? 'Bitte gib eine valide E-Mail ein'
                         : null,
               ),
               const SizedBox(height: 4),
+              const Text(
+                'Passwort',
+                style: startText,
+                textAlign: TextAlign.left,
+              ),
               TextFormField(
                 controller: passwordController,
-                cursorColor: Colors.white,
+                cursorColor: colorWhite,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(
+                    labelText: 'Passwort eingeben',
+                    labelStyle: TextStyle(
+                      color: colorBlackLight,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorBlackLight)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen))),
                 obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => password != null && password.length < 6
-                    ? 'Enter min. 6 characters'
+                    ? 'Dein Passwort stimmt nicht überein.'
+                    : null,
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'Passwort wiederholen',
+                style: startText,
+                textAlign: TextAlign.left,
+              ),
+              TextFormField(
+                controller: passwordController,
+                cursorColor: colorWhite,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(
+                    labelText: 'Passwort eingeben',
+                    labelStyle: TextStyle(
+                      color: colorBlackLight,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorBlackLight)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen))),
+                obscureText: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (password) => password != null && password.length < 6
+                    ? 'Dein Passwort muss mindestens 6 Zeichen enthalten'
                     : null,
               ),
               const SizedBox(height: 20),
-              ElevatedButton.icon(
+              ElevatedButton(
                   onPressed: signUp,
-                  icon: const Icon(Icons.lock_open, size: 32),
-                  label: const Text(
-                    'Sign Up',
-                    style: TextStyle(fontSize: 24),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: colorGreen,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0))),
+                  child: const Text(
+                    'Anmelden',
+                    style: buttonText,
                   )),
               const SizedBox(height: 24),
               RichText(
                   text: TextSpan(
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                      text: 'Already have an account? ',
+                      style: headline5,
+                      text: 'Du hast schon ein Konto? ',
                       children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignIn,
-                        text: 'Sign In',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ))
+                        text: 'Login',
+                        style: startText)
                   ]))
             ],
           ),

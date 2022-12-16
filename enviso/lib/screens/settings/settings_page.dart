@@ -1,8 +1,10 @@
 import 'package:enviso/screens/settings/account_page.dart';
+import 'package:enviso/utils/constants.dart';
 import 'package:enviso/widgets/icon_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:enviso/services/database.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -11,45 +13,51 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Name'),
+          title: const Text('Einstellungen'),
         ),
         body: SafeArea(
             child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            SettingsGroup(title: 'GENERAL', children: <Widget>[
-              buildDarkMode(),
+            SettingsGroup(title: 'Mein Profil', children: <Widget>[
+              buildProfile(),
               const AccountPage(),
+              buildDarkMode(),
               buildLogout(),
               buildDeleteAccount(),
             ]),
             const SizedBox(
               height: 32,
             ),
-            SettingsGroup(title: 'FEEDBACK', children: <Widget>[
+            SettingsGroup(title: 'Feedback', children: <Widget>[
               buildReportBug(context),
-              buildSendFeedback(context)
+              buildSendFeedback(context),
             ])
           ],
         )),
       );
 
+  Widget buildProfile() => TextInputSettingsTile(
+      title: 'Name',
+      initialValue: 'Username',
+      settingKey: 'keyName',
+      onChange: (name) => DatabaseService().updateUsername(name));
+
   Widget buildLogout() => SimpleSettingsTile(
-        title: 'Logout',
-        subtitle: '',
+        title: 'Abmelden',
         leading: const IconWidget(
           icon: Icons.logout,
-          color: Colors.green,
+          color: colorGreen,
         ),
         onTap: () => FirebaseAuth.instance.signOut(),
       );
 
   Widget buildDeleteAccount() => SimpleSettingsTile(
-        title: 'Delet Account',
+        title: 'Account löschen',
         subtitle: '',
         leading: const IconWidget(
           icon: Icons.delete,
-          color: Colors.red,
+          color: colorGreen,
         ),
         onTap: () {
           //await DatabaseService().deleteuser();
@@ -58,7 +66,7 @@ class SettingsPage extends StatelessWidget {
       );
 
   Widget buildReportBug(BuildContext context) => SimpleSettingsTile(
-        title: 'Report a Bug',
+        title: 'Fehler melden',
         subtitle: '',
         leading: const IconWidget(
           icon: Icons.bug_report,
@@ -68,7 +76,7 @@ class SettingsPage extends StatelessWidget {
       );
 
   Widget buildSendFeedback(BuildContext context) => SimpleSettingsTile(
-        title: 'Send Feedback',
+        title: 'Feedback senden',
         subtitle: '',
         leading: const IconWidget(
           icon: Icons.feedback,
