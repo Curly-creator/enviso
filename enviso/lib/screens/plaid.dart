@@ -18,7 +18,7 @@ class PlaidScreen extends StatelessWidget {
                 onPressed: () async {
                   String token = await generateLinkToken();
                   print(token);
-                  startLink(token);
+                  //startLink(token);
                 })));
   }
 }

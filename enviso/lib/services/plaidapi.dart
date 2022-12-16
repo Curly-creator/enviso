@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
 import 'dart:convert';
-import 'package:plaid_link/plaid_link.dart';
+//import 'package:plaid_link/plaid_link.dart';
 
 // Replace these values with your own API keys and options
 String baseUrl = 'https://sandbox.plaid.com';
@@ -61,23 +61,4 @@ Future<String> exchangeLinkToken(String publicToken) async {
   }
 }
 
-Future<String> startLink(String linkToken) async {
-  // start Plaid Link using PlaidLink plugin
-  final PlaidLinkResult result = await PlaidLink(
-    token: linkToken,
-    onSuccess: (String publicToken, LinkSuccessMetadata metadata) {
-      print('onSuccess: $publicToken');
-      print('onSuccess: $metadata');
-    },
-    onEvent: (String event, LinkEventMetadata metadata) {
-      print('onEvent: $event');
-      print('onEvent: $metadata');
-    },
-    onExit: (LinkExitMetadata metadata) {
-      print('onExit: $metadata');
-    },
-    onEventName: (String eventName) {
-      print('onEventName: $eventName');
-    },
-  ).open();
-}
+// function start link
