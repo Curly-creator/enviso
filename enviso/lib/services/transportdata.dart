@@ -10,7 +10,8 @@ class TransportData {
 
   factory TransportData.fromJson(Map<String, dynamic> json) {
     return TransportData(
-      //timestamp: json['duration']['startTimestamp'],
+      timestamp: Timestamp.fromDate(
+          DateTime.parse(json['duration']['startTimestamp'])),
       vehicle: json['activityType'],
       distance: json['distance'],
     );

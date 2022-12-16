@@ -1,26 +1,23 @@
-import 'dart:convert';
-//import 'package:enviso/dummydata/transport/2020/2020_APRIL.json' as dummydata;
-import 'package:enviso/screens/name_page.dart';
-import 'package:enviso/screens/plaid.dart';
+import 'package:enviso/screens/settings/settings_page.dart';
+import 'package:enviso/services/transportapi.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../services/database.dart';
-import '../../services/transportapi.dart';
-import '../../services/transportdata.dart';
-import '../data_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      appBar: AppBar(title: const Text('Home'), actions: [
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()));
+          },
+        )
+      ]),
       body: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
@@ -33,7 +30,6 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 8),
             const Text(
               'your Email',
-              //user.email,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),

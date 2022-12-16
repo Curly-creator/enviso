@@ -7,7 +7,7 @@ import 'database.dart';
 class TransportApi {
   static List<String> months = [
     'JANUARY',
-    'FEBURARY',
+    'FEBRUARY',
     'MARCH',
     'APRIL',
     'JULY',
@@ -18,33 +18,45 @@ class TransportApi {
     'NOVEMBER',
     'DECEMBER'
   ];
+  static List<String> years = [
+    '2020',
+    '2021',
+    '2022',
+  ];
 
-  static Future<List<TransportData>> getData() async {
+  static Future<List<TransportData>> getTransportData() async {
     var transportDataList = <TransportData>[];
-    for (var month in months) {
-      const jsonString = 'assets/transport/2020/2020_APRIL.json';
-      final String response = await rootBundle.loadString(jsonString);
-      var data = await jsonDecode(response);
-      var jsonTimeline = data['timelineObjects'];
-      for (var activity in jsonTimeline) {
-        if (activity['activitySegment'] != null) {
-          var vehicle = activity['activitySegment']['activityType'];
-          if (vehicle == 'IN_BUS' ||
-              vehicle == 'IN_TRAIN' ||
-              vehicle == 'IN_SUBWAY' ||
-              vehicle == 'IN_TRAM' ||
-              vehicle == 'IN_PASSENGER_VEHICLE' ||
-              vehicle == 'IN_VEHICLE' ||
-              vehicle == 'FLYING') {
-            TransportData transportData =
-                TransportData.fromJson(activity['activitySegment']);
-            transportDataList.add(transportData);
+
+    for (var year in years) {
+      for (var month in months) {
+        try {
+          var jsonString = 'transport/$year/$year' '_$month.json';
+          final String response = await rootBundle.loadString(jsonString);
+          var data = await jsonDecode(response);
+          var jsonTimeline = data['timelineObjects'];
+          for (var activity in jsonTimeline) {
+            if (activity['activitySegment'] != null) {
+              var vehicle = activity['activitySegment']['activityType'];
+              if (vehicle == 'IN_BUS' ||
+                  vehicle == 'IN_TRAIN' ||
+                  vehicle == 'IN_SUBWAY' ||
+                  vehicle == 'IN_TRAM' ||
+                  vehicle == 'IN_PASSENGER_VEHICLE' ||
+                  vehicle == 'IN_VEHICLE' ||
+                  vehicle == 'FLYING') {
+                TransportData transportData =
+                    TransportData.fromJson(activity['activitySegment']);
+                transportDataList.add(transportData);
+              }
+            }
           }
+        } catch (e) {
+          // JSON not found
         }
       }
     }
     for (var element in transportDataList) {
-      await DatabaseService().updateTransportData(element);
+      DatabaseService().updateTransportData(element);
     }
     return transportDataList;
   }

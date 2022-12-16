@@ -1,6 +1,8 @@
 //import 'package:enviso/services/utils.dart';
+import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:enviso/screens/home/home_page.dart';
@@ -11,6 +13,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Settings.init(cacheProvider: SharePreferenceCache());
   runApp(const MyApp());
 }
 
@@ -21,15 +24,34 @@ class MyApp extends StatelessWidget {
   static const String title = 'eNVISO';
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) {
+    return ValueChangeObserver<bool>(
+      cacheKey: SettingsPage.keyDarkMode,
+      defaultValue: false,
+      builder: (_, isDarkMode, __) => MaterialApp(
         //scaffoldMessengerKey: Utils.messengerKey,  **** needs to be fixed
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         title: title,
-        theme: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)),
+        theme: isDarkMode
+            ? ThemeData(
+                primaryColor: Colors.purple,
+                brightness: Brightness.dark,
+                scaffoldBackgroundColor: Colors.grey[800],
+                canvasColor: Colors.grey[600],
+                fontFamily: 'Georgia',
+              )
+            : ThemeData(
+                primaryColor: Colors.purple,
+                brightness: Brightness.dark,
+                scaffoldBackgroundColor: Colors.grey[800],
+                canvasColor: Colors.grey[600],
+                fontFamily: 'Georgia',
+              ),
         home: const MainPage(),
-      );
+      ),
+    );
+  }
 }
 
 class MainPage extends StatelessWidget {

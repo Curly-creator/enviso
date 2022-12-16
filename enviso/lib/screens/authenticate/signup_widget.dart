@@ -1,22 +1,17 @@
-import 'dart:convert';
-import 'package:enviso/services/firestore.dart';
 import 'package:enviso/main.dart';
 import 'package:enviso/services/database.dart';
-import 'package:enviso/services/userdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
-import '../../services/utils.dart';
-
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({
     Key? key,
-    required this.OnClickedSignIn,
+    required this.onClickedSignIn,
   }) : super(key: key);
 
-  final VoidCallback OnClickedSignIn;
+  final VoidCallback onClickedSignIn;
 
   @override
   State<SignUpWidget> createState() => _LoginWidgetState();
@@ -60,6 +55,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => password != null && password.length < 6
                     ? 'Enter min. 6 characters'
@@ -81,7 +77,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
                       children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = widget.OnClickedSignIn,
+                          ..onTap = widget.onClickedSignIn,
                         text: 'Sign In',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
@@ -102,19 +98,13 @@ class _LoginWidgetState extends State<SignUpWidget> {
         builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
-
-    //register with email & password
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-
-      //create a new document for the user with the uid
-      final user = FirebaseAuth.instance.currentUser!;
-      UserData test = UserData(uid: user.uid);
-      await DataBaseFireStore().updateUserData(test);
+      await DatabaseService().createUser();
     } on Exception catch (e) {
-      Utils.showSnackBar(e.toString());
+      print(e);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

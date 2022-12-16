@@ -1,5 +1,4 @@
 import 'package:enviso/main.dart';
-import 'package:enviso/services/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +6,10 @@ import 'package:flutter/material.dart';
 class LoginWidget extends StatefulWidget {
   const LoginWidget({
     Key? key,
-    required this.OnClickedSignUp,
+    required this.onClickedSignUp,
   }) : super(key: key);
 
-  final VoidCallback OnClickedSignUp;
+  final VoidCallback onClickedSignUp;
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -27,6 +26,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) => SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -45,6 +45,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(labelText: 'Password'),
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
@@ -62,7 +63,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     children: [
                   TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = widget.OnClickedSignUp,
+                        ..onTap = widget.onClickedSignUp,
                       text: 'Sign Up',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
@@ -85,7 +86,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on Exception catch (e) {
-      Utils.showSnackBar(e.toString());
+      print(e);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
