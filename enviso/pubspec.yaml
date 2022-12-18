@@ -47,6 +47,7 @@ dependencies:
   flutter_settings_screens: ^0.3.3-null-safety+2
   pie_chart: ^5.3.2
   fl_chart: ^0.55.2
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,12 @@ flutter:
   assets:
     - assets/transport/
     - assets/images/2zero.jpg
+    - assets/images/bus.svg
+    - assets/images/car.svg
+    - assets/images/fly.svg
+    - assets/images/subway.svg
+    - assets/images/train.svg
+    - assets/images/tram.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

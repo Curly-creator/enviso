@@ -7,7 +7,9 @@ import 'package:enviso/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../services/database.dart';
+import '../../screens/home/pie_chart.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -72,40 +74,43 @@ class _HomePageState extends State<HomePage> {
                   style: headline1,
                 ),
               ),
-              addVerticalSpace(200),
-              Padding(padding: sidePadding,
-              child: FutureBuilder(
-              future: DatabaseService.getCalculationData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return AspectRatio(
-                    aspectRatio: 5,
-                    child: PieChart(
-                      PieChartData(
-                        pieTouchData: PieTouchData(
-                          touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                            setState((() {
-                              Map<String, dynamic> tryData = snapshot.data as Map<String, dynamic>;
-                              fly = tryData['FLYING']!;
-                              bus = tryData['IN_BUS']!;
-                              car = tryData['IN_PASSENGER_VEHICLE']!;
-                              subway = tryData['IN_SUBWAY']!;
-                              train = tryData['IN_TRAIN']!;
-                              tram = tryData['IN_TRAM']!;
-                            }));
-                          },
-                        ),
-                        sectionsSpace: 2,
-                        centerSpaceRadius: 100,
-                        sections: showingSections(),
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              })),
-              addVerticalSpace(200),
+              addVerticalSpace(225),
+              Padding(
+                  padding: sidePadding,
+                  child: FutureBuilder(
+                      future: DatabaseService.getCalculationData(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return AspectRatio(
+                            aspectRatio: 5,
+                            child: PieChart(
+                              PieChartData(
+                                pieTouchData: PieTouchData(
+                                  touchCallback:
+                                      (FlTouchEvent event, pieTouchResponse) {
+                                    setState((() {
+                                      Map<String, dynamic> tryData =
+                                          snapshot.data as Map<String, dynamic>;
+                                      fly = tryData['FLYING']!;
+                                      bus = tryData['IN_BUS']!;
+                                      car = tryData['IN_PASSENGER_VEHICLE']!;
+                                      subway = tryData['IN_SUBWAY']!;
+                                      train = tryData['IN_TRAIN']!;
+                                      tram = tryData['IN_TRAM']!;
+                                    }));
+                                  },
+                                ),
+                                sectionsSpace: 2,
+                                centerSpaceRadius: 100,
+                                sections: showingSections(),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      })),
+              addVerticalSpace(225),
               Padding(
                 padding: sidePadding,
                 child: ElevatedButton.icon(
@@ -121,6 +126,28 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onPressed: TransportApi.getTransportData,
                 ),
+              ),
+              addVerticalSpace(padding),
+              Padding(
+                padding: sidePadding,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor: colorGreen,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0))),
+                  icon: const Icon(Icons.data_array, size: 32),
+                  label: const Text(
+                    'Open BarChar',
+                    style: buttonText,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PieChartSite()));
+                  },
+                ),
               )
             ],
           ),
@@ -129,8 +156,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-   List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections() {
     return List.generate(6, (i) {
+      const double frontSize = 20;
+      const Color frontColor = Color(0xffffffff);
+      const double sizePico= 40;
+      const double offSet = 0.85;
+      const Color borderColor = Color(0xff34eb8c);
+
       switch (i) {
         case 0:
           return PieChartSectionData(
@@ -139,10 +172,16 @@ class _HomePageState extends State<HomePage> {
             title: 'Flieger',
             radius: MediaQuery.of(context).size.width / 5,
             titleStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: frontSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+              color: frontColor,
             ),
+            badgeWidget: const _Badge(
+              'images/fly.svg',
+              size: sizePico,
+              borderColor: borderColor,
+            ),
+            badgePositionPercentageOffset: offSet,
           );
         case 1:
           return PieChartSectionData(
@@ -151,10 +190,16 @@ class _HomePageState extends State<HomePage> {
             title: 'Bus',
             radius: MediaQuery.of(context).size.width / 5,
             titleStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: frontSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+              color: frontColor,
             ),
+            badgeWidget: const _Badge(
+              'images/bus.svg',
+              size: sizePico,
+              borderColor: borderColor,
+            ),
+            badgePositionPercentageOffset: offSet,
           );
         case 2:
           return PieChartSectionData(
@@ -163,10 +208,16 @@ class _HomePageState extends State<HomePage> {
             title: 'Auto',
             radius: MediaQuery.of(context).size.width / 5,
             titleStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: frontSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+              color: frontColor,
             ),
+            badgeWidget: const _Badge(
+              'images/car.svg',
+              size: sizePico,
+              borderColor: borderColor,
+            ),
+            badgePositionPercentageOffset: offSet,
           );
         case 3:
           return PieChartSectionData(
@@ -175,10 +226,16 @@ class _HomePageState extends State<HomePage> {
             title: 'U-Bahn',
             radius: MediaQuery.of(context).size.width / 5,
             titleStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: frontSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+              color: frontColor,
             ),
+            badgeWidget: const _Badge(
+              'images/subway.svg',
+              size: sizePico,
+              borderColor: borderColor,
+            ),
+            badgePositionPercentageOffset: offSet,
           );
         case 4:
           return PieChartSectionData(
@@ -187,10 +244,16 @@ class _HomePageState extends State<HomePage> {
             title: 'Zug',
             radius: MediaQuery.of(context).size.width / 5,
             titleStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: frontSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+              color: frontColor,
             ),
+            badgeWidget: const _Badge(
+              'images/train.svg',
+              size: sizePico,
+              borderColor: borderColor,
+            ),
+            badgePositionPercentageOffset: offSet,
           );
         case 5:
           return PieChartSectionData(
@@ -199,14 +262,61 @@ class _HomePageState extends State<HomePage> {
             title: 'Tram',
             radius: MediaQuery.of(context).size.width / 5,
             titleStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: frontSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+              color: frontColor,
             ),
+            badgeWidget: const _Badge(
+              'images/tram.svg',
+              size: sizePico,
+              borderColor: borderColor,
+            ),
+            badgePositionPercentageOffset: offSet,
           );
         default:
           throw Error();
       }
     });
+  }
+}
+
+class _Badge extends StatelessWidget {
+  const _Badge(
+    this.svgAsset, {
+    required this.size,
+    required this.borderColor,
+  });
+  final String svgAsset;
+  final double size;
+  final Color borderColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: PieChart.defaultDuration,
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: borderColor,
+          width: 2,
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black.withOpacity(.5),
+            offset: const Offset(3, 3),
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(size * .15),
+      child: Center(
+        child: SvgPicture.asset(
+          svgAsset,
+        ),
+      ),
+    );
   }
 }
