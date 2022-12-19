@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:enviso/services/transportdata.dart';
 import 'package:flutter/services.dart';
+import 'package:file_picker/file_picker.dart';
 
 import 'database.dart';
 
@@ -24,10 +25,44 @@ class TransportApi {
     '2022',
   ];
 
+  static _pickfile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if (result == null) return;
+
+    final file = result.files.first;
+
+    return file.path;
+  }
+
   static Future<List<TransportData>> getTransportData() async {
     var transportDataList = <TransportData>[];
-
-    for (var year in years) {
+    try {
+      //var jsonString = 'transport/$year/$year' '_$month.json';
+      var jsonString = _pickfile();
+      final String response = await rootBundle.loadString(jsonString);
+      var data = await jsonDecode(response);
+      var jsonTimeline = data['timelineObjects'];
+      for (var activity in jsonTimeline) {
+        if (activity['activitySegment'] != null) {
+          var vehicle = activity['activitySegment']['activityType'];
+          if (vehicle == 'IN_BUS' ||
+              vehicle == 'IN_TRAIN' ||
+              vehicle == 'IN_SUBWAY' ||
+              vehicle == 'IN_TRAM' ||
+              vehicle == 'IN_PASSENGER_VEHICLE' ||
+              vehicle == 'IN_VEHICLE' ||
+              vehicle == 'FLYING') {
+            TransportData transportData =
+                TransportData.fromJson(activity['activitySegment']);
+            transportDataList.add(transportData);
+          }
+        }
+      }
+    } catch (e) {
+      // JSON not found
+    }
+    /*for (var year in years) {
       for (var month in months) {
         try {
           var jsonString = 'transport/$year/$year' '_$month.json';
@@ -54,7 +89,7 @@ class TransportApi {
           // JSON not found
         }
       }
-    }
+    }*/
     for (var element in transportDataList) {
       DatabaseService().updateTransportData(element);
     }
