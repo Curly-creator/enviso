@@ -158,11 +158,12 @@ class _HomePageState extends State<HomePage> {
 
   List<PieChartSectionData> showingSections() {
     return List.generate(6, (i) {
-      const double frontSize = 20;
+      const double frontSize = 15;
       const Color frontColor = Color(0xffffffff);
-      const double sizePico= 40;
+      const double sizePico= 35;
       const double offSet = 0.85;
       const Color borderColor = Color(0xff34eb8c);
+      
 
       switch (i) {
         case 0:
