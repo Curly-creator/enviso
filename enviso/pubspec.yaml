@@ -48,6 +48,7 @@ dependencies:
   pie_chart: ^5.3.2
   fl_chart: ^0.55.2
   plaid_flutter: ^3.0.0
+  gradle_properties: ^1.0.0
 
 dev_dependencies:
   flutter_test:

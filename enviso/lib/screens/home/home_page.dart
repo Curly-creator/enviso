@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:enviso/utils/constants.dart';
@@ -73,38 +71,41 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               addVerticalSpace(200),
-              Padding(padding: sidePadding,
-              child: FutureBuilder(
-              future: DatabaseService.getCalculationData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return AspectRatio(
-                    aspectRatio: 5,
-                    child: PieChart(
-                      PieChartData(
-                        pieTouchData: PieTouchData(
-                          touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                            setState((() {
-                              Map<String, dynamic> tryData = snapshot.data as Map<String, dynamic>;
-                              fly = tryData['FLYING']!;
-                              bus = tryData['IN_BUS']!;
-                              car = tryData['IN_PASSENGER_VEHICLE']!;
-                              subway = tryData['IN_SUBWAY']!;
-                              train = tryData['IN_TRAIN']!;
-                              tram = tryData['IN_TRAM']!;
-                            }));
-                          },
-                        ),
-                        sectionsSpace: 2,
-                        centerSpaceRadius: 100,
-                        sections: showingSections(),
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              })),
+              Padding(
+                  padding: sidePadding,
+                  child: FutureBuilder(
+                      future: DatabaseService.getCalculationData(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return AspectRatio(
+                            aspectRatio: 5,
+                            child: PieChart(
+                              PieChartData(
+                                pieTouchData: PieTouchData(
+                                  touchCallback:
+                                      (FlTouchEvent event, pieTouchResponse) {
+                                    setState((() {
+                                      Map<String, dynamic> tryData =
+                                          snapshot.data as Map<String, dynamic>;
+                                      fly = tryData['FLYING']!;
+                                      bus = tryData['IN_BUS']!;
+                                      car = tryData['IN_PASSENGER_VEHICLE']!;
+                                      subway = tryData['IN_SUBWAY']!;
+                                      train = tryData['IN_TRAIN']!;
+                                      tram = tryData['IN_TRAM']!;
+                                    }));
+                                  },
+                                ),
+                                sectionsSpace: 2,
+                                centerSpaceRadius: 100,
+                                sections: showingSections(),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      })),
               addVerticalSpace(200),
               Padding(
                 padding: sidePadding,
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-   List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections() {
     return List.generate(6, (i) {
       switch (i) {
         case 0:
