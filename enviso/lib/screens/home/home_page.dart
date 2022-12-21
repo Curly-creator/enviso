@@ -1,3 +1,4 @@
+import 'package:enviso/screens/plaid.dart';
 import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:enviso/utils/constants.dart';
@@ -108,21 +109,41 @@ class _HomePageState extends State<HomePage> {
                       })),
               addVerticalSpace(200),
               Padding(
-                padding: sidePadding,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: colorGreen,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0))),
-                  icon: const Icon(Icons.data_array, size: 32),
-                  label: const Text(
-                    'Daten abrufen',
-                    style: buttonText,
-                  ),
-                  onPressed: TransportApi.getTransportData,
-                ),
-              )
+                  padding: sidePadding,
+                  child: Column(
+                    children: [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(50),
+                            backgroundColor: colorGreen,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0))),
+                        icon: const Icon(Icons.data_array, size: 32),
+                        label: const Text(
+                          'Daten abrufen',
+                          style: buttonText,
+                        ),
+                        onPressed: TransportApi.getTransportData,
+                      ),
+                      ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(50),
+                              backgroundColor: colorGreen,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50.0))),
+                          icon: const Icon(Icons.data_array, size: 32),
+                          label: const Text(
+                            'Plaid',
+                            style: buttonText,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlaidScreen()));
+                          }),
+                    ],
+                  ))
             ],
           ),
         ),
