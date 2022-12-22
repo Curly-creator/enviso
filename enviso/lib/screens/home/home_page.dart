@@ -9,6 +9,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
 import '../../services/database.dart';
 
+List<String> items = ['Alle', 'Transport', 'Konsum'];
+String? selectedItem = 'Alle';
+
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
@@ -72,39 +75,104 @@ class _HomePageState extends State<HomePage> {
                   style: headline1,
                 ),
               ),
-              addVerticalSpace(200),
-              Padding(padding: sidePadding,
-              child: FutureBuilder(
-              future: DatabaseService.getCalculationData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return AspectRatio(
-                    aspectRatio: 5,
-                    child: PieChart(
-                      PieChartData(
-                        pieTouchData: PieTouchData(
-                          touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                            setState((() {
-                              Map<String, dynamic> tryData = snapshot.data as Map<String, dynamic>;
-                              fly = tryData['FLYING']!;
-                              bus = tryData['IN_BUS']!;
-                              car = tryData['IN_PASSENGER_VEHICLE']!;
-                              subway = tryData['IN_SUBWAY']!;
-                              train = tryData['IN_TRAIN']!;
-                              tram = tryData['IN_TRAM']!;
-                            }));
-                          },
+              addVerticalSpace(padding),
+              Padding(
+                  padding: sidePadding,
+                  child: ButtonBar(
+                    // ignore: sort_child_properties_last
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorGreen,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0))),
+                        child: const Text(
+                          'Heute',
+                          style: headline5,
                         ),
-                        sectionsSpace: 2,
-                        centerSpaceRadius: 100,
-                        sections: showingSections(),
                       ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              })),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorGreen,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0))),
+                        child: const Text(
+                          'Monat',
+                          style: headline5,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorGreen,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0))),
+                        child: const Text(
+                          'Jahr',
+                          style: headline5,
+                        ),
+                      ),
+                      DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                        value: selectedItem,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        elevation: 16,
+                        style: headline5,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50.0)),
+                        onChanged: (item) =>
+                            setState(() => selectedItem = item),
+                        items: items
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: headline5,
+                                  ),
+                                ))
+                            .toList(),
+                      ))
+                    ],
+                    alignment: MainAxisAlignment.center,
+                  )),
+              addVerticalSpace(300),
+              Padding(
+                  padding: sidePadding,
+                  child: FutureBuilder(
+                      future: DatabaseService.getCalculationData(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return AspectRatio(
+                            aspectRatio: 5,
+                            child: PieChart(
+                              PieChartData(
+                                pieTouchData: PieTouchData(
+                                  touchCallback:
+                                      (FlTouchEvent event, pieTouchResponse) {
+                                    setState((() {
+                                      Map<String, dynamic> tryData =
+                                          snapshot.data as Map<String, dynamic>;
+                                      fly = tryData['FLYING']!;
+                                      bus = tryData['IN_BUS']!;
+                                      car = tryData['IN_PASSENGER_VEHICLE']!;
+                                      subway = tryData['IN_SUBWAY']!;
+                                      train = tryData['IN_TRAIN']!;
+                                      tram = tryData['IN_TRAM']!;
+                                    }));
+                                  },
+                                ),
+                                sectionsSpace: 2,
+                                centerSpaceRadius: 100,
+                                sections: showingSections(),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      })),
               addVerticalSpace(200),
               Padding(
                 padding: sidePadding,
@@ -129,7 +197,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-   List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections() {
     return List.generate(6, (i) {
       switch (i) {
         case 0:
