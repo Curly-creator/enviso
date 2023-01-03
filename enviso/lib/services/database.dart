@@ -52,13 +52,14 @@ class DatabaseService {
   static Future<Map<String, double>?> getCalculationData() async {
     Map<String, double>? mapData = {};
     final docRef = transportCollection.doc(".calculations");
-    await docRef.get().then((DocumentSnapshot doc){
+    await docRef.get().then((DocumentSnapshot doc) {
       if (doc.exists) {
-         Map<String, dynamic>? tryData = doc.data() as Map<String, dynamic>?;
+        Map<String, dynamic>? tryData = doc.data() as Map<String, dynamic>?;
         mapData =
-            tryData?.map((key, value) => MapEntry(key, value?.toDouble()));
+            tryData?.map((key, value) => MapEntry(key, double.parse((value).toStringAsFixed(2))));
         return mapData;
-      }}, onError: (e) => print("Error getting document: $e"));
+      }
+    }, onError: (e) => print("Error getting document: $e"));
     return mapData;
   }
 

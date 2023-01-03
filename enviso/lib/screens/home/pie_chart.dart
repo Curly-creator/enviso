@@ -48,21 +48,22 @@ class HomePageState extends State<PieChartSite> {
                     barGroups: barGroups,
                     gridData: FlGridData(show: false),
                     alignment: BarChartAlignment.spaceAround,
-                    maxY: 20,
+                    maxY: 1500,
                   ),
                 ));
           } else {
             return Container();
           }
         });
-  }
+}
+
 List<BarChartGroupData> get barGroups => [
       BarChartGroupData(
         x: 0,
         barRods: [
           BarChartRodData(
             toY: fly,
-            gradient: _barsGradient,
+            color: const Color(0xff34eb8c),
           )
         ],
         showingTooltipIndicators: [0],
@@ -72,7 +73,7 @@ List<BarChartGroupData> get barGroups => [
         barRods: [
           BarChartRodData(
             toY: bus,
-            gradient: _barsGradient,
+            color: const Color(0xff34eb8c),
           )
         ],
         showingTooltipIndicators: [0],
@@ -82,7 +83,7 @@ List<BarChartGroupData> get barGroups => [
         barRods: [
           BarChartRodData(
             toY: car,
-            gradient: _barsGradient,
+            color: const Color(0xff34eb8c),
           )
         ],
         showingTooltipIndicators: [0],
@@ -92,7 +93,7 @@ List<BarChartGroupData> get barGroups => [
         barRods: [
           BarChartRodData(
             toY: subway,
-            gradient: _barsGradient,
+            color: const Color(0xff34eb8c),
           )
         ],
         showingTooltipIndicators: [0],
@@ -102,7 +103,7 @@ List<BarChartGroupData> get barGroups => [
         barRods: [
           BarChartRodData(
             toY: train,
-            gradient: _barsGradient,
+            color: const Color(0xff34eb8c),
           )
         ],
         showingTooltipIndicators: [0],
@@ -112,7 +113,7 @@ List<BarChartGroupData> get barGroups => [
         barRods: [
           BarChartRodData(
             toY: tram,
-            gradient: _barsGradient,
+            color: const Color(0xff34eb8c),
           )
         ],
         barsSpace: 1,
@@ -182,12 +183,4 @@ FlBorderData get borderData => FlBorderData(
       show: false,
     );
 
-LinearGradient get _barsGradient => const LinearGradient(
-      colors: [
-        Color.fromARGB(255, 0, 172, 251),
-        Color.fromARGB(255, 3, 57, 31),
-      ],
-      begin: Alignment.bottomCenter,
-      end: Alignment.topCenter,
-    );
 
