@@ -20,6 +20,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool _obscureText = true;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -45,6 +47,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               style: startText,
               textAlign: TextAlign.left,
             ),
+            //Email eingeben
             TextField(
               controller: emailController,
               cursorColor: colorWhite,
@@ -65,20 +68,32 @@ class _LoginWidgetState extends State<LoginWidget> {
               style: startText,
               textAlign: TextAlign.left,
             ),
-            TextField(
+            //Passwort eingeben
+            TextFormField(
               controller: passwordController,
               cursorColor: colorWhite,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   labelText: 'Passwort eingeben',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     color: colorBlackLight,
                   ),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: colorBlackLight)),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorGreen))),
-              obscureText: true,
+                  focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: colorGreen)),
+                  suffixIcon: IconButton(
+                    color: colorBlackLight,
+                    icon: _obscureText
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )),
+              obscureText: _obscureText,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

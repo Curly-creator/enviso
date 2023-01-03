@@ -22,11 +22,14 @@ class _LoginWidgetState extends State<SignUpWidget> {
   final fromKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -55,6 +58,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 style: startText,
                 textAlign: TextAlign.left,
               ),
+              //EMail eingeben
               TextFormField(
                 controller: emailController,
                 cursorColor: colorWhite,
@@ -80,24 +84,40 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 style: startText,
                 textAlign: TextAlign.left,
               ),
+              //Passwort waehlen
               TextFormField(
                 controller: passwordController,
                 cursorColor: colorWhite,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     labelText: 'Passwort eingeben',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: colorBlackLight,
                     ),
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: colorBlackLight)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorGreen))),
+                    focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorGreen)),
+                    suffixIcon: IconButton(
+                      color: colorBlackLight,
+                      icon: _obscureText
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText != _obscureText;
+                        });
+                      },
+                    )),
                 obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (password) => password != null && password.length < 6
-                    ? 'Dein Passwort stimmt nicht überein.'
-                    : null,
+                validator: (password) {
+                  if (password!.isEmpty) return 'Bitte gib ein Passwort ein.';
+                  if (password.length < 6) {
+                    return 'Dein Passwort muss mindestens 6 Zeichen enthalten.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 4),
               const Text(
@@ -105,8 +125,9 @@ class _LoginWidgetState extends State<SignUpWidget> {
                 style: startText,
                 textAlign: TextAlign.left,
               ),
+              //Passwort bestätigen
               TextFormField(
-                controller: passwordController,
+                controller: confirmPasswordController,
                 cursorColor: colorWhite,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
@@ -119,10 +140,15 @@ class _LoginWidgetState extends State<SignUpWidget> {
                     focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: colorGreen))),
                 obscureText: true,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (password) => password != null && password.length < 6
-                    ? 'Dein Passwort muss mindestens 6 Zeichen enthalten'
-                    : null,
+                validator: (confirmPassword) {
+                  if (confirmPassword!.isEmpty) {
+                    return 'Bitte validiere dein Passwort.';
+                  }
+                  if (confirmPassword != passwordController.text) {
+                    return 'Die Passwörter stimmen nicht überein.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               ElevatedButton(

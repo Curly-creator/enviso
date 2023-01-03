@@ -1,6 +1,5 @@
 import 'package:enviso/services/database.dart';
 import 'package:enviso/utils/constants.dart';
-import 'package:enviso/widgets/icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
@@ -12,23 +11,28 @@ class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
   @override
-  Widget build(BuildContext context) => SimpleSettingsTile(
-      title: 'Profil bearbeiten',
-      leading: const IconWidget(
-        icon: Icons.person,
-        color: colorGreen,
-      ),
-      child: SettingsScreen(
-        children: <Widget>[
-          buildFuelType(),
-          buildEngineSize(),
-          buildUsername(),
-        ],
-      ));
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: colorBlack),
+          title: const Text('Profil bearbeiten'),
+          titleTextStyle: headline3,
+          backgroundColor: colorWhite,
+        ),
+        body: SafeArea(
+            child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: [
+            SettingsGroup(
+                title: '',
+                children: <Widget>[buildFuelType(), buildEngineSize()])
+          ],
+        )),
+      );
 
   Widget buildFuelType() => DropDownSettingsTile(
         settingKey: keyFuel,
-        title: 'Kraftstoff Art des Fahrzeugs',
+        title: 'Kraftstoff deines Fahrzeugs',
+        titleTextStyle: headline4,
         selected: 1,
         values: const <int, String>{
           1: 'Diesel',
@@ -43,6 +47,7 @@ class AccountPage extends StatelessWidget {
   Widget buildEngineSize() => DropDownSettingsTile(
         settingKey: keySize,
         title: 'Motorgröße',
+        titleTextStyle: headline4,
         selected: 1,
         values: const <int, String>{
           1: 'small',
@@ -51,12 +56,5 @@ class AccountPage extends StatelessWidget {
         },
         onChange: (engineSize) =>
             DatabaseService().updateEngineSize(engineSize),
-      );
-
-  Widget buildUsername() => TextInputSettingsTile(
-        settingKey: keyName,
-        title: 'Name',
-        initialValue: 'Username',
-        onChange: (name) => DatabaseService().updateUsername(name),
       );
 }
