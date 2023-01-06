@@ -9,10 +9,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../services/database.dart';
+import '../../screens/home/pie_chart.dart';
 
 List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
-import '../../screens/home/pie_chart.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   late double train = 10;
   late double tram = 10;
   final colorList = <Color>[colorGreen, colorGreen];
+  String choosenTime = ".calculations";
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                     // ignore: sort_child_properties_last
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          choosenTime = ".calculationToday";
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
@@ -95,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {choosenTime = ".calculationMonth";},
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
@@ -106,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {choosenTime = ".calculationYear";},
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
@@ -139,48 +142,11 @@ class _HomePageState extends State<HomePage> {
                     ],
                     alignment: MainAxisAlignment.center,
                   )),
-              addVerticalSpace(300),
+              addVerticalSpace(175),
               Padding(
                   padding: sidePadding,
                   child: FutureBuilder(
-                      future: DatabaseService.getCalculationData(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          return AspectRatio(
-                            aspectRatio: 5,
-                            child: PieChart(
-                              PieChartData(
-                                pieTouchData: PieTouchData(
-                                  touchCallback:
-                                      (FlTouchEvent event, pieTouchResponse) {
-                                    setState((() {
-                                      Map<String, dynamic> tryData =
-                                          snapshot.data as Map<String, dynamic>;
-                                      fly = tryData['FLYING']!;
-                                      bus = tryData['IN_BUS']!;
-                                      car = tryData['IN_PASSENGER_VEHICLE']!;
-                                      subway = tryData['IN_SUBWAY']!;
-                                      train = tryData['IN_TRAIN']!;
-                                      tram = tryData['IN_TRAM']!;
-                                    }));
-                                  },
-                                ),
-                                sectionsSpace: 2,
-                                centerSpaceRadius: 100,
-                                sections: showingSections(),
-                              ),
-                            ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      })),
-              addVerticalSpace(200),
-              addVerticalSpace(225),
-              Padding(
-                  padding: sidePadding,
-                  child: FutureBuilder(
-                      future: DatabaseService.getCalculationData(),
+                      future: DatabaseService.getCalculationData(choosenTime),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
                           return AspectRatio(
@@ -262,10 +228,9 @@ class _HomePageState extends State<HomePage> {
     return List.generate(6, (i) {
       const double frontSize = 15;
       const Color frontColor = Color(0xffffffff);
-      const double sizePico= 35;
+      const double sizePico = 35;
       const double offSet = 0.85;
       const Color borderColor = Color(0xff34eb8c);
-      
 
       switch (i) {
         case 0:

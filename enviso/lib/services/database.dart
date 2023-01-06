@@ -49,9 +49,9 @@ class DatabaseService {
     return await userCollection.doc(user.uid).update({'user_name': username});
   }
 
-  static Future<Map<String, double>?> getCalculationData() async {
+  static Future<Map<String, double>?> getCalculationData(String chosenTime) async {
     Map<String, double>? mapData = {};
-    final docRef = transportCollection.doc(".calculations");
+    final docRef = transportCollection.doc(chosenTime);
     await docRef.get().then((DocumentSnapshot doc) {
       if (doc.exists) {
         Map<String, dynamic>? tryData = doc.data() as Map<String, dynamic>?;
@@ -78,7 +78,7 @@ class DatabaseService {
       default:
         return 'medium';
     }
-  }
+  } 
 
   String convFuelType(index) {
     switch (index) {
