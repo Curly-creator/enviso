@@ -1,7 +1,8 @@
 {
   "projects": {
     "default": "enviso",
-    "staging": "enviso"
+    "staging": "enviso",
+    "enviso": "enviso"
   },
   "targets": {},
   "etags": {}
