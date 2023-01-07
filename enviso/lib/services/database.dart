@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enviso/services/transportdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,15 +12,26 @@ class DatabaseService {
           .doc(user.uid)
           .collection('transport');
 
-  final CollectionReference userCollection =
+  static CollectionReference get calculationtCollection =>
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('calculation');
+
+  static final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
   Future createUser() async {
     return await userCollection.doc(user.uid).set({
       'user_name': 'username',
       'engine_size': 'medium',
-      'fuel_type': 'Petrol'
+      'fuel_type': 'petrol',
+      'access_token': '',
     });
+  }
+
+  static Future updateTokenPlaid(String token) async {
+    return await userCollection.doc(user.uid).update({'access_token': token});
   }
 
   Future updateTransportData(TransportData transportData) async {
@@ -49,14 +59,15 @@ class DatabaseService {
     return await userCollection.doc(user.uid).update({'user_name': username});
   }
 
-  static Future<Map<String, double>?> getCalculationData(String chosenTime) async {
+  static Future<Map<String, double>?> getCalculationData(
+      String chosenYear, String chosenMonth,String chosenCategory) async {
     Map<String, double>? mapData = {};
-    final docRef = transportCollection.doc(chosenTime);
+    final docRef = calculationtCollection.doc(chosenYear).collection(chosenCategory).doc(chosenMonth);
     await docRef.get().then((DocumentSnapshot doc) {
       if (doc.exists) {
         Map<String, dynamic>? tryData = doc.data() as Map<String, dynamic>?;
-        mapData =
-            tryData?.map((key, value) => MapEntry(key, double.parse((value).toStringAsFixed(2))));
+        mapData = tryData?.map((key, value) =>
+            MapEntry(key, double.parse((value).toStringAsFixed(2))));
         return mapData;
       }
     }, onError: (e) => print("Error getting document: $e"));
@@ -78,7 +89,7 @@ class DatabaseService {
       default:
         return 'medium';
     }
-  } 
+  }
 
   String convFuelType(index) {
     switch (index) {

@@ -20,11 +20,11 @@ class HomePageState extends State<PieChartSite> {
   late double tram = 10;
 
   String choosenTime = ".calculations";
-
+ 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: DatabaseService.getCalculationData(choosenTime),
+        future: DatabaseService.getCalculationData("","",""),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return AspectRatio(

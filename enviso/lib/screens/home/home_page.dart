@@ -10,6 +10,7 @@ import 'dart:core';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../services/database.dart';
 import '../../screens/home/pie_chart.dart';
+import '../plaid.dart';
 
 List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
@@ -29,7 +30,10 @@ class _HomePageState extends State<HomePage> {
   late double train = 10;
   late double tram = 10;
   final colorList = <Color>[colorGreen, colorGreen];
-  String choosenTime = ".calculations";
+
+  String chosenYear = "2021";
+  String chosenMonth = "TOTAL";
+  String chosenCategory = "transport";
 
   @override
   Widget build(BuildContext context) {
@@ -85,20 +89,26 @@ class _HomePageState extends State<HomePage> {
                     // ignore: sort_child_properties_last
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed: () {
-                          choosenTime = ".calculationToday";
-                        },
+                        onPressed: () => setState(() {
+                          chosenYear = "TOTAL";
+                        }),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0))),
                         child: const Text(
-                          'Heute',
+                          'Alle',
                           style: headline5,
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {choosenTime = ".calculationMonth";},
+                        onPressed: () => setState(() {
+                          DateTime now = DateTime.now();
+                          var month = now.month;
+                          month = month - 1;
+                          chosenMonth = month.toString();
+                          chosenYear = "2021";
+                        }),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
@@ -109,7 +119,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {choosenTime = ".calculationYear";},
+                        onPressed: () => setState(() {
+                          chosenMonth = "TOTAL";
+                          chosenYear = "2021";
+                        }),                          
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
@@ -146,7 +159,8 @@ class _HomePageState extends State<HomePage> {
               Padding(
                   padding: sidePadding,
                   child: FutureBuilder(
-                      future: DatabaseService.getCalculationData(choosenTime),
+                      future: DatabaseService.getCalculationData(
+                          chosenYear, chosenMonth, chosenCategory),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
                           return AspectRatio(
@@ -178,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                           return Container();
                         }
                       })),
-              addVerticalSpace(225),
+              addVerticalSpace(200),
               Padding(
                 padding: sidePadding,
                 child: ElevatedButton.icon(
@@ -196,6 +210,27 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               addVerticalSpace(padding),
+              // Padding(
+              //   padding: sidePadding,
+              //   child: ElevatedButton.icon(
+              //     style: ElevatedButton.styleFrom(
+              //         minimumSize: const Size.fromHeight(50),
+              //         backgroundColor: colorGreen,
+              //         shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(50.0))),
+              //     icon: const Icon(Icons.data_array, size: 32),
+              //     label: const Text(
+              //       'Open BarChar',
+              //       style: buttonText,
+              //     ),
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const PieChartSite()));
+              //     },
+              //   ),
+              // ),
               Padding(
                 padding: sidePadding,
                 child: ElevatedButton.icon(
@@ -206,14 +241,14 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(50.0))),
                   icon: const Icon(Icons.data_array, size: 32),
                   label: const Text(
-                    'Open BarChar',
+                    'Plaid Link',
                     style: buttonText,
                   ),
                   onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PieChartSite()));
+                            builder: (context) => const PlaidScreen()));
                   },
                 ),
               )
