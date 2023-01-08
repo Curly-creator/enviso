@@ -7,9 +7,9 @@ const colorWhite = Colors.white;
 const colorRed = Colors.red;
 
 const headline1 =
-    TextStyle(fontWeight: FontWeight.w400, fontFamily: 'Inter', fontSize: 26);
+    TextStyle(fontWeight: FontWeight.w700, fontFamily: 'Inter', fontSize: 26);
 const headline2 =
-    TextStyle(fontWeight: FontWeight.w400, fontFamily: 'Inter', fontSize: 22);
+    TextStyle(fontWeight: FontWeight.w700, fontFamily: 'Inter', fontSize: 22);
 const headline3 =
     TextStyle(fontWeight: FontWeight.w400, fontFamily: 'Inter', fontSize: 20);
 const headline4 =

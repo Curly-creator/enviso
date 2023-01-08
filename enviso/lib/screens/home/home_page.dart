@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:enviso/utils/constants.dart';
@@ -13,7 +11,7 @@ List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();

@@ -1,4 +1,6 @@
 import 'package:enviso/screens/settings/account_page.dart';
+import 'package:enviso/screens/settings/privacy_page.dart';
+import 'package:enviso/screens/settings/terms_of_use_page.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +46,8 @@ class SettingsPage extends StatelessWidget {
                 title: 'Zustimmungen & Datenschutz',
                 titleTextStyle: headline4,
                 children: <Widget>[
-                  buildTermsOfUse(),
-                  buildPrivacyPolicy(),
+                  buildTermsOfUse(context),
+                  buildPrivacyPolicy(context),
                   buildDeleteAccount(),
                 ])
           ],
@@ -53,6 +55,8 @@ class SettingsPage extends StatelessWidget {
       );
 
   Widget buildProfile() => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const Expanded(
             child: CircleAvatar(
@@ -68,9 +72,9 @@ class SettingsPage extends StatelessWidget {
             child: Column(
               children: [
                 TextInputSettingsTile(
-                  title: '',
-                  titleTextStyle: headline2,
-                  initialValue: 'Name',
+                  title: 'Name',
+                  titleTextStyle: headline6,
+                  initialValue: 'Name eingeben',
                   settingKey: 'keyName',
                   onChange: (name) => DatabaseService().updateUsername(name),
                 ),
@@ -115,18 +119,24 @@ class SettingsPage extends StatelessWidget {
         onTap: () async {},
       );
 
-  Widget buildTermsOfUse() => SimpleSettingsTile(
+  Widget buildTermsOfUse(BuildContext context) => SimpleSettingsTile(
         title: 'Nutzungsbedinungen',
         titleTextStyle: headline4,
         leading: const Icon(Icons.verified_user),
-        onTap: () async {},
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const TermsOfUsePage()));
+        },
       );
 
-  Widget buildPrivacyPolicy() => SimpleSettingsTile(
-        title: 'Datenschutzbedingung',
+  Widget buildPrivacyPolicy(BuildContext context) => SimpleSettingsTile(
+        title: 'Datenschutzbedingungen',
         titleTextStyle: headline4,
         leading: const Icon(Icons.info_outline),
-        onTap: () async {},
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const PrivacyPage()));
+        },
       );
 
   Widget buildDarkMode() => SwitchSettingsTile(

@@ -83,7 +83,7 @@ class MainPage extends StatelessWidget {
                   child: Text('Something went wrong'),
                 );
               } else if (snapshot.hasData) {
-                return HomePage();
+                return const HomePage();
               } else {
                 return const AuthPage();
               }
