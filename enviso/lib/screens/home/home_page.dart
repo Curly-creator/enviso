@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   late double tram = 10;
   final colorList = <Color>[colorGreen, colorGreen];
 
-  String chosenYear = "2021";
+  String chosenYear = "2020";
   String chosenMonth = "TOTAL";
   String chosenCategory = "transport";
 
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                           var month = now.month;
                           month = month - 1;
                           chosenMonth = month.toString();
-                          chosenYear = "2021";
+                          chosenYear = "2020";
                         }),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                       ElevatedButton(
                         onPressed: () => setState(() {
                           chosenMonth = "TOTAL";
-                          chosenYear = "2021";
+                          chosenYear = "2020";
                         }),                          
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
