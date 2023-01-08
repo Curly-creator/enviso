@@ -13,10 +13,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: colorBlack),
           title: const Text('Profil bearbeiten'),
-          titleTextStyle: headline3,
-          backgroundColor: colorWhite,
         ),
         body: SafeArea(
             child: ListView(

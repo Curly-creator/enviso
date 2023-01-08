@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               addVerticalSpace(padding),
+              //ButtonBar
               Padding(
                   padding: sidePadding,
                   child: ButtonBar(
@@ -114,12 +115,13 @@ class _HomePageState extends State<HomePage> {
                           style: headline5,
                         ),
                       ),
+                      //DropdownButton
                       DropdownButtonHideUnderline(
                           child: DropdownButton(
                         value: selectedItem,
                         icon: const Icon(Icons.arrow_drop_down),
                         elevation: 16,
-                        style: headline5,
+                        //style: headline5,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(50.0)),
                         onChanged: (item) =>
@@ -138,6 +140,7 @@ class _HomePageState extends State<HomePage> {
                     alignment: MainAxisAlignment.center,
                   )),
               addVerticalSpace(300),
+              //PieChart
               Padding(
                   padding: sidePadding,
                   child: FutureBuilder(

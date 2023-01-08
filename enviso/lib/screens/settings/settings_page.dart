@@ -12,10 +12,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: colorBlack),
-          backgroundColor: colorWhite,
           title: const Text('Einstellungen'),
-          titleTextStyle: headline3,
         ),
         body: SafeArea(
             child: ListView(
@@ -94,7 +91,6 @@ class SettingsPage extends StatelessWidget {
   Widget buildDeleteAccount() => SimpleSettingsTile(
         title: 'Account löschen',
         titleTextStyle: redText,
-        subtitle: '',
         leading: const Icon(
           Icons.delete,
           color: colorRed,
@@ -107,7 +103,6 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildReportBug(BuildContext context) => SimpleSettingsTile(
         title: 'Fehler melden',
-        subtitle: '',
         titleTextStyle: headline4,
         leading: const Icon(Icons.bug_report),
         onTap: () async {},
@@ -115,7 +110,6 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildSendFeedback(BuildContext context) => SimpleSettingsTile(
         title: 'Feedback senden',
-        subtitle: '',
         titleTextStyle: headline4,
         leading: const Icon(Icons.feedback),
         onTap: () async {},
@@ -123,7 +117,6 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildTermsOfUse() => SimpleSettingsTile(
         title: 'Nutzungsbedinungen',
-        subtitle: '',
         titleTextStyle: headline4,
         leading: const Icon(Icons.verified_user),
         onTap: () async {},
@@ -131,7 +124,6 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildPrivacyPolicy() => SimpleSettingsTile(
         title: 'Datenschutzbedingung',
-        subtitle: '',
         titleTextStyle: headline4,
         leading: const Icon(Icons.info_outline),
         onTap: () async {},
@@ -139,8 +131,8 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildDarkMode() => SwitchSettingsTile(
         title: 'Dark Mode',
-        settingKey: keyDarkMode,
         titleTextStyle: headline4,
+        settingKey: keyDarkMode,
         leading: const Icon(Icons.dark_mode),
       );
 
