@@ -4,10 +4,12 @@ import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:enviso/utils/widget_functions.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
 import '../../services/database.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -73,54 +75,58 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               addVerticalSpace(200),
-              Padding(padding: sidePadding,
-              child: FutureBuilder(
-              future: DatabaseService.getCalculationData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return AspectRatio(
-                    aspectRatio: 5,
-                    child: PieChart(
-                      PieChartData(
-                        pieTouchData: PieTouchData(
-                          touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                            setState((() {
-                              Map<String, dynamic> tryData = snapshot.data as Map<String, dynamic>;
-                              fly = tryData['FLYING']!;
-                              bus = tryData['IN_BUS']!;
-                              car = tryData['IN_PASSENGER_VEHICLE']!;
-                              subway = tryData['IN_SUBWAY']!;
-                              train = tryData['IN_TRAIN']!;
-                              tram = tryData['IN_TRAM']!;
-                            }));
-                          },
-                        ),
-                        sectionsSpace: 2,
-                        centerSpaceRadius: 100,
-                        sections: showingSections(),
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              })),
+              Padding(
+                  padding: sidePadding,
+                  child: FutureBuilder(
+                      future: DatabaseService.getCalculationData(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return AspectRatio(
+                            aspectRatio: 5,
+                            child: PieChart(
+                              PieChartData(
+                                pieTouchData: PieTouchData(
+                                  touchCallback:
+                                      (FlTouchEvent event, pieTouchResponse) {
+                                    setState((() {
+                                      Map<String, dynamic> tryData =
+                                          snapshot.data as Map<String, dynamic>;
+                                      fly = tryData['FLYING']!;
+                                      bus = tryData['IN_BUS']!;
+                                      car = tryData['IN_PASSENGER_VEHICLE']!;
+                                      subway = tryData['IN_SUBWAY']!;
+                                      train = tryData['IN_TRAIN']!;
+                                      tram = tryData['IN_TRAM']!;
+                                    }));
+                                  },
+                                ),
+                                sectionsSpace: 2,
+                                centerSpaceRadius: 100,
+                                sections: showingSections(),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      })),
               addVerticalSpace(200),
               Padding(
                 padding: sidePadding,
                 child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: colorGreen,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0))),
-                  icon: const Icon(Icons.data_array, size: 32),
-                  label: const Text(
-                    'Daten abrufen',
-                    style: buttonText,
-                  ),
-                  onPressed: TransportApi.getTransportData,
-                ),
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(50),
+                        backgroundColor: colorGreen,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0))),
+                    icon: const Icon(Icons.data_array, size: 32),
+                    label: const Text(
+                      'Daten abrufen',
+                      style: buttonText,
+                    ),
+                    onPressed: () {
+                      return _showMyDialog(context);
+                    }),
               )
             ],
           ),
@@ -129,7 +135,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-   List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections() {
     return List.generate(6, (i) {
       switch (i) {
         case 0:
@@ -209,4 +215,65 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
+}
+
+var defaultText = TextStyle(color: Colors.white);
+var linkText = TextStyle(color: Colors.blue);
+
+/*final Uri url = Uri.parse('https://flutter.dev');
+
+Future<void> _launchUrl() async {
+  if (!await canLaunchUrl(url)) {
+    throw 'Could not launch $url';
+  }
+}*/
+
+void _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+            'Wie kann man seine Daten auf Google Maps herunterladen?'),
+        content: SingleChildScrollView(
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                    style: defaultText,
+                    text: "1. Erstmal, mit Google-Konto anmelden.\n\n2. Dann "),
+                TextSpan(
+                    style: linkText,
+                    text: "Google Takeout",
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        final Uri url =
+                            Uri.parse('https://takeout.google.com/');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url);
+                        } else {
+                          throw "Cannot load Url";
+                        }
+                      }),
+                TextSpan(
+                    style: defaultText,
+                    text:
+                        " öffnen.\n\n3. Location History auswählen.\n\n4. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Laden Sie die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
+              ],
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              TransportApi.getTransportData();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

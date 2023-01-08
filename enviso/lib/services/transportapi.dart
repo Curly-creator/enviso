@@ -5,52 +5,14 @@ import 'package:file_picker/file_picker.dart';
 import 'database.dart';
 
 class TransportApi {
-  /*static List<String> months = [
-    'JANUARY',
-    'FEBRUARY',
-    'MARCH',
-    'APRIL',
-    'JULY',
-    'JUNE',
-    'AUGUST',
-    'SEPTEMBER',
-    'OCTOBER',
-    'NOVEMBER',
-    'DECEMBER'
-  ];
-  static List<String> years = [
-    '2020',
-    '2021',
-    '2022',
-  ];*/
-
-  /*static _pickfile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-
-    if (result == null) return;
-
-    final file = result.files.first;
-
-    return file.path;
-  }*/
-
   static Future<List<TransportData>> getTransportData() async {
     var transportDataList = <TransportData>[];
     try {
-      //var jsonString = 'transport/$year/$year' '_$month.json';
-      //var jsonString = _pickfile();
-      //final String response = await rootBundle.loadString(jsonString);
-
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
       if (result != null) {
         final fileBytes = result.files.first.bytes;
-        //final fileName = result.files.first.name;
 
-        // Upload file
-        /*TaskSnapshot response = await FirebaseStorage.instance
-            .ref('uploads/$fileName')
-            .putData(fileBytes!);*/
         var data = await jsonDecode(utf8.decode(fileBytes as List<int>));
         var jsonTimeline = data['timelineObjects'];
 

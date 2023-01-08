@@ -49,6 +49,7 @@ dependencies:
   fl_chart: ^0.55.2
   plaid_flutter: ^3.0.0
   file_picker: ^5.2.4
+  url_launcher: ^6.1.7
 
 dev_dependencies:
   flutter_test:
