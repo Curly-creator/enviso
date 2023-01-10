@@ -23,16 +23,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late double fly = 10;
-  late double bus = 10;
-  late double car = 10;
-  late double subway = 10;
-  late double train = 10;
-  late double tram = 10;
   final colorList = <Color>[colorGreen, colorGreen];
 
-  String chosenYear = "2020";
-  String chosenMonth = "TOTAL";
+  int chosenTime = DateTime.now().millisecondsSinceEpoch;
   String chosenCategory = "transport";
 
   @override
@@ -90,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       ElevatedButton(
                         onPressed: () => setState(() {
-                          chosenYear = "TOTAL";
+                          chosenTime = DateTime.now().millisecondsSinceEpoch;
                         }),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
@@ -103,11 +96,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ElevatedButton(
                         onPressed: () => setState(() {
-                          DateTime now = DateTime.now();
-                          var month = now.month;
-                          month = month - 1;
-                          chosenMonth = month.toString();
-                          chosenYear = "2020";
+                          chosenTime = 604800000;;
                         }),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
@@ -120,9 +109,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ElevatedButton(
                         onPressed: () => setState(() {
-                          chosenMonth = "TOTAL";
-                          chosenYear = "2020";
-                        }),                          
+                          chosenTime = 1000 * 60 * 60 * 24 * 365;
+                          chosenCategory = "transport";
+                        }),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorGreen,
                             shape: RoundedRectangleBorder(
@@ -158,40 +147,8 @@ class _HomePageState extends State<HomePage> {
               addVerticalSpace(175),
               Padding(
                   padding: sidePadding,
-                  child: FutureBuilder(
-                      future: DatabaseService.getCalculationData(
-                          chosenYear, chosenMonth, chosenCategory),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          return AspectRatio(
-                            aspectRatio: 5,
-                            child: PieChart(
-                              PieChartData(
-                                pieTouchData: PieTouchData(
-                                  touchCallback:
-                                      (FlTouchEvent event, pieTouchResponse) {
-                                    setState((() {
-                                      Map<String, dynamic> tryData =
-                                          snapshot.data as Map<String, dynamic>;
-                                      fly = tryData['FLYING']!;
-                                      bus = tryData['IN_BUS']!;
-                                      car = tryData['IN_PASSENGER_VEHICLE']!;
-                                      subway = tryData['IN_SUBWAY']!;
-                                      train = tryData['IN_TRAIN']!;
-                                      tram = tryData['IN_TRAM']!;
-                                    }));
-                                  },
-                                ),
-                                sectionsSpace: 2,
-                                centerSpaceRadius: 100,
-                                sections: showingSections(),
-                              ),
-                            ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      })),
+                  child: DatabasePieChart(
+                      time: chosenTime, category: chosenCategory)),
               addVerticalSpace(200),
               Padding(
                 padding: sidePadding,
@@ -210,27 +167,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               addVerticalSpace(padding),
-              // Padding(
-              //   padding: sidePadding,
-              //   child: ElevatedButton.icon(
-              //     style: ElevatedButton.styleFrom(
-              //         minimumSize: const Size.fromHeight(50),
-              //         backgroundColor: colorGreen,
-              //         shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(50.0))),
-              //     icon: const Icon(Icons.data_array, size: 32),
-              //     label: const Text(
-              //       'Open BarChar',
-              //       style: buttonText,
-              //     ),
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const PieChartSite()));
-              //     },
-              //   ),
-              // ),
               Padding(
                 padding: sidePadding,
                 child: ElevatedButton.icon(
@@ -254,170 +190,6 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(6, (i) {
-      const double frontSize = 15;
-      const Color frontColor = Color(0xffffffff);
-      const double sizePico = 35;
-      const double offSet = 0.85;
-      const Color borderColor = Color(0xff34eb8c);
-
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: fly,
-            title: 'Flieger',
-            radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: frontSize,
-              fontWeight: FontWeight.bold,
-              color: frontColor,
-            ),
-            badgeWidget: const _Badge(
-              'images/fly.svg',
-              size: sizePico,
-              borderColor: borderColor,
-            ),
-            badgePositionPercentageOffset: offSet,
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: bus,
-            title: 'Bus',
-            radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: frontSize,
-              fontWeight: FontWeight.bold,
-              color: frontColor,
-            ),
-            badgeWidget: const _Badge(
-              'images/bus.svg',
-              size: sizePico,
-              borderColor: borderColor,
-            ),
-            badgePositionPercentageOffset: offSet,
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: car,
-            title: 'Auto',
-            radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: frontSize,
-              fontWeight: FontWeight.bold,
-              color: frontColor,
-            ),
-            badgeWidget: const _Badge(
-              'images/car.svg',
-              size: sizePico,
-              borderColor: borderColor,
-            ),
-            badgePositionPercentageOffset: offSet,
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: subway,
-            title: 'U-Bahn',
-            radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: frontSize,
-              fontWeight: FontWeight.bold,
-              color: frontColor,
-            ),
-            badgeWidget: const _Badge(
-              'images/subway.svg',
-              size: sizePico,
-              borderColor: borderColor,
-            ),
-            badgePositionPercentageOffset: offSet,
-          );
-        case 4:
-          return PieChartSectionData(
-            color: const Color(0xffee3b3b),
-            value: train,
-            title: 'Zug',
-            radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: frontSize,
-              fontWeight: FontWeight.bold,
-              color: frontColor,
-            ),
-            badgeWidget: const _Badge(
-              'images/train.svg',
-              size: sizePico,
-              borderColor: borderColor,
-            ),
-            badgePositionPercentageOffset: offSet,
-          );
-        case 5:
-          return PieChartSectionData(
-            color: const Color(0xffff82ab),
-            value: tram,
-            title: 'Tram',
-            radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: frontSize,
-              fontWeight: FontWeight.bold,
-              color: frontColor,
-            ),
-            badgeWidget: const _Badge(
-              'images/tram.svg',
-              size: sizePico,
-              borderColor: borderColor,
-            ),
-            badgePositionPercentageOffset: offSet,
-          );
-        default:
-          throw Error();
-      }
-    });
-  }
-}
-
-class _Badge extends StatelessWidget {
-  const _Badge(
-    this.svgAsset, {
-    required this.size,
-    required this.borderColor,
-  });
-  final String svgAsset;
-  final double size;
-  final Color borderColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: PieChart.defaultDuration,
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: borderColor,
-          width: 2,
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withOpacity(.5),
-            offset: const Offset(3, 3),
-            blurRadius: 3,
-          ),
-        ],
-      ),
-      padding: EdgeInsets.all(size * .15),
-      child: Center(
-        child: SvgPicture.asset(
-          svgAsset,
         ),
       ),
     );

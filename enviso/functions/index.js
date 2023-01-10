@@ -9,23 +9,6 @@ admin.initializeApp();
 const database = admin.firestore();
 const app = express();
 
-var vehicles= ["IN_PASSENGER_VEHICLE", "IN_BUS", "IN_SUBWAY", "IN_TRAM", "FLYING", "IN_TRAIN"];
-var plaidCata = ["Food and Drinks"]
-
-
-exports.onUserCreate = functions.firestore.document('users/{userid}').onCreate(async (snap, context) => {
-  const userid = context.params.userid;
-  return await database.collection('users').doc(userid).collection('calculation').doc('TOTAL').set({
-    IN_PASSENGER_VEHICLE: 0,
-    FLYING: 0,
-    IN_SUBWAY: 0,
-    IN_TRAIN: 0,
-    IN_TRAM: 0,
-    IN_BUS: 0,
-    TOTAL: 0,
-  }); 
-})
-
 exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(async (change, context) => {
   if(change.before.get('access_token') == change.after.get('access_token')) return null;
 
@@ -72,7 +55,6 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
   return null;
 })
 
-
 const fetchclimatiqPlaid_Food = async (amount) => {
   
   var amount = amount * 1.07; //aktueller €/USD Kurs
@@ -117,178 +99,6 @@ exports.onTransportCreate = functions.firestore.document('users/{userid}/transpo
   return database.collection('users').doc(userid).collection('transport').doc(transportid).update({ co2e: climatiqCo2e });
 })
 
-exports.onYearCreate = functions.firestore.document('users/{userid}/transport/{transportid}').onCreate(async (snap, context) => {
-  const userid = context.params.userid;
-  const year = snap.get('timestamp').toDate().getFullYear().toString();
-  const month = snap.get('timestamp').toDate().getMonth().toString();
-  database.collection('users').doc(userid).collection('calculation').doc(year).collection('transport').doc(month).get().then((snap) =>{
-    if(snap.exists) return null;
-    else{
-      return database.collection('users').doc(userid).collection('calculation').doc(year).collection('transport').doc(month).set({
-        IN_PASSENGER_VEHICLE: 0,
-        FLYING: 0,
-        IN_SUBWAY: 0,
-        IN_TRAIN: 0,
-        IN_TRAM: 0,
-        IN_BUS: 0,
-        TOTAL: 0,
-      }); 
-    }
-  });
-})
-
-exports.onYearCreateConsum = functions.firestore.document('user/{userid}/consum/{consumid}').onCreate(async (snap, context) => {
-  const userid = context.params.userid;
-  const year = snap.get('timestamp').toDate().getFullYear().toString();
-  const month = snap.get('timestamp').toDate().getMonth().toString();
-  database.collection('users').doc(userid).collection('calculation').doc(year).collection('consum').doc(month).get().then((snap) =>{
-    if(snap.exists) return null;
-    else{
-      return database.collection('users').doc(userid).collection('calculation').doc(year).collection('consum').doc(month).set({
-        FOOD_DRINKS: 0,
-        TOTAL: 0,
-      }); 
-    }
-  });
-})
-
-exports.oncategoryYearCreate = functions.firestore.document('users/{userid}/calculation/{year}/{category}/{month}').onCreate(async (snap, context) => {
-  const userid = context.params.userid;
-  const year = context.params.year;
-  const category = context.params.category;
-  database.collection('users').doc(userid).collection('calculation').doc(year).collection(category).doc('yearTotal').get().then(async (snap) =>{
-    if(snap.exists) return null;
-    else{
-      if(category == 'transport'){
-        return await database.collection('users').doc(userid).collection('calculation').doc(year).collection('transport').doc('yearTotal').set({
-          IN_PASSENGER_VEHICLE: 0,
-          FLYING: 0,
-          IN_SUBWAY: 0,
-          IN_TRAIN: 0,
-          IN_TRAM: 0,
-          IN_BUS: 0,
-          TOTAL: 0,
-        }); 
-      }
-      else{
-        return await database.collection('users').doc(userid).collection('calculation').doc(year).collection('consum').doc('yearTotal').set({
-          FOOD_DRINKS: 0,
-          TOTAL: 0,
-        }); 
-      }
-    }
-  })
-})
-
-exports.onYearToAllUpdate = functions.firestore.document('users/{userid}/calculation/{year}/{category}/{month}').onUpdate(async (change,context) => {
-  if(context.params.year == "TOTAL") return null;
-  const userid = context.params.userid;
-  const category = context.params.category;
-  
-  const calc = database.collection('users').doc(userid).collection('calculation').doc('TOTAL');
-  
-  var object = {};
-  var array = [];
-
-  if(category == 'transport'){
-    array = vehicles;
-  }
-  else{
-    array = plaidCata;
-  }
-
-  array.forEach(async element => {
-    if (change.before.get(element) != change.after.get(element))
-    {   
-        const value = change.after.get(element);
-        object[element] = admin.firestore.FieldValue.increment(value);      
-        return await calc.update(object);
-    };
-  });
-})
-
-exports.onMonthToYearUpdate = functions.firestore.document('users/{userid}/calculation/{year}/{category}/{month}').onUpdate(async (change,context) => {
-  if(context.params.month == "yearTotal") return null;
-  const userid = context.params.userid;
-  const year = context.params.year;
-  const category = context.params.category;
-
-  const calc = database.collection('users').doc(userid).collection('calculation').doc(year).collection(category).doc('yearTotal');
-
-  var object = {};
-  var array = [];
-
-  if(category == 'transport'){
-    array = vehicles;
-  }
-  else{
-    array = plaidCata;
-  }
-
-  array.forEach(async element => {
-    if (await change.before.get(element) != await change.after.get(element))
-    {   
-        const value = change.after.get(element);
-        object[element] = admin.firestore.FieldValue.increment(value);      
-        return await calc.update(object);
-    };
-  });
-})
-
-exports.onTransportUpdate = functions.firestore.document('users/{userid}/transport/{transportid}').onUpdate(async (change, context) => {
-  if (change.before.get('co2e') === change.after.get('co2e')) return null;
-  const userid = context.params.userid;
-  
-  const year = await change.after.get('timestamp').toDate().getFullYear().toString();
-  const month = await change.after.get('timestamp').toDate().getMonth().toString();
-
-  const newValue = await change.after.get('co2e');
-  const oldValue = await change.before.get('co2e');
-  const vehicle = await change.after.get('vehicle');
-  const addValue = newValue - oldValue;
-
-  const calc = database.collection('users').doc(userid).collection('calculation').doc(year).collection('transport').doc(month);
-  
-  switch (vehicle) {
-    case 'IN_PASSENGER_VEHICLE':
-      return await calc.update({ IN_PASSENGER_VEHICLE: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_TRAIN':
-      return await calc.update({ IN_TRAIN: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_BUS':
-      return await calc.update({ IN_BUS: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_SUBWAY':
-      return await calc.update({ IN_SUBWAY: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_TRAM':
-      return await calc.update({ FLYING: admin.firestore.FieldValue.increment(addValue) });
-    case 'FLYING':
-      return await calc.update({ IN_TRAM: admin.firestore.FieldValue.increment(addValue) });
-  }
-})
-
-exports.onMonthCalculationUpdate = functions.firestore.document('users/{userid}/calculation/{year}/{category}/{month}').onUpdate(async (change, context) => {
-  if (change.before.get('TOTAL') !== change.after.get('TOTAL')) return null;
-  const userid = context.params.userid;
-  const year = context.params.year;
-  const month = context.params.month;
-  const category = context.params.category;
-  const calc = database.collection('users').doc(userid).collection('calculation').doc(year).collection(category).doc(month);
-
-  const addValue = await calculationDiff(change);
-  return await calc.update({ TOTAL: admin.firestore.FieldValue.increment(addValue)});
-
-})
-
-exports.onAllCalculationUpdate = functions.firestore.document('users/{userid}/calculation/{year}').onUpdate(async (change, context) => {
-  //if (change.before.get('TOTAL') === change.after.get('TOTAL')) return null;
-  if (context.params.year == 'TOTAL') return null;
-  const userid = context.params.userid;
-
-  const calc = database.collection('users').doc(userid).collection('calculation').doc('TOTAL');
-  const addValue = await calculationDiff(change);
-  return await calc.update({ TOTAL: admin.firestore.FieldValue.increment(addValue)});
-})
-
-//umschreiben nötig
 exports.onTransportDelete = functions.firestore.document('users/{userid}/transport/{transportid}').onDelete(async (snap, context) => {
   const userid = context.params.userid;
   const calc = database.collection('users').doc(userid).collection('transport').doc('.calculations');
@@ -299,18 +109,6 @@ exports.onTransportDelete = functions.firestore.document('users/{userid}/transpo
   object[vehicle] = admin.firestore.FieldValue.increment(0 - delValue);  
   return await calc.update(object);
 })
-
-const calculationDiff = async (change) => {
-  let addValue = 0;
-  vehicles.forEach(async vehicle => {
-    let oldValue = await change.before.get(vehicle);
-    let newValue = await change.after.get(vehicle);
-    if (oldValue != newValue) {
-      addValue += newValue - oldValue;
-    }
-  })
-  return addValue;
-}
 
 const fetchclimatiqTransport = async (vehicle, engineSize, fuelType, distance) => {
 
