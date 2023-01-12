@@ -11,16 +11,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../services/database.dart';
 import '../../screens/home/pie_chart.dart';
 import '../plaid.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
+const defaultText = TextStyle(color: Colors.white);
+const linkText = TextStyle(color: Colors.blue);
+
 
 const List<Widget> buttonItems = <Widget>[
   Text('Gesamt'),
   Text('Monat'),
   Text('Jahr')
 ];
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -176,16 +179,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-var defaultText = TextStyle(color: Colors.white);
-var linkText = TextStyle(color: Colors.blue);
-
-/*final Uri url = Uri.parse('https://flutter.dev');
-
-Future<void> _launchUrl() async {
-  if (!await canLaunchUrl(url)) {
-    throw 'Could not launch $url';
-  }
-}*/
 
 void _showMyDialog(context) async {
   return showDialog<void>(
