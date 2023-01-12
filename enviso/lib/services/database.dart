@@ -1,8 +1,16 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enviso/services/transportdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
+
+class QueryResult {
+  String collectionName;
+  QuerySnapshot<Map<String, dynamic>> queryResult;
+
+  QueryResult(this.collectionName, this.queryResult);
+}
 
 class DatabaseService {
   static final user = FirebaseAuth.instance.currentUser!;
@@ -13,15 +21,20 @@ class DatabaseService {
           .doc(user.uid)
           .collection('transport');
 
-  final CollectionReference userCollection =
+  static final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
   Future createUser() async {
     return await userCollection.doc(user.uid).set({
       'user_name': 'username',
       'engine_size': 'medium',
-      'fuel_type': 'Petrol'
+      'fuel_type': 'petrol',
+      'access_token': '',
     });
+  }
+
+  static Future updateTokenPlaid(String token) async {
+    return await userCollection.doc(user.uid).update({'access_token': token});
   }
 
   Future updateTransportData(TransportData transportData) async {
@@ -49,18 +62,46 @@ class DatabaseService {
     return await userCollection.doc(user.uid).update({'user_name': username});
   }
 
-  static Future<Map<String, double>?> getCalculationData(String chosenTime) async {
-    Map<String, double>? mapData = {};
-    final docRef = transportCollection.doc(chosenTime);
-    await docRef.get().then((DocumentSnapshot doc) {
-      if (doc.exists) {
-        Map<String, dynamic>? tryData = doc.data() as Map<String, dynamic>?;
-        mapData =
-            tryData?.map((key, value) => MapEntry(key, double.parse((value).toStringAsFixed(2))));
-        return mapData;
+  static Future<Map<String, double>> getCalculationData(
+      int chosenTime, String chosenCategory) async {
+    Map<String, double> pieChartData = {};
+    Timestamp now = Timestamp.now();
+    var startTime = Timestamp.fromMillisecondsSinceEpoch(
+        now.millisecondsSinceEpoch - chosenTime);
+        
+    if (chosenCategory == 'All') {
+      var categories = ["transport", "consum"];
+      var queryResults = await Future.wait(categories.map((c) => userCollection
+          .doc(user.uid)
+          .collection(c)
+          .where("timestamp", isGreaterThanOrEqualTo: startTime)
+          .where("timestamp", isLessThanOrEqualTo: now)
+          .get()
+          .then((res) => QueryResult(c, res))));
+      for (var result in queryResults) {
+        for (var doc in result.queryResult.docs) {
+          var data = doc.data();
+          pieChartData.update(
+              result.collectionName, (value) => value + data["co2e"],
+              ifAbsent: () => data["co2e"]);
+        }
       }
-    }, onError: (e) => print("Error getting document: $e"));
-    return mapData;
+    } else {
+      final categoryRef = userCollection
+          .doc(user.uid)
+          .collection(chosenCategory)
+          .where("timestamp", isGreaterThanOrEqualTo: startTime)
+          .where("timestamp", isLessThanOrEqualTo: now);
+      //timestamp und await future
+      var queryResult = await categoryRef.get();
+      for (var doc in queryResult.docs) {
+        var data = doc.data();
+        pieChartData.update(data["vehicle"], (value) => value + data["co2e"],
+            ifAbsent: () => data["co2e"]);
+      }
+    }
+    print(pieChartData);
+    return pieChartData;
   }
 
   Future deleteuser() async {
@@ -78,7 +119,7 @@ class DatabaseService {
       default:
         return 'medium';
     }
-  } 
+  }
 
   String convFuelType(index) {
     switch (index) {

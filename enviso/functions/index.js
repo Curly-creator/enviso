@@ -1,28 +1,91 @@
 const express = require('express');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+//const moment = require('moment');
 
 admin.initializeApp();
 
 const database = admin.firestore();
 const app = express();
 
-exports.onUserCreate = functions.firestore.document('users/{userid}').onCreate(async (snap, context) => {
+exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(async (change, context) => {
+  if(change.before.get('access_token') == change.after.get('access_token')) return null;
+
   const userid = context.params.userid;
-  return await database.collection('users').doc(userid).collection('transport').doc('.calculations').set({
-    IN_PASSENGER_VEHICLE: 0,
-    FLYING: 0,
-    IN_SUBWAY: 0,
-    IN_TRAIN: 0,
-    IN_TRAM: 0,
-    IN_BUS: 0,
-    TOTAL: 0,
-  })
+  
+  const accessToken = await change.after.get('access_token');
+  
+  const startDate = '2020-01-01';
+  const endDate = '2023-01-01';
+  
+  const data = {
+    'access_token': accessToken,
+    'client_id':'635fb7749f143e0013c8b0b0',
+    'secret':'4677ec60b05fb453e0b629a6f0df50',
+    'start_date': startDate,
+    'end_date': endDate
+  }
+  const url = "https://sandbox.plaid.com/transactions/get";
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  
+
+  const plaid_data = await response.json();
+
+  plaid_data.transactions.forEach(async transaction => {
+    if (transaction.category[0] == "Food and Drink") {
+      var co2e = await fetchclimatiqPlaid_Food(transaction.amount);
+      console.log('AMOUNT: ', transaction.amount)
+      var timestamp = new Date(transaction.date).getTime()/ 1000;
+      var category = transaction.category[0]
+      console.log('TIMESTAMP: ', timestamp);
+      await database.collection('users').doc(userid).collection('consum').add({
+       category : category,
+       co2e : co2e,
+       timestamp : timestamp
+     })
+    }
+  });   
+  return null;
 })
 
+const fetchclimatiqPlaid_Food = async (amount) => {
+  
+  var amount = amount * 1.07; //aktueller €/USD Kurs
+  const response = await fetch('https://beta3.api.climatiq.io/estimate', {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + "6PSXPVTWR245D5J9S7HCM42J7ZVM",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "emission_factor": {
+        "activity_id": "consumer_goods-type_food_beverages_tobacco",
+        "source": "GHG Protocol",
+        "region": "GLOBAL",
+        "year": "2017",
+        "lca_activity": "unknown"
+      },
+      "parameters": {
+        "money": amount,
+        "money_unit": "usd"
+      }
+    })
+  }); 
+  if (!response.ok) { throw response };
+  const data = await response.json();
+  console.log('CLIMATIQSTUFF: ', response)
+  return data.co2e;
+}
+
 exports.onTransportCreate = functions.firestore.document('users/{userid}/transport/{transportid}').onCreate(async (snap, context) => {
-  if (context.params.transportid === '.calculations') return null;
+  if (context.params.transportid === null) return null;
   const distance = snap.get('distance');
   const vehicle = snap.get('vehicle');
   const userid = context.params.userid;
@@ -31,46 +94,9 @@ exports.onTransportCreate = functions.firestore.document('users/{userid}/transpo
   const engineSize = userSnapshot.get('engine_size');
   const fuelType = userSnapshot.get('fuel_type');
 
-  const climatiqCo2e = await fetchclimatiq(vehicle, engineSize, fuelType, distance);
+  const climatiqCo2e = await fetchclimatiqTransport(vehicle, engineSize, fuelType, distance);
 
   return database.collection('users').doc(userid).collection('transport').doc(transportid).update({ co2e: climatiqCo2e });
-})
-
-exports.onTransportUpdate = functions.firestore.document('users/{userid}/transport/{transportid}').onUpdate(async (change, context) => {
-  if (change.before.get('co2e') === change.after.get('co2e')) return null;
-  const userid = context.params.userid;
-
-  const newValue = await change.after.get('co2e');
-  const oldValue = await change.before.get('co2e');
-  const vehicle = await change.after.get('vehicle');
-  const addValue = newValue - oldValue;
-
-  const calc = database.collection('users').doc(userid).collection('transport').doc('.calculations');
-
-  switch (vehicle) {
-    case 'IN_PASSENGER_VEHICLE':
-      return await calc.update({ IN_PASSENGER_VEHICLE: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_TRAIN':
-      return await calc.update({ IN_TRAIN: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_BUS':
-      return await calc.update({ IN_BUS: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_SUBWAY':
-      return await calc.update({ IN_SUBWAY: admin.firestore.FieldValue.increment(addValue) });
-    case 'IN_TRAM':
-      return await calc.update({ FLYING: admin.firestore.FieldValue.increment(addValue) });
-    case 'FLYING':
-      return await calc.update({ IN_TRAM: admin.firestore.FieldValue.increment(addValue) });
-  }
-})
-
-exports.onCalculationUpdate = functions.firestore.document('users/{userid}/transport/.calculations').onUpdate(async (change, context) => {
-  if (change.before.get('TOTAL') !== change.after.get('TOTAL')) return null;
-  const userid = context.params.userid;
-  const calc = database.collection('users').doc(userid).collection('transport').doc('.calculations');
-  const doc = await calc.get();
-  const addValue = await calcValue(change, doc);
-
-  return await calc.update({ TOTAL: admin.firestore.FieldValue.increment(addValue) });
 })
 
 exports.onTransportDelete = functions.firestore.document('users/{userid}/transport/{transportid}').onDelete(async (snap, context) => {
@@ -79,36 +105,12 @@ exports.onTransportDelete = functions.firestore.document('users/{userid}/transpo
   const vehicle = await snap.get('vehicle');
   const delValue = await snap.get('co2e');
 
-  switch (vehicle) {
-    case 'IN_PASSENGER_VEHICLE':
-      return await calc.update({ IN_PASSENGER_VEHICLE: admin.firestore.FieldValue.increment(0 - delValue) });
-    case 'IN_TRAIN':
-      return await calc.update({ IN_TRAIN: admin.firestore.FieldValue.increment(0 - delValue) });
-    case 'IN_BUS':
-      return await calc.update({ IN_BUS: admin.firestore.FieldValue.increment(0 - delValue) });
-    case 'IN_SUBWAY':
-      return await calc.update({ IN_SUBWAY: admin.firestore.FieldValue.increment(0 - delValue) });
-    case 'IN_TRAM':
-      return await calc.update({ FLYING: admin.firestore.FieldValue.increment(0 - delValue) });
-    case 'FLYING':
-      return await calc.update({ IN_TRAM: admin.firestore.FieldValue.increment(0 - delValue) });
-  }
+  var object = {};
+  object[vehicle] = admin.firestore.FieldValue.increment(0 - delValue);  
+  return await calc.update(object);
 })
 
-const calcValue = async (change, doc) => {
-  vehicles = ['IN_PASSENGER_VEHICLE', 'FLYING', 'IN_BUS', 'IN_SUBWAY', 'IN_TRAIN', 'IN_TRAM'];
-  let addValue = 0;
-  for await (vehicle of vehicles) {
-    let oldValue = await change.before.get(vehicle);
-    let newValue = await change.after.get(vehicle);
-    if (oldValue != newValue) {
-      addValue += newValue - oldValue;
-    }
-  }
-  return addValue;
-}
-
-const fetchclimatiq = async (vehicle, engineSize, fuelType, distance) => {
+const fetchclimatiqTransport = async (vehicle, engineSize, fuelType, distance) => {
 
   const lca_activity = setLcaActivity(vehicle, fuelType);
   const activity_id = setActivityId(vehicle, engineSize, fuelType);
@@ -168,4 +170,3 @@ function setActivityId(vehicle, engineSize, fuelType) {
       return null
   }
 }
-
