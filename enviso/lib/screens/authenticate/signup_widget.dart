@@ -22,11 +22,14 @@ class _LoginWidgetState extends State<SignUpWidget> {
   final fromKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final bool _obscureText = true;
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -40,117 +43,171 @@ class _LoginWidgetState extends State<SignUpWidget> {
             children: [
               Image.asset('images/2zero.jpg', scale: 7.0),
               const SizedBox(height: 40),
-              const Text(
-                'Bitte melde dich an.',
-                style: headline1,
-                textAlign: TextAlign.left,
-              ),
-              const Text(
-                'Gib deine E-Mail Adresse an, um fortzufahren.',
-                style: headline6,
-                textAlign: TextAlign.left,
-              ),
-              const Text(
-                'E-Mail',
-                style: startText,
-                textAlign: TextAlign.left,
-              ),
-              TextFormField(
-                controller: emailController,
-                cursorColor: colorWhite,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                    labelText: 'E-Mail eingeben',
-                    labelStyle: TextStyle(
-                      color: colorBlackLight,
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorBlackLight)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorGreen))),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (email) =>
-                    email != null && !EmailValidator.validate(email)
-                        ? 'Bitte gib eine valide E-Mail ein'
-                        : null,
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'Passwort',
-                style: startText,
-                textAlign: TextAlign.left,
-              ),
-              TextFormField(
-                controller: passwordController,
-                cursorColor: colorWhite,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                    labelText: 'Passwort eingeben',
-                    labelStyle: TextStyle(
-                      color: colorBlackLight,
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorBlackLight)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorGreen))),
-                obscureText: true,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (password) => password != null && password.length < 6
-                    ? 'Dein Passwort stimmt nicht überein.'
-                    : null,
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'Passwort wiederholen',
-                style: startText,
-                textAlign: TextAlign.left,
-              ),
-              TextFormField(
-                controller: passwordController,
-                cursorColor: colorWhite,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                    labelText: 'Passwort eingeben',
-                    labelStyle: TextStyle(
-                      color: colorBlackLight,
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorBlackLight)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorGreen))),
-                obscureText: true,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (password) => password != null && password.length < 6
-                    ? 'Dein Passwort muss mindestens 6 Zeichen enthalten'
-                    : null,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: signUp,
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: colorGreen,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0))),
-                  child: const Text(
-                    'Anmelden',
-                    style: buttonText,
-                  )),
-              const SizedBox(height: 24),
-              RichText(
-                  text: TextSpan(
-                      style: headline5,
-                      text: 'Du hast schon ein Konto? ',
-                      children: [
-                    TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = widget.onClickedSignIn,
-                        text: 'Login',
-                        style: startText)
-                  ]))
+              buildEmail(),
+              const SizedBox(height: 40),
+              buildPassword(),
+              const SizedBox(height: 30),
+              buildConfirmPassword(),
+              const SizedBox(height: 30),
+              buildLoginButton(),
+              const SizedBox(height: 30),
+              buildSignInButton()
             ],
           ),
         ),
       );
+
+  Widget buildEmail() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const Text(
+        'Bitte melde dich an.',
+        style: headline1,
+        textAlign: TextAlign.left,
+      ),
+      const SizedBox(height: 5),
+      const Text(
+        'Gib deine E-Mail Adresse an, um fortzufahren.',
+        style: headline6,
+        textAlign: TextAlign.left,
+      ),
+      const SizedBox(height: 40),
+      const Text(
+        'E-Mail',
+        style: startText,
+        textAlign: TextAlign.left,
+      ),
+      TextFormField(
+        controller: emailController,
+        cursorColor: colorWhite,
+        textInputAction: TextInputAction.next,
+        decoration: const InputDecoration(
+            labelText: 'E-Mail eingeben',
+            labelStyle: TextStyle(
+              color: colorBlackLight,
+            ),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: colorBlackLight)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: colorGreen))),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (email) => email != null && !EmailValidator.validate(email)
+            ? 'Bitte gib eine valide E-Mail ein'
+            : null,
+      ),
+    ]);
+  }
+
+  Widget buildPassword() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Passwort',
+          style: startText,
+          textAlign: TextAlign.left,
+        ),
+        TextFormField(
+          controller: passwordController,
+          cursorColor: colorWhite,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+              labelText: 'Passwort eingeben',
+              labelStyle: const TextStyle(
+                color: colorBlackLight,
+              ),
+              enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorBlackLight)),
+              focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorGreen)),
+              suffixIcon: IconButton(
+                color: colorBlackLight,
+                icon: _obscureText
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _obscureText != _obscureText;
+                  });
+                },
+              )),
+          obscureText: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (password) {
+            if (password!.isEmpty) return 'Bitte gib ein Passwort ein.';
+            if (password.length < 6) {
+              return 'Dein Passwort muss mindestens 6 Zeichen enthalten.';
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildConfirmPassword() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Passwort wiederholen',
+          style: startText,
+          textAlign: TextAlign.left,
+        ),
+        TextFormField(
+          controller: confirmPasswordController,
+          cursorColor: colorWhite,
+          textInputAction: TextInputAction.next,
+          decoration: const InputDecoration(
+              labelText: 'Passwort eingeben',
+              labelStyle: TextStyle(
+                color: colorBlackLight,
+              ),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorBlackLight)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorGreen))),
+          obscureText: true,
+          validator: (confirmPassword) {
+            if (confirmPassword!.isEmpty) {
+              return 'Bitte validiere dein Passwort.';
+            }
+            if (confirmPassword != passwordController.text) {
+              return 'Die Passwörter stimmen nicht überein.';
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildLoginButton() {
+    return ElevatedButton(
+      onPressed: signUp,
+      style: ElevatedButton.styleFrom(
+          backgroundColor: colorGreen,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0))),
+      child: const Text(
+        'Anmelden',
+        style: buttonText,
+      ),
+    );
+  }
+
+  Widget buildSignInButton() {
+    return RichText(
+        text: TextSpan(
+            style: headline5,
+            text: 'Du hast schon ein Konto? ',
+            children: [
+          TextSpan(
+              recognizer: TapGestureRecognizer()
+                ..onTap = widget.onClickedSignIn,
+              text: 'Login',
+              style: startText)
+        ]));
+  }
 
   Future signUp() async {
     final isValid = fromKey.currentState!.validate();

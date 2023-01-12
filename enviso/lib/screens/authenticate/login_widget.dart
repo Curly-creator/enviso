@@ -3,6 +3,7 @@ import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:functions/model/error.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({
@@ -20,6 +21,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool _obscureText = true;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -29,84 +32,120 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(25),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset('images/2zero.jpg', scale: 7.0),
+            Image.asset(
+              'images/2zero.jpg',
+              scale: 7.0,
+            ),
             const SizedBox(height: 40),
-            const Text(
-              'Login',
-              style: headline1,
-              textAlign: TextAlign.left,
-            ),
-            const Text(
-              'E-Mail',
-              style: startText,
-              textAlign: TextAlign.left,
-            ),
-            TextField(
-              controller: emailController,
-              cursorColor: colorWhite,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                  labelText: 'E-Mail eingeben',
-                  labelStyle: TextStyle(
-                    color: colorBlackLight,
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorBlackLight)),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorGreen))),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Passwort',
-              style: startText,
-              textAlign: TextAlign.left,
-            ),
-            TextField(
-              controller: passwordController,
-              cursorColor: colorWhite,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                  labelText: 'Passwort eingeben',
-                  labelStyle: TextStyle(
-                    color: colorBlackLight,
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorBlackLight)),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorGreen))),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: signIn,
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: colorGreen,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0))),
-                child: const Text(
-                  'Anmelden',
-                  style: buttonText,
-                  textAlign: TextAlign.center,
-                )),
-            const SizedBox(height: 24),
-            RichText(
-                text: TextSpan(
-                    style: headline5,
-                    text: 'Du hast kein Konto? ',
-                    children: [
-                  TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = widget.onClickedSignUp,
-                      text: 'Registrieren',
-                      style: startText)
-                ]))
+            buildEmail(),
+            const SizedBox(height: 40),
+            buildPassword(),
+            const SizedBox(height: 30),
+            buildLoginButton(),
+            const SizedBox(height: 30),
+            buildSignUpButton(),
           ],
         ),
       );
+
+  Widget buildEmail() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Login',
+          style: headline1,
+          textAlign: TextAlign.left,
+        ),
+        const SizedBox(height: 30),
+        const Text('E-Mail', style: startText),
+        const SizedBox(height: 3),
+        TextField(
+          controller: emailController,
+          cursorColor: colorWhite,
+          textInputAction: TextInputAction.next,
+          decoration: const InputDecoration(
+              labelText: 'E-Mail eingeben',
+              labelStyle: TextStyle(
+                color: colorBlackLight,
+              ),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorBlackLight)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorGreen))),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPassword() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Passwort',
+          style: startText,
+          textAlign: TextAlign.left,
+        ),
+        const SizedBox(height: 3),
+        TextFormField(
+          controller: passwordController,
+          cursorColor: colorWhite,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+              labelText: 'Passwort eingeben',
+              labelStyle: const TextStyle(
+                color: colorBlackLight,
+              ),
+              enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorBlackLight)),
+              focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: colorGreen)),
+              suffixIcon: IconButton(
+                color: colorBlackLight,
+                icon: _obscureText
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+              )),
+          obscureText: _obscureText,
+        ),
+      ],
+    );
+  }
+
+  Widget buildLoginButton() {
+    return ElevatedButton(
+        onPressed: signIn,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: colorGreen,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0))),
+        child: const Text(
+          'Anmelden',
+          style: buttonText,
+          textAlign: TextAlign.center,
+        ));
+  }
+
+  Widget buildSignUpButton() {
+    return RichText(
+        text:
+            TextSpan(style: headline5, text: 'Du hast kein Konto? ', children: [
+      TextSpan(
+          recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
+          text: 'Registrieren',
+          style: startText)
+    ]));
+  }
 
   Future signIn() async {
     showDialog(

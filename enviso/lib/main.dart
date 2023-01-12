@@ -3,6 +3,7 @@ import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -36,18 +37,30 @@ class MyApp extends StatelessWidget {
         title: title,
         theme: isDarkMode
             ? ThemeData(
-                primaryColor: colorGreen,
+                primaryColor: colorBlack,
                 brightness: Brightness.dark,
                 scaffoldBackgroundColor: colorBlackLight,
                 canvasColor: Colors.grey[600],
+                indicatorColor: colorWhite,
                 fontFamily: 'Inter',
+                appBarTheme: const AppBarTheme(
+                    systemOverlayStyle: SystemUiOverlayStyle.dark,
+                    backgroundColor: colorBlackLight,
+                    iconTheme: IconThemeData(color: colorWhite),
+                    titleTextStyle: TextStyle(color: colorWhite, fontSize: 20)),
               )
             : ThemeData(
-                primaryColor: colorGreen,
+                primaryColor: colorWhite,
                 brightness: Brightness.light,
                 scaffoldBackgroundColor: colorWhite,
                 canvasColor: colorWhite,
                 fontFamily: 'Inter',
+                appBarTheme: const AppBarTheme(
+                  systemOverlayStyle: SystemUiOverlayStyle.light,
+                  backgroundColor: colorWhite,
+                  iconTheme: IconThemeData(color: colorBlack),
+                  titleTextStyle: TextStyle(color: colorBlack, fontSize: 20),
+                ),
               ),
         home: const MainPage(),
       ),
@@ -70,7 +83,7 @@ class MainPage extends StatelessWidget {
                   child: Text('Something went wrong'),
                 );
               } else if (snapshot.hasData) {
-                return HomePage();
+                return const HomePage();
               } else {
                 return const AuthPage();
               }

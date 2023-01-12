@@ -1,6 +1,7 @@
 import 'package:enviso/screens/settings/account_page.dart';
+import 'package:enviso/screens/settings/privacy_page.dart';
+import 'package:enviso/screens/settings/terms_of_use_page.dart';
 import 'package:enviso/utils/constants.dart';
-import 'package:enviso/widgets/icon_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
@@ -19,45 +20,84 @@ class SettingsPage extends StatelessWidget {
             child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            SettingsGroup(title: 'Mein Profil', children: <Widget>[
-              buildProfile(),
-              const AccountPage(),
-              buildDarkMode(),
-              buildLogout(),
-              buildDeleteAccount(),
-            ]),
+            SettingsGroup(
+                title: 'Mein Profil',
+                titleTextStyle: headline4,
+                children: <Widget>[
+                  buildProfile(),
+                  buildAccountPage(context),
+                  buildDarkMode(),
+                  buildLogout(),
+                ]),
             const SizedBox(
               height: 32,
             ),
-            SettingsGroup(title: 'Feedback', children: <Widget>[
-              buildReportBug(context),
-              buildSendFeedback(context),
-            ])
+            SettingsGroup(
+                title: 'Feedback',
+                titleTextStyle: headline4,
+                children: <Widget>[
+                  buildReportBug(context),
+                  buildSendFeedback(context),
+                ]),
+            const SizedBox(
+              height: 32,
+            ),
+            SettingsGroup(
+                title: 'Zustimmungen & Datenschutz',
+                titleTextStyle: headline4,
+                children: <Widget>[
+                  buildTermsOfUse(context),
+                  buildPrivacyPolicy(context),
+                  buildDeleteAccount(),
+                ])
           ],
         )),
       );
 
-  Widget buildProfile() => TextInputSettingsTile(
-      title: 'Name',
-      initialValue: 'Username',
-      settingKey: 'keyName',
-      onChange: (name) => DatabaseService().updateUsername(name));
+  Widget buildProfile() => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Expanded(
+            child: CircleAvatar(
+              radius: 25,
+              backgroundColor: colorGreen,
+              child: Icon(
+                Icons.person,
+                color: colorWhite,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                TextInputSettingsTile(
+                  title: 'Name',
+                  titleTextStyle: headline6,
+                  initialValue: 'Name eingeben',
+                  settingKey: 'keyName',
+                  onChange: (name) => DatabaseService().updateUsername(name),
+                ),
+                const Text('E-Mail: name@mail.de'),
+              ],
+            ),
+          )
+        ],
+      );
 
   Widget buildLogout() => SimpleSettingsTile(
         title: 'Abmelden',
-        leading: const IconWidget(
-          icon: Icons.logout,
-          color: colorGreen,
-        ),
+        titleTextStyle: headline4,
+        leading: const Icon(Icons.logout_outlined),
         onTap: () => FirebaseAuth.instance.signOut(),
       );
 
   Widget buildDeleteAccount() => SimpleSettingsTile(
         title: 'Account löschen',
-        subtitle: '',
-        leading: const IconWidget(
-          icon: Icons.delete,
-          color: colorGreen,
+        titleTextStyle: redText,
+        leading: const Icon(
+          Icons.delete,
+          color: colorRed,
         ),
         onTap: () {
           //await DatabaseService().deleteuser();
@@ -67,30 +107,52 @@ class SettingsPage extends StatelessWidget {
 
   Widget buildReportBug(BuildContext context) => SimpleSettingsTile(
         title: 'Fehler melden',
-        subtitle: '',
-        leading: const IconWidget(
-          icon: Icons.bug_report,
-          color: Colors.brown,
-        ),
+        titleTextStyle: headline4,
+        leading: const Icon(Icons.bug_report),
         onTap: () async {},
       );
 
   Widget buildSendFeedback(BuildContext context) => SimpleSettingsTile(
         title: 'Feedback senden',
-        subtitle: '',
-        leading: const IconWidget(
-          icon: Icons.feedback,
-          color: Colors.purple,
-        ),
+        titleTextStyle: headline4,
+        leading: const Icon(Icons.feedback),
         onTap: () async {},
+      );
+
+  Widget buildTermsOfUse(BuildContext context) => SimpleSettingsTile(
+        title: 'Nutzungsbedinungen',
+        titleTextStyle: headline4,
+        leading: const Icon(Icons.verified_user),
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const TermsOfUsePage()));
+        },
+      );
+
+  Widget buildPrivacyPolicy(BuildContext context) => SimpleSettingsTile(
+        title: 'Datenschutzbedingungen',
+        titleTextStyle: headline4,
+        leading: const Icon(Icons.info_outline),
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const PrivacyPage()));
+        },
       );
 
   Widget buildDarkMode() => SwitchSettingsTile(
         title: 'Dark Mode',
+        titleTextStyle: headline4,
         settingKey: keyDarkMode,
-        leading: const IconWidget(
-          icon: Icons.dark_mode,
-          color: Colors.black,
-        ),
+        leading: const Icon(Icons.dark_mode),
+      );
+
+  Widget buildAccountPage(BuildContext context) => SimpleSettingsTile(
+        title: 'Profil bearbeiten',
+        titleTextStyle: headline4,
+        leading: const Icon(Icons.create),
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const AccountPage()));
+        },
       );
 }

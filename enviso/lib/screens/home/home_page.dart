@@ -14,8 +14,14 @@ import '../plaid.dart';
 List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
 
+const List<Widget> buttonItems = <Widget>[
+  Text('Gesamt'),
+  Text('Monat'),
+  Text('Jahr')
+];
+
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -23,9 +29,98 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final colorList = <Color>[colorGreen, colorGreen];
+  final List<bool> _selectedItems = [true, false, false];
 
   int chosenTime = DateTime.now().millisecondsSinceEpoch;
   String chosenCategory = "transport";
+
+  Widget buildToggleButton() => SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            ToggleButtons(
+              onPressed: (index) {
+                setState(() {
+                  for (int i = 0; i < _selectedItems.length; i++) {
+                    _selectedItems[i] = i == index;
+                  }
+                });
+              },
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
+              selectedBorderColor: colorGreen,
+              selectedColor: colorBlack,
+              fillColor: colorGreen,
+              textStyle: headline5,
+              constraints: const BoxConstraints(
+                minHeight: 30.0,
+                minWidth: 60.0,
+              ),
+              isSelected: _selectedItems,
+              children: buttonItems,
+            ),
+          ],
+        ),
+      );
+
+  Widget buildDropDown() => DropdownButtonHideUnderline(
+          child: DropdownButton(
+        value: selectedItem,
+        icon: const Icon(Icons.arrow_drop_down),
+        elevation: 16,
+        borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+        onChanged: (item) => setState(() => selectedItem = item),
+        items: items
+            .map((item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: headline5,
+                  ),
+                ))
+            .toList(),
+      ));
+
+  Widget buildstartLine() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset('images/2zero.jpg', scale: 15.0),
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: colorGreen,
+            child: IconButton(
+              icon: const Icon(
+                Icons.person,
+                color: colorWhite,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsPage()));
+              },
+            ),
+          ),
+        ],
+      );
+
+  Widget buildheadline() => const Text(
+        'Mein Fußabdruck',
+        style: headline1,
+      );
+
+  Widget buildGetData() {
+    return ElevatedButton(
+        onPressed: TransportApi.getTransportData,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: colorGreen,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0))),
+        child: const Text(
+          'Daten abrufen',
+          style: buttonText,
+          textAlign: TextAlign.center,
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,163 +129,47 @@ class _HomePageState extends State<HomePage> {
     const sidePadding = EdgeInsets.symmetric(horizontal: padding);
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              addVerticalSpace(padding),
-              Padding(
+          body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            addVerticalSpace(padding),
+            //Menü Linie
+            Padding(padding: sidePadding, child: buildstartLine()),
+            addVerticalSpace(padding),
+            //Home Page Ueberschrift
+            Padding(
+              padding: sidePadding,
+              child: buildheadline(),
+            ),
+            addVerticalSpace(padding),
+            //ToggleButtonnBar
+            Padding(
+              padding: sidePadding,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  buildToggleButton(),
+                  addHorizontalSpace(20),
+                  buildDropDown(),
+                ],
+              ),
+            ),
+            addVerticalSpace(20),
+            Padding(
                 padding: sidePadding,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset('images/2zero.jpg', scale: 15.0),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorGreen,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.person,
-                          color: colorWhite,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SettingsPage()));
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              addVerticalSpace(padding),
-              const Padding(
-                padding: sidePadding,
-                child: Text(
-                  'Mein Fußabdruck',
-                  style: headline1,
-                ),
-              ),
-              addVerticalSpace(padding),
-              Padding(
-                  padding: sidePadding,
-                  child: ButtonBar(
-                    // ignore: sort_child_properties_last
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () => setState(() {
-                          chosenTime = DateTime.now().millisecondsSinceEpoch;
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorGreen,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0))),
-                        child: const Text(
-                          'Alle',
-                          style: headline5,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => setState(() {
-                          chosenTime = 604800000;;
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorGreen,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0))),
-                        child: const Text(
-                          'Monat',
-                          style: headline5,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => setState(() {
-                          chosenTime = 1000 * 60 * 60 * 24 * 365;
-                          chosenCategory = "transport";
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorGreen,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0))),
-                        child: const Text(
-                          'Jahr',
-                          style: headline5,
-                        ),
-                      ),
-                      DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                        value: selectedItem,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        elevation: 16,
-                        style: headline5,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50.0)),
-                        onChanged: (item) =>
-                            setState(() => selectedItem = item),
-                        items: items
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: headline5,
-                                  ),
-                                ))
-                            .toList(),
-                      ))
-                    ],
-                    alignment: MainAxisAlignment.center,
-                  )),
-              addVerticalSpace(175),
-              Padding(
-                  padding: sidePadding,
-                  child: DatabasePieChart(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [buildGetData()])),
+            addVerticalSpace(300),
+            //PieChart
+            Padding(padding: sidePadding, child: DatabasePieChart(
                       time: chosenTime, category: chosenCategory)),
-              addVerticalSpace(200),
-              Padding(
-                padding: sidePadding,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: colorGreen,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0))),
-                  icon: const Icon(Icons.data_array, size: 32),
-                  label: const Text(
-                    'Daten abrufen',
-                    style: buttonText,
-                  ),
-                  onPressed: TransportApi.getTransportData,
-                ),
-              ),
-              addVerticalSpace(padding),
-              Padding(
-                padding: sidePadding,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: colorGreen,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0))),
-                  icon: const Icon(Icons.data_array, size: 32),
-                  label: const Text(
-                    'Plaid Link',
-                    style: buttonText,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PlaidScreen()));
-                  },
-                ),
-              )
-            ],
-          ),
+            addVerticalSpace(400),
+          ],
         ),
-      ),
+      )),
     );
   }
 }
