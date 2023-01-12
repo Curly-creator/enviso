@@ -10,6 +10,12 @@ import '../../services/database.dart';
 List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
 
+const List<Widget> buttonItems = <Widget>[
+  Text('Gesamt'),
+  Text('Monat'),
+  Text('Jahr')
+];
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -25,6 +31,130 @@ class _HomePageState extends State<HomePage> {
   late double train = 10;
   late double tram = 10;
   final colorList = <Color>[colorGreen, colorGreen];
+  final List<bool> _selectedItems = [true, false, false];
+
+  Widget buildToggleButton() => SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            ToggleButtons(
+              onPressed: (index) {
+                setState(() {
+                  for (int i = 0; i < _selectedItems.length; i++) {
+                    _selectedItems[i] = i == index;
+                  }
+                });
+              },
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
+              selectedBorderColor: colorGreen,
+              selectedColor: colorBlack,
+              fillColor: colorGreen,
+              textStyle: headline5,
+              constraints: const BoxConstraints(
+                minHeight: 30.0,
+                minWidth: 60.0,
+              ),
+              isSelected: _selectedItems,
+              children: buttonItems,
+            ),
+          ],
+        ),
+      );
+
+  Widget buildDropDown() => DropdownButtonHideUnderline(
+          child: DropdownButton(
+        value: selectedItem,
+        icon: const Icon(Icons.arrow_drop_down),
+        elevation: 16,
+        borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+        onChanged: (item) => setState(() => selectedItem = item),
+        items: items
+            .map((item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: headline5,
+                  ),
+                ))
+            .toList(),
+      ));
+
+  Widget buildstartLine() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset('images/2zero.jpg', scale: 15.0),
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: colorGreen,
+            child: IconButton(
+              icon: const Icon(
+                Icons.person,
+                color: colorWhite,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsPage()));
+              },
+            ),
+          ),
+        ],
+      );
+
+  Widget buildheadline() => const Text(
+        'Mein Fußabdruck',
+        style: headline1,
+      );
+
+  Widget buildGetData() {
+    return ElevatedButton(
+        onPressed: TransportApi.getTransportData,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: colorGreen,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0))),
+        child: const Text(
+          'Daten abrufen',
+          style: buttonText,
+          textAlign: TextAlign.center,
+        ));
+  }
+
+  Widget buildFutureBuilder() {
+    return FutureBuilder(
+        future: DatabaseService.getCalculationData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return AspectRatio(
+              aspectRatio: 5,
+              child: PieChart(
+                PieChartData(
+                  pieTouchData: PieTouchData(
+                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                      setState((() {
+                        Map<String, dynamic> tryData =
+                            snapshot.data as Map<String, dynamic>;
+                        fly = tryData['FLYING']!;
+                        bus = tryData['IN_BUS']!;
+                        car = tryData['IN_PASSENGER_VEHICLE']!;
+                        subway = tryData['IN_SUBWAY']!;
+                        train = tryData['IN_TRAIN']!;
+                        tram = tryData['IN_TRAM']!;
+                      }));
+                    },
+                  ),
+                  sectionsSpace: 2,
+                  centerSpaceRadius: 100,
+                  sections: showingSections(),
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,168 +163,46 @@ class _HomePageState extends State<HomePage> {
     const sidePadding = EdgeInsets.symmetric(horizontal: padding);
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              addVerticalSpace(padding),
-              Padding(
+          body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            addVerticalSpace(padding),
+            //Menü Linie
+            Padding(padding: sidePadding, child: buildstartLine()),
+            addVerticalSpace(padding),
+            //Home Page Ueberschrift
+            Padding(
+              padding: sidePadding,
+              child: buildheadline(),
+            ),
+            addVerticalSpace(padding),
+            //ToggleButtonnBar
+            Padding(
+              padding: sidePadding,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  buildToggleButton(),
+                  addHorizontalSpace(20),
+                  buildDropDown(),
+                ],
+              ),
+            ),
+            addVerticalSpace(20),
+            Padding(
                 padding: sidePadding,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset('images/2zero.jpg', scale: 15.0),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: colorGreen,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.person,
-                          color: colorWhite,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SettingsPage()));
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              addVerticalSpace(padding),
-              const Padding(
-                padding: sidePadding,
-                child: Text(
-                  'Mein Fußabdruck',
-                  style: headline1,
-                ),
-              ),
-              addVerticalSpace(padding),
-              //ButtonBar
-              Padding(
-                  padding: sidePadding,
-                  child: ButtonBar(
-                    // ignore: sort_child_properties_last
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorGreen,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0))),
-                        child: const Text(
-                          'Heute',
-                          style: headline5,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorGreen,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0))),
-                        child: const Text(
-                          'Monat',
-                          style: headline5,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorGreen,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0))),
-                        child: const Text(
-                          'Jahr',
-                          style: headline5,
-                        ),
-                      ),
-                      //DropdownButton
-                      DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                        value: selectedItem,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        elevation: 16,
-                        //style: headline5,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50.0)),
-                        onChanged: (item) =>
-                            setState(() => selectedItem = item),
-                        items: items
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: headline5,
-                                  ),
-                                ))
-                            .toList(),
-                      ))
-                    ],
-                    alignment: MainAxisAlignment.center,
-                  )),
-              addVerticalSpace(300),
-              //PieChart
-              Padding(
-                  padding: sidePadding,
-                  child: FutureBuilder(
-                      future: DatabaseService.getCalculationData(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          return AspectRatio(
-                            aspectRatio: 5,
-                            child: PieChart(
-                              PieChartData(
-                                pieTouchData: PieTouchData(
-                                  touchCallback:
-                                      (FlTouchEvent event, pieTouchResponse) {
-                                    setState((() {
-                                      Map<String, dynamic> tryData =
-                                          snapshot.data as Map<String, dynamic>;
-                                      fly = tryData['FLYING']!;
-                                      bus = tryData['IN_BUS']!;
-                                      car = tryData['IN_PASSENGER_VEHICLE']!;
-                                      subway = tryData['IN_SUBWAY']!;
-                                      train = tryData['IN_TRAIN']!;
-                                      tram = tryData['IN_TRAM']!;
-                                    }));
-                                  },
-                                ),
-                                sectionsSpace: 2,
-                                centerSpaceRadius: 100,
-                                sections: showingSections(),
-                              ),
-                            ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      })),
-              addVerticalSpace(200),
-              Padding(
-                padding: sidePadding,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: colorGreen,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0))),
-                  icon: const Icon(Icons.data_array, size: 32),
-                  label: const Text(
-                    'Daten abrufen',
-                    style: buttonText,
-                  ),
-                  onPressed: TransportApi.getTransportData,
-                ),
-              )
-            ],
-          ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [buildGetData()])),
+            addVerticalSpace(300),
+            //PieChart
+            Padding(padding: sidePadding, child: buildFutureBuilder()),
+            addVerticalSpace(400),
+          ],
         ),
-      ),
+      )),
     );
   }
 
@@ -203,75 +211,51 @@ class _HomePageState extends State<HomePage> {
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
+            color: colorGreen,
             value: fly,
             title: 'Flieger',
             radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
-            ),
+            titleStyle: headline4,
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
+            color: colorGreen8,
             value: bus,
             title: 'Bus',
             radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
-            ),
+            titleStyle: headline4,
           );
         case 2:
           return PieChartSectionData(
-            color: const Color(0xff845bef),
+            color: colorGreen6,
             value: car,
             title: 'Auto',
             radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
-            ),
+            titleStyle: headline4,
           );
         case 3:
           return PieChartSectionData(
-            color: const Color(0xff13d38e),
+            color: colorGreen4,
             value: subway,
             title: 'U-Bahn',
             radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
-            ),
+            titleStyle: headline4,
           );
         case 4:
           return PieChartSectionData(
-            color: const Color(0xffee3b3b),
+            color: colorGreen2,
             value: train,
             title: 'Zug',
             radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
-            ),
+            titleStyle: headline4,
           );
         case 5:
           return PieChartSectionData(
-            color: const Color(0xffff82ab),
+            color: colorGreen1,
             value: tram,
             title: 'Tram',
             radius: MediaQuery.of(context).size.width / 5,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
-            ),
+            titleStyle: headline4,
           );
         default:
           throw Error();
