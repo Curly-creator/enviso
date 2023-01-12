@@ -3,6 +3,7 @@ import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:enviso/utils/widget_functions.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
@@ -19,6 +20,7 @@ const List<Widget> buttonItems = <Widget>[
   Text('Monat'),
   Text('Jahr')
 ];
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -172,4 +174,65 @@ class _HomePageState extends State<HomePage> {
       )),
     );
   }
+}
+
+var defaultText = TextStyle(color: Colors.white);
+var linkText = TextStyle(color: Colors.blue);
+
+/*final Uri url = Uri.parse('https://flutter.dev');
+
+Future<void> _launchUrl() async {
+  if (!await canLaunchUrl(url)) {
+    throw 'Could not launch $url';
+  }
+}*/
+
+void _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+            'Wie kann man seine Daten auf Google Maps herunterladen?'),
+        content: SingleChildScrollView(
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                    style: defaultText,
+                    text: "1. Erstmal, mit Google-Konto anmelden.\n\n2. Dann "),
+                TextSpan(
+                    style: linkText,
+                    text: "Google Takeout",
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        final Uri url =
+                            Uri.parse('https://takeout.google.com/');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url);
+                        } else {
+                          throw "Cannot load Url";
+                        }
+                      }),
+                TextSpan(
+                    style: defaultText,
+                    text:
+                        " öffnen.\n\n3. Location History auswählen.\n\n4. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Laden Sie die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
+              ],
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              TransportApi.getTransportData();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
