@@ -19,7 +19,7 @@ class DatabaseService {
       FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
-          .collection('transport');
+          .collection('Transport');
 
   static final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
@@ -68,9 +68,9 @@ class DatabaseService {
     Timestamp now = Timestamp.now();
     var startTime = Timestamp.fromMillisecondsSinceEpoch(
         now.millisecondsSinceEpoch - chosenTime);
-        
-    if (chosenCategory == 'All') {
-      var categories = ["transport", "consum"];
+
+    if (chosenCategory == 'Alle') {
+      var categories = ["Transport", "Konsum"];
       var queryResults = await Future.wait(categories.map((c) => userCollection
           .doc(user.uid)
           .collection(c)

@@ -37,7 +37,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              'images/2zero.jpg',
+              'assets/images/zero.jpg',
               scale: 7.0,
             ),
             const SizedBox(height: 40),

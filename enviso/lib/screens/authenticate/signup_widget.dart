@@ -41,7 +41,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('images/2zero.jpg', scale: 7.0),
+              Image.asset('assets/images/zero.jpg', scale: 7.0),
               const SizedBox(height: 40),
               buildEmail(),
               const SizedBox(height: 40),
