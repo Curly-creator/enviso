@@ -18,7 +18,6 @@ String? selectedItem = 'Alle';
 const defaultText = TextStyle(color: Colors.white);
 const linkText = TextStyle(color: Colors.blue);
 
-
 const List<Widget> buttonItems = <Widget>[
   Text('Gesamt'),
   Text('Monat'),
@@ -88,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('images/2zero.jpg', scale: 15.0),
+          Image.asset('assets/images/2zero.jpg', scale: 15.0),
           CircleAvatar(
             radius: 25,
             backgroundColor: colorGreen,
@@ -115,7 +114,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildGetData() {
     return ElevatedButton(
-        onPressed: TransportApi.getTransportData,
+        onPressed: TransportApi.readTransportData,
         style: ElevatedButton.styleFrom(
             backgroundColor: colorGreen,
             shape: RoundedRectangleBorder(
@@ -169,63 +168,14 @@ class _HomePageState extends State<HomePage> {
                     children: [buildGetData()])),
             addVerticalSpace(300),
             //PieChart
-            Padding(padding: sidePadding, child: DatabasePieChart(
-                      time: chosenTime, category: chosenCategory)),
+            Padding(
+                padding: sidePadding,
+                child: DatabasePieChart(
+                    time: chosenTime, category: chosenCategory)),
             addVerticalSpace(400),
           ],
         ),
       )),
     );
   }
-}
-
-
-void _showMyDialog(context) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text(
-            'Wie kann man seine Daten auf Google Maps herunterladen?'),
-        content: SingleChildScrollView(
-          child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                    style: defaultText,
-                    text: "1. Erstmal, mit Google-Konto anmelden.\n\n2. Dann "),
-                TextSpan(
-                    style: linkText,
-                    text: "Google Takeout",
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        final Uri url =
-                            Uri.parse('https://takeout.google.com/');
-                        if (await canLaunchUrl(url)) {
-                          await launchUrl(url);
-                        } else {
-                          throw "Cannot load Url";
-                        }
-                      }),
-                TextSpan(
-                    style: defaultText,
-                    text:
-                        " öffnen.\n\n3. Location History auswählen.\n\n4. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Laden Sie die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
-              ],
-            ),
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-              TransportApi.getTransportData();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

@@ -5,6 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:functions/model/error.dart';
 
+import '../onboarding.dart';
+
 class LoginWidget extends StatefulWidget {
   const LoginWidget({
     Key? key,
@@ -37,7 +39,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              'images/2zero.jpg',
+              'assets/images/2zero.jpg',
               scale: 7.0,
             ),
             const SizedBox(height: 40),
@@ -161,6 +163,8 @@ class _LoginWidgetState extends State<LoginWidget> {
     } on Exception catch (e) {
       print(e);
     }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const Onboarding()));
+    //navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

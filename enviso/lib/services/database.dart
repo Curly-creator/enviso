@@ -24,20 +24,25 @@ class DatabaseService {
   static final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
-  Future createUser() async {
+  static Future createUser() async {
     return await userCollection.doc(user.uid).set({
       'user_name': 'username',
       'engine_size': 'medium',
       'fuel_type': 'petrol',
       'access_token': '',
+      'filepath': ''
     });
+  }
+
+  static Future updateFilePath(String filePath) async {
+    return await userCollection.doc(user.uid).update({'filepath': filePath});
   }
 
   static Future updateTokenPlaid(String token) async {
     return await userCollection.doc(user.uid).update({'access_token': token});
   }
 
-  Future updateTransportData(TransportData transportData) async {
+  static Future updateTransportData(TransportData transportData) async {
     return await transportCollection.add({
       'timestamp': transportData.timestamp,
       'vehicle': transportData.vehicle,
@@ -46,19 +51,19 @@ class DatabaseService {
     });
   }
 
-  Future updateEngineSize(int index) async {
+  static Future updateEngineSize(int index) async {
     var engineSize = convEngineSize(index);
     return await userCollection
         .doc(user.uid)
         .update({'engine_size': engineSize});
   }
 
-  Future updateFuelType(int index) async {
+  static Future updateFuelType(int index) async {
     var fuelType = convFuelType(index);
     return await userCollection.doc(user.uid).update({'fuel_type': fuelType});
   }
 
-  Future updateUsername(String username) async {
+  static Future updateUsername(String username) async {
     return await userCollection.doc(user.uid).update({'user_name': username});
   }
 
@@ -68,7 +73,7 @@ class DatabaseService {
     Timestamp now = Timestamp.now();
     var startTime = Timestamp.fromMillisecondsSinceEpoch(
         now.millisecondsSinceEpoch - chosenTime);
-        
+
     if (chosenCategory == 'All') {
       var categories = ["transport", "consum"];
       var queryResults = await Future.wait(categories.map((c) => userCollection
@@ -104,11 +109,11 @@ class DatabaseService {
     return pieChartData;
   }
 
-  Future deleteuser() async {
+  static Future deleteuser() async {
     return await userCollection.doc(user.uid).delete();
   }
 
-  String convEngineSize(index) {
+  static String convEngineSize(index) {
     switch (index) {
       case 1:
         return 'small';
@@ -121,7 +126,7 @@ class DatabaseService {
     }
   }
 
-  String convFuelType(index) {
+  static String convFuelType(index) {
     switch (index) {
       case 1:
         return 'diesel';

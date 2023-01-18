@@ -41,7 +41,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('images/2zero.jpg', scale: 7.0),
+              Image.asset('assets/images/2zero.jpg', scale: 7.0),
               const SizedBox(height: 40),
               buildEmail(),
               const SizedBox(height: 40),
@@ -222,7 +222,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      await DatabaseService().createUser();
+      await DatabaseService.createUser();
     } on Exception catch (e) {
       print(e);
     }

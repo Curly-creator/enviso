@@ -11,6 +11,9 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   static const keyDarkMode = 'key-dark-mode';
+  static const keyName = 'key-name';
+
+  static const String email = 'test@email.de';
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -74,11 +77,11 @@ class SettingsPage extends StatelessWidget {
                 TextInputSettingsTile(
                   title: 'Name',
                   titleTextStyle: headline6,
-                  initialValue: 'Name eingeben',
+                  initialValue: keyName,
                   settingKey: 'keyName',
-                  onChange: (name) => DatabaseService().updateUsername(name),
+                  onChange: (name) => DatabaseService.updateUsername(name),
                 ),
-                const Text('E-Mail: name@mail.de'),
+                const Text('E-Mail: $email'),
               ],
             ),
           )

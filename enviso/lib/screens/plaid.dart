@@ -112,35 +112,14 @@ class _MyAppState extends State<PlaidScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          width: double.infinity,
-          color: Colors.grey[200],
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Center(
-                  child: Text(
-                    _configuration?.toJson().toString() ?? "",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                child: Text('Connect Bank Account'),
-                onPressed: () async {
-                  String LinkToken = await generateLinkToken();
-                  LinkConfiguration configuration =
-                      LinkTokenConfiguration(token: LinkToken);
-                  PlaidLink.open(configuration: configuration);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+    return ElevatedButton(
+      child: const Text('Connect Bank Account'),
+      onPressed: () async {
+        String LinkToken = await generateLinkToken();
+        LinkConfiguration configuration =
+            LinkTokenConfiguration(token: LinkToken);
+        PlaidLink.open(configuration: configuration);
+      },
     );
   }
 }

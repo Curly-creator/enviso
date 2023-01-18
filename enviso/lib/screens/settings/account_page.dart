@@ -38,7 +38,7 @@ class AccountPage extends StatelessWidget {
           4: 'Hydrogen',
           5: 'Electric',
         },
-        onChange: (fuelType) => DatabaseService().updateFuelType(fuelType),
+        onChange: (fuelType) => DatabaseService.updateFuelType(fuelType),
       );
 
   Widget buildEngineSize() => DropDownSettingsTile(
@@ -51,7 +51,6 @@ class AccountPage extends StatelessWidget {
           2: 'medium',
           3: 'large',
         },
-        onChange: (engineSize) =>
-            DatabaseService().updateEngineSize(engineSize),
+        onChange: (engineSize) => DatabaseService.updateEngineSize(engineSize),
       );
 }
