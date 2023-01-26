@@ -78,7 +78,7 @@ class SettingsPage extends StatelessWidget {
                   title: 'Name',
                   titleTextStyle: headline6,
                   initialValue: keyName,
-                  settingKey: 'keyName',
+                  settingKey: 'key-name',
                   onChange: (name) => DatabaseService.updateUsername(name),
                 ),
                 const Text('E-Mail: $email'),

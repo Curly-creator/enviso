@@ -36,6 +36,12 @@ const startText = TextStyle(
     fontFamily: 'Inter',
     fontSize: 14);
 
+const websiteText = TextStyle(
+    color: colorGreen,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Inter',
+    fontSize: 16);
+
 const buttonText = TextStyle(
     color: colorWhite,
     fontWeight: FontWeight.w400,

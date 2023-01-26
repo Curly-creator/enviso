@@ -12,6 +12,9 @@ class PrivacyPage extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: const [
+              SizedBox(
+                height: 32,
+              ),
               Text(
                 'Datenschutzbedingungen',
                 style: headline1,

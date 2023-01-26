@@ -13,12 +13,12 @@ import '../services/transportapi.dart';
 
 const List<String> fuelTypes = <String>[
   'Diesel',
-  'Petrol',
+  'Benzin',
   'CNG',
-  'Hydrogen',
-  'Electric'
+  'Wasserstoff',
+  'Elektrisch'
 ];
-const List<String> motorSizes = <String>['small', 'medium', 'large'];
+const List<String> motorSizes = <String>['klein', 'mittel', 'groß'];
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -42,55 +42,76 @@ class _OnboardingState extends State<Onboarding> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: isCompleted
-          ? const HomePage()
-          : Stepper(
-              type: StepperType.horizontal,
-              steps: getSteps(),
-              currentStep: currentStep,
-              onStepTapped: (step) => setState(() => currentStep = step),
-              onStepContinue: () {
-                final isLastStep = currentStep == getSteps().length - 1;
+      body: Theme(
+          data: Theme.of(context).copyWith(
+              colorScheme: const ColorScheme.light(primary: colorGreen)),
+          child: isCompleted
+              ? const HomePage()
+              : Stepper(
+                  type: StepperType.horizontal,
+                  steps: getSteps(),
+                  currentStep: currentStep,
+                  onStepTapped: (step) => setState(() => currentStep = step),
+                  onStepContinue: () {
+                    final isLastStep = currentStep == getSteps().length - 1;
 
-                if (isLastStep) {
-                  DatabaseService.updateEngineSize(engineSize);
-                  DatabaseService.updateFuelType(fuelType);
-                  DatabaseService.updateUsername(username);
-                  DatabaseService.updateTokenPlaid(plaidToken);
-                  setState(() => isCompleted = true);
+                    if (isLastStep) {
+                      DatabaseService.updateEngineSize(engineSize);
+                      DatabaseService.updateFuelType(fuelType);
+                      DatabaseService.updateUsername(username);
+                      DatabaseService.updateTokenPlaid(plaidToken);
+                      setState(() => isCompleted = true);
 
-                  //DATA TO DATABASE
-                } else {
-                  setState(() => currentStep += 1);
-                }
-              },
-              onStepCancel: currentStep == 0
-                  ? null
-                  : () => setState(() => currentStep -= 1),
-              controlsBuilder: (context, details) {
-                final isLastStep = currentStep == getSteps().length - 1;
-                return Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: ElevatedButton(
-                          onPressed: details.onStepContinue,
-                          child: Text(isLastStep ? 'Speichern' : 'Next'),
-                        )),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        if (currentStep != 0)
-                          Expanded(
-                              child: ElevatedButton(
-                            onPressed: details.onStepCancel,
-                            child: const Text('Zurück'),
-                          )),
-                      ],
-                    ));
-              },
-            ));
+                      //DATA TO DATABASE
+                    } else {
+                      setState(() => currentStep += 1);
+                    }
+                  },
+                  onStepCancel: currentStep == 0
+                      ? null
+                      : () => setState(() => currentStep -= 1),
+                  controlsBuilder: (context, details) {
+                    final isLastStep = currentStep == getSteps().length - 1;
+                    return Container(
+                        margin: const EdgeInsets.only(top: 50),
+                        child: Row(
+                          children: [
+                            if (currentStep != 0)
+                              Expanded(
+                                  child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: colorGreen,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0))),
+                                onPressed: details.onStepCancel,
+                                child: const Text(
+                                  'Zurück',
+                                  style: buttonText,
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                                child: ElevatedButton(
+                              onPressed: details.onStepContinue,
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: colorGreen,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50.0))),
+                              child: Text(
+                                isLastStep ? 'Speichern' : 'Weiter',
+                                style: buttonText,
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                          ],
+                        ));
+                  },
+                )));
 
   List<Step> getSteps() => [
         Step(
@@ -109,16 +130,22 @@ class _OnboardingState extends State<Onboarding> {
             content: Column(
               children: [
                 const Text(
-                    'Wie kann man seine Daten auf Google Maps herunterladen?'),
+                  'Wie kann ich meine Daten von Google Maps herunterladen?',
+                  style: headline3,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  width: 32,
+                ),
                 RichText(
                   text: TextSpan(
                     children: [
                       const TextSpan(
                           style: headline4,
                           text:
-                              "1. Erstmal, mit Google-Konto anmelden.\n\n2. Dann "),
+                              "1. Du musst dich mit deinem Google-Konto anmelden.\n\n2. "),
                       TextSpan(
-                          style: const TextStyle(color: Colors.blue),
+                          style: websiteText,
                           text: "Google Takeout",
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
@@ -129,12 +156,15 @@ class _OnboardingState extends State<Onboarding> {
                       const TextSpan(
                           style: headline4,
                           text:
-                              " öffnen.\n\n3. Location History auswählen.\n\n4. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Laden Sie die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
+                              " öffnen.\n\n3. Location History auswählen.\n\n4. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Lade die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
                     ],
                   ),
                 ),
                 TextButton(
-                  child: const Text('Get Filepath'),
+                  child: const Text(
+                    'Get Filepath',
+                    style: websiteText,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                     TransportApi.readTransportData();
@@ -146,6 +176,10 @@ class _OnboardingState extends State<Onboarding> {
             isActive: currentStep >= 2,
             title: const Text('Plaid'),
             content: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: colorGreen,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0))),
               onPressed: () async {
                 String linkToken = await PlaidService().generateLinkToken();
 
@@ -153,7 +187,11 @@ class _OnboardingState extends State<Onboarding> {
                     LinkTokenConfiguration(token: linkToken);
                 PlaidLink.open(configuration: configuration);
               },
-              child: const Text('Connect Bank Account'),
+              child: const Text(
+                'Connect Bank Account',
+                style: buttonText,
+                textAlign: TextAlign.center,
+              ),
             )),
       ];
 

@@ -33,10 +33,10 @@ class AccountPage extends StatelessWidget {
         selected: 1,
         values: const <int, String>{
           1: 'Diesel',
-          2: 'Petrol',
+          2: 'Benzin',
           3: 'CNG',
-          4: 'Hydrogen',
-          5: 'Electric',
+          4: 'Wasserstoff',
+          5: 'Elektrisch',
         },
         onChange: (fuelType) => DatabaseService.updateFuelType(fuelType),
       );
@@ -47,9 +47,9 @@ class AccountPage extends StatelessWidget {
         titleTextStyle: headline4,
         selected: 1,
         values: const <int, String>{
-          1: 'small',
-          2: 'medium',
-          3: 'large',
+          1: 'klein',
+          2: 'mittel',
+          3: 'groß',
         },
         onChange: (engineSize) => DatabaseService.updateEngineSize(engineSize),
       );

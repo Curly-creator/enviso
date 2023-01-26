@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:enviso/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,18 +45,13 @@ class DatabasePieChart extends StatelessWidget {
   }
 
   static final config = {
-    "FLYING":
-        PieSectionConfig("Flieger", const Color(0xff0293ee), 'images/fly.svg'),
-    "IN_BUS":
-        PieSectionConfig("Bus", const Color(0xfff8b250), 'images/bus.svg'),
+    "FLYING": PieSectionConfig("Flieger", colorGreen, 'images/fly.svg'),
+    "IN_BUS": PieSectionConfig("Bus", colorGreen8, 'images/bus.svg'),
     "IN_PASSENGER_VEHICLE":
-        PieSectionConfig("Auto", const Color(0xff13d38e), 'images/car.svg'),
-    "IN_SUBWAY": PieSectionConfig(
-        "U_Bahn", const Color(0xff0293ee), 'images/subway.svg'),
-    "IN_TRAIN":
-        PieSectionConfig("Zug", const Color(0xff0293ee), 'images/train.svg'),
-    "IN_TRAM":
-        PieSectionConfig("Tram", const Color(0xffff82ab), 'images/tram.svg'),
+        PieSectionConfig("Auto", colorGreen6, 'images/car.svg'),
+    "IN_SUBWAY": PieSectionConfig("U_Bahn", colorGreen4, 'images/subway.svg'),
+    "IN_TRAIN": PieSectionConfig("Zug", colorGreen2, 'images/train.svg'),
+    "IN_TRAM": PieSectionConfig("Tram", colorGreen1, 'images/tram.svg'),
   };
 
   List<PieChartSectionData> showingSections(
