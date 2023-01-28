@@ -1,11 +1,11 @@
 import 'package:enviso/main.dart';
+import 'package:enviso/screens/onboarding.dart';
+import 'package:enviso/screens/plaid.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:functions/model/error.dart';
-
-import '../onboarding.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({
@@ -164,7 +164,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       print(e);
     }
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const Onboarding()));
-    //navigatorKey.currentState!.popUntil((route) => route.isFirst);
+        .push(MaterialPageRoute(builder: (context) => const PlaidScreen()));
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

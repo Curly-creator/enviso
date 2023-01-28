@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enviso/services/transportdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,6 +106,7 @@ class DatabaseService {
             ifAbsent: () => data["co2e"]);
       }
     }
+    print('0000000::: 0000000');
     print(pieChartData);
     return pieChartData;
   }

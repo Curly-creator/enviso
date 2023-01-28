@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -80,7 +81,8 @@ class _MyAppState extends State<PlaidScreen> {
     final http.Response response =
         await http.post(url, headers: headers, body: json.encode(body));
     final Map<String, dynamic> responseData = json.decode(response.body);
-    print("Access Token: " + responseData['access_token']);
+    debugPrint("Access Token: " + responseData['access_token']);
+
     if (response.statusCode == 200) {
       return responseData['access_token'];
     } else {
@@ -97,17 +99,18 @@ class _MyAppState extends State<PlaidScreen> {
   Future<void> _onSuccess(LinkSuccess event) async {
     final token = event.publicToken;
     final metadata = event.metadata.description();
-    print("onSuccess: $token, metadata: $metadata");
+    log("00000000onSuccess: $token, metadata: $metadata");
     setState(() => _successObject = event);
     String accessToken = await exchangeLinkToken(token);
-
+    debugPrint("ACCESSTOKEN:$accessToken");
     DatabaseService.updateTokenPlaid(accessToken);
   }
 
   void _onExit(LinkExit event) {
     final metadata = event.metadata.description();
     final error = event.error?.description();
-    print("onExit metadata: $metadata, error: $error");
+    log("onExit metadata: $metadata, error: $error");
+    debugPrint("onExit metadata: $metadata, error: $error");
   }
 
   @override

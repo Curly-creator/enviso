@@ -34,7 +34,7 @@ class TransportApi {
   }
 
   static Future readTransportData() async {
-    var transportDataList = <TransportData>[];
+    //var transportDataList = <TransportData>[];
     final path = await FilePicker.platform.getDirectoryPath();
     for (var year in years) {
       for (var month in months) {
@@ -47,7 +47,7 @@ class TransportApi {
           for (var activity in jsonTimeline) {
             if (activity['activitySegment'] != null) {
               var vehicle = activity['activitySegment']['activityType'];
-
+              //print(vehicle);
               if (vehicle == 'IN_BUS' ||
                   vehicle == 'IN_TRAIN' ||
                   vehicle == 'IN_SUBWAY' ||
@@ -55,15 +55,20 @@ class TransportApi {
                   vehicle == 'IN_PASSENGER_VEHICLE' ||
                   vehicle == 'IN_VEHICLE' ||
                   vehicle == 'FLYING') {
-                TransportData transportData =
-                    TransportData.fromJson(activity['activitySegment']);
-                transportDataList.add(transportData);
+                DatabaseService.updateTransportData(
+                    TransportData.fromJson(activity['activitySegment']));
+                // TransportData transportData =
+                //     TransportData.fromJson(activity['activitySegment']);
+                // transportDataList.add(transportData);
               }
             }
           }
         } catch (e) {
           print(e);
         }
+        // for (var element in transportDataList) {
+        //   DatabaseService.updateTransportData(element);
+        //}
       }
     }
   }

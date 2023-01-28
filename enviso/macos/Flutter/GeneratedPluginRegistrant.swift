@@ -9,8 +9,8 @@ import cloud_firestore
 import cloud_functions
 import firebase_auth
 import firebase_core
-import path_provider_foundation
-import shared_preferences_foundation
+import path_provider_macos
+import shared_preferences_macos
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {

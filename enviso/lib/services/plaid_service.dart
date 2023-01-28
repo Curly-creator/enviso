@@ -15,12 +15,17 @@ class PlaidService {
   StreamSubscription<LinkSuccess>? _streamSuccess;
   LinkObject? _successObject;
 
+  PlaidService(){
+    _streamExit = PlaidLink.onExit.listen(_onExit);
+    _streamSuccess = PlaidLink.onSuccess.listen(_onSuccess);
+  }
+
   Future<void> _onSuccess(LinkSuccess event) async {
     final token = event.publicToken;
     final metadata = event.metadata.description();
     _successObject = event;
     String accessToken = await exchangeLinkToken(token);
-
+    print('0000000::: 0000000');
     DatabaseService.updateTokenPlaid(accessToken);
   }
 

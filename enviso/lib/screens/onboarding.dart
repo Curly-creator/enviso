@@ -56,12 +56,8 @@ class _OnboardingState extends State<Onboarding> {
                     final isLastStep = currentStep == getSteps().length - 1;
 
                     if (isLastStep) {
-                      DatabaseService.updateEngineSize(engineSize);
-                      DatabaseService.updateFuelType(fuelType);
-                      DatabaseService.updateUsername(username);
-                      DatabaseService.updateTokenPlaid(plaidToken);
                       setState(() => isCompleted = true);
-
+                    
                       //DATA TO DATABASE
                     } else {
                       setState(() => currentStep += 1);
@@ -124,8 +120,28 @@ class _OnboardingState extends State<Onboarding> {
               buildEngineSize()
             ])),
         Step(
-            state: currentStep > 1 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 1,
+            title: const Text('Plaid'),
+            content: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: colorGreen,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0))),
+              onPressed: () async {
+                String linkToken = await PlaidService().generateLinkToken();
+                LinkConfiguration configuration =
+                    LinkTokenConfiguration(token: linkToken);
+                PlaidLink.open(configuration: configuration);
+              },
+              child: const Text(
+                'Connect Bank Account',
+                style: buttonText,
+                textAlign: TextAlign.center,
+              ),
+            )),
+        Step(
+            state: currentStep > 1 ? StepState.complete : StepState.indexed,
+            isActive: currentStep >= 2,
             title: const Text('Google'),
             content: Column(
               children: [
@@ -165,42 +181,21 @@ class _OnboardingState extends State<Onboarding> {
                     'Get Filepath',
                     style: websiteText,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.of(context).pop();
-                    TransportApi.readTransportData();
+                    await TransportApi.readTransportData();
                   },
                 ),
               ],
             )),
-        Step(
-            isActive: currentStep >= 2,
-            title: const Text('Plaid'),
-            content: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: colorGreen,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0))),
-              onPressed: () async {
-                String linkToken = await PlaidService().generateLinkToken();
-
-                LinkConfiguration configuration =
-                    LinkTokenConfiguration(token: linkToken);
-                PlaidLink.open(configuration: configuration);
-              },
-              child: const Text(
-                'Connect Bank Account',
-                style: buttonText,
-                textAlign: TextAlign.center,
-              ),
-            )),
       ];
 
   Widget buildUserName() => TextInputSettingsTile(
-        settingKey: keyName,
-        title: 'Dein Name',
-        titleTextStyle: headline4,
-        onChange: ((value) => username = value),
-      );
+      settingKey: keyName,
+      title: 'Dein Name',
+      titleTextStyle: headline4,
+      //onChange: ((value) => username = value),
+      onChange: ((value) => DatabaseService.updateUsername(value)));
 
   Widget buildFuelType() => DropDownSettingsTile(
         settingKey: keyFuel,
@@ -208,13 +203,14 @@ class _OnboardingState extends State<Onboarding> {
         titleTextStyle: headline4,
         selected: 1,
         values: const <int, String>{
-          1: 'Diesel',
-          2: 'Petrol',
-          3: 'CNG',
-          4: 'Hydrogen',
-          5: 'Electric',
+          1: 'diesel',
+          2: 'petrol',
+          3: 'cng',
+          4: 'hydrogen',
+          5: 'electric',
         },
-        onChange: (value) => fuelType = value,
+        //onChange: (value) => fuelType = value,
+        onChange: (value) => DatabaseService.updateFuelType(value),
       );
 
   Widget buildEngineSize() => DropDownSettingsTile(
@@ -227,6 +223,7 @@ class _OnboardingState extends State<Onboarding> {
           2: 'medium',
           3: 'large',
         },
-        onChange: (value) => engineSize = value,
+        //onChange: (value) => engineSize = value,
+        onChange: (value) => DatabaseService.updateEngineSize(value),
       );
 }

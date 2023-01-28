@@ -1,4 +1,5 @@
 import 'package:enviso/main.dart';
+import 'package:enviso/screens/onboarding.dart';
 import 'package:enviso/services/database.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -222,10 +223,36 @@ class _LoginWidgetState extends State<SignUpWidget> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      await DatabaseService.createUser();
+      DatabaseService.createUser();
     } on Exception catch (e) {
       print(e);
     }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const Onboarding()));
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
+
+  // Future signUp() async {
+  //   print('Helllo');
+  //   final isValid = fromKey.currentState!.validate();
+  //   if (!isValid) return;
+  //   showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (context) => const Center(
+  //             child: CircularProgressIndicator(),
+  //           ));
+  //   try {
+  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: emailController.text.trim(),
+  //         password: passwordController.text.trim());
+  //     await DatabaseService.createUser();
+  //   } on Exception catch (e) {
+  //     print(e);
+  //   }
+  //   print('Helllo222');
+  //   Navigator.of(context)
+  //       .push(MaterialPageRoute(builder: (context) => const Onboarding()));
+  //   // navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // }
 }

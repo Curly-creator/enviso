@@ -26,6 +26,7 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
     'start_date': startDate,
     'end_date': endDate
   }
+
   const url = "https://sandbox.plaid.com/transactions/get";
   const response = await fetch(url, {
     method: 'POST',
@@ -34,9 +35,7 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
     },
     body: JSON.stringify(data)
   });
-  
-
-  const plaid_data = await response.json();
+   const plaid_data = await response.json();
 
   plaid_data.transactions.forEach(async transaction => {
     if (transaction.category[0] == "Food and Drink") {
@@ -97,17 +96,6 @@ exports.onTransportCreate = functions.firestore.document('users/{userid}/transpo
   const climatiqCo2e = await fetchclimatiqTransport(vehicle, engineSize, fuelType, distance);
 
   return database.collection('users').doc(userid).collection('transport').doc(transportid).update({ co2e: climatiqCo2e });
-})
-
-exports.onTransportDelete = functions.firestore.document('users/{userid}/transport/{transportid}').onDelete(async (snap, context) => {
-  const userid = context.params.userid;
-  const calc = database.collection('users').doc(userid).collection('transport').doc('.calculations');
-  const vehicle = await snap.get('vehicle');
-  const delValue = await snap.get('co2e');
-
-  var object = {};
-  object[vehicle] = admin.firestore.FieldValue.increment(0 - delValue);  
-  return await calc.update(object);
 })
 
 const fetchclimatiqTransport = async (vehicle, engineSize, fuelType, distance) => {

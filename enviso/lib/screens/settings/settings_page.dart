@@ -1,3 +1,4 @@
+import 'package:enviso/main.dart';
 import 'package:enviso/screens/settings/account_page.dart';
 import 'package:enviso/screens/settings/privacy_page.dart';
 import 'package:enviso/screens/settings/terms_of_use_page.dart';
@@ -14,6 +15,7 @@ class SettingsPage extends StatelessWidget {
   static const keyName = 'key-name';
 
   static const String email = 'test@email.de';
+  static const String name = 'Dein Name';
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -27,7 +29,13 @@ class SettingsPage extends StatelessWidget {
                 title: 'Mein Profil',
                 titleTextStyle: headline4,
                 children: <Widget>[
+                  const SizedBox(
+                    height: 12,
+                  ),
                   buildProfile(),
+                  const SizedBox(
+                    height: 12,
+                  ),
                   buildAccountPage(context),
                   buildDarkMode(),
                   buildLogout(),
@@ -58,33 +66,52 @@ class SettingsPage extends StatelessWidget {
       );
 
   Widget buildProfile() => Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Expanded(
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: colorGreen,
-              child: Icon(
-                Icons.person,
-                color: colorWhite,
-              ),
+          const SizedBox(width: 12),
+          const CircleAvatar(
+            radius: 25,
+            backgroundColor: colorGreen,
+            child: Icon(
+              Icons.person,
+              color: colorWhite,
             ),
           ),
-          Expanded(
-            child: Column(
-              children: [
-                TextInputSettingsTile(
-                  title: 'Name',
-                  titleTextStyle: headline6,
-                  initialValue: keyName,
-                  settingKey: 'key-name',
-                  onChange: (name) => DatabaseService.updateUsername(name),
-                ),
-                const Text('E-Mail: $email'),
-              ],
-            ),
-          )
+          const SizedBox(width: 15),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Text('Name: $name'),
+              Text('Email: $email'),
+            ],
+          ),
+          // const Expanded(
+          //   child: CircleAvatar(
+          //     radius: 25,
+          //     backgroundColor: colorGreen,
+          //     child: Icon(
+          //       Icons.person,
+          //       color: colorWhite,
+          //     ),
+          //   ),
+          // ),
+          // Expanded(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       TextInputSettingsTile(
+          //         title: 'Name',
+          //         titleTextStyle: headline6,
+          //         initialValue: keyName,
+          //         settingKey: 'key-name',
+          //         onChange: (name) => DatabaseService.updateUsername(name),
+          //       ),
+          //       const Text('E-Mail: $email'),
+          //     ],
+          //   ),
+          // )
         ],
       );
 
@@ -92,7 +119,11 @@ class SettingsPage extends StatelessWidget {
         title: 'Abmelden',
         titleTextStyle: headline4,
         leading: const Icon(Icons.logout_outlined),
-        onTap: () => FirebaseAuth.instance.signOut(),
+        onTap: () {
+          FirebaseAuth.instance.signOut();
+          MaterialPageRoute(builder: (context) => const PrivacyPage());
+          navigatorKey.currentState!.popUntil((route) => route.isFirst);
+        },
       );
 
   Widget buildDeleteAccount() => SimpleSettingsTile(
