@@ -1,3 +1,4 @@
+import 'package:enviso/screens/home/trend_page.dart';
 import 'package:enviso/screens/plaid.dart';
 import 'package:enviso/screens/settings/settings_page.dart';
 import 'package:enviso/services/transportapi.dart';
@@ -36,7 +37,12 @@ class _HomePageState extends State<HomePage> {
   final List<bool> _selectedItems = [true, false, false];
 
   int chosenTime = DateTime.now().millisecondsSinceEpoch;
-  String chosenCategory = "transport";
+  List<int> switchTime = [
+    DateTime.now().millisecondsSinceEpoch,
+    1000 * 60 * 60 * 24 * 31,
+    1000 * 60 * 60 * 24 * 365
+  ];
+  String chosenCategory = "all";
 
   Widget buildToggleButton() => SingleChildScrollView(
         child: Column(
@@ -47,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                   for (int i = 0; i < _selectedItems.length; i++) {
                     _selectedItems[i] = i == index;
                   }
+                  chosenTime = switchTime[index];
                 });
               },
               borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -71,7 +78,10 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(Icons.arrow_drop_down),
         elevation: 16,
         borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-        onChanged: (item) => setState(() => selectedItem = item),
+        onChanged: (item) => setState(() {
+          selectedItem = item;
+          chosenCategory = item!;
+        }),
         items: items
             .map((item) => DropdownMenuItem<String>(
                   value: item,
@@ -87,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/images/2zero.jpg', scale: 15.0),
+          Image.asset('assets/images/zero.jpg', scale: 15.0),
           CircleAvatar(
             radius: 25,
             backgroundColor: colorGreen,
@@ -166,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [buildGetData()])),
-            addVerticalSpace(300),
+            addVerticalSpace(200),
             //PieChart
             Padding(
                 padding: sidePadding,

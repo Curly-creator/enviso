@@ -37,7 +37,7 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
     var co2e = await fetchclimatiqPlaid_Food(transaction.amount);
     var timestamp = new Date(transaction.date);
     var category = transaction.category[0];
-    database.collection('users').doc(userid).collection('consum').add({
+    database.collection('users').doc(userid).collection('Konsum').add({
       category : category,
       co2e : co2e,
       timestamp : timestamp
@@ -73,7 +73,9 @@ const fetchclimatiqPlaid_Food = async (amount) => {
   return data.co2e;
 }
 
-exports.onTransportCreate = functions.firestore.document('users/{userid}/transport/{transportid}').onCreate(async (snap, context) => {
+/*------Transport Climatiq API call------ */
+
+exports.onTransportCreate = functions.firestore.document('users/{userid}/Transport/{transportid}').onCreate(async (snap, context) => {
   if (context.params.transportid === null) return null;
   const distance = snap.get('distance');
   const vehicle = snap.get('vehicle');
@@ -85,7 +87,7 @@ exports.onTransportCreate = functions.firestore.document('users/{userid}/transpo
 
   const climatiqCo2e = await fetchclimatiqTransport(vehicle, engineSize, fuelType, distance);
 
-  return database.collection('users').doc(userid).collection('transport').doc(transportid).update({ co2e: climatiqCo2e });
+  return database.collection('users').doc(userid).collection('Transport').doc(transportid).update({ co2e: climatiqCo2e });
 })
 
 const fetchclimatiqTransport = async (vehicle, engineSize, fuelType, distance) => {

@@ -1,12 +1,13 @@
 import 'dart:core';
 import 'package:enviso/utils/constants.dart';
+import 'package:enviso/screens/home/trend_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../services/database.dart';
 
-class DatabasePieChart extends StatelessWidget {
+class DatabasePieChart extends StatefulWidget {
   final int time;
   final String category;
 
@@ -14,9 +15,36 @@ class DatabasePieChart extends StatelessWidget {
       {required this.time, required this.category, super.key});
 
   @override
+  State<DatabasePieChart> createState() => _DatabasePieChartState();
+
+  static final config = {
+    "FLYING":
+        PieSectionConfig("Flieger", const Color(0xff0293ee), 'assets/images/fly.svg'),
+    "IN_BUS":
+        PieSectionConfig("Bus", const Color(0xfff8b250), 'assets/images/bus.svg'),
+    "IN_PASSENGER_VEHICLE":
+        PieSectionConfig("Auto", const Color(0xff13d38e), 'assets/images/car.svg'),
+    "IN_SUBWAY": PieSectionConfig(
+        "U_Bahn", const Color(0xff0293ee), 'assets/images/subway.svg'),
+    "IN_TRAIN":
+        PieSectionConfig("Zug", const Color(0xff0293ee), 'assets/images/train.svg'),
+    "IN_TRAM":
+        PieSectionConfig("Tram", const Color(0xffff82ab), 'assets/images/tram.svg'),
+    "transport": PieSectionConfig(
+        "Transport", const Color(0xffff82ab), 'assets/images/transport.svg'),
+    "consum": PieSectionConfig(
+        "Consum", const Color(0xffff82ab), 'assets/images/consum.svg'),
+    "Food and Drink": PieSectionConfig(
+        "Food and Drink", const Color(0xffff82ab), 'assets/images/food.svg')
+  };
+}
+
+class _DatabasePieChartState extends State<DatabasePieChart> {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: DatabaseService.getCalculationData(time, category),
+        future:
+            DatabaseService.getCalculationData(widget.time, widget.category),
         builder: (BuildContext context,
             AsyncSnapshot<Map<String, double>> snapshot) {
           if (snapshot.hasError) {
@@ -32,12 +60,11 @@ class DatabasePieChart extends StatelessWidget {
               aspectRatio: 5,
               child: PieChart(
                 PieChartData(
-                  sectionsSpace: 2,
-                  centerSpaceRadius: 100,
-                  sections: showingSections(snapshot.data!, context),
-                ),
+                    sectionsSpace: 2,
+                    centerSpaceRadius: 100,
+                    sections: showingSections(snapshot.data!, context),
               ),
-            );
+            ));
           } else {
             return const Text("Loading Data.");
           }
@@ -58,9 +85,9 @@ class DatabasePieChart extends StatelessWidget {
       Map<String, double> data, BuildContext context) {
     return data.entries
         .map((entry) => PieChartSectionData(
-              color: config[entry.key]!.color,
+              color: DatabasePieChart.config[entry.key]!.color,
               value: entry.value,
-              title: config[entry.key]!.name,
+              title: DatabasePieChart.config[entry.key]!.name,
               radius: MediaQuery.of(context).size.width / 5,
               titleStyle: const TextStyle(
                 fontSize: 15,
@@ -68,7 +95,7 @@ class DatabasePieChart extends StatelessWidget {
                 color: Color(0xffffffff),
               ),
               badgeWidget: _Badge(
-                config[entry.key]!.picture,
+                DatabasePieChart.config[entry.key]!.picture,
                 size: 35,
                 borderColor: const Color(0xff34eb8c),
               ),
