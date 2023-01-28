@@ -1,13 +1,10 @@
-const express = require('express');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const fetch = require('node-fetch');
-//const moment = require('moment');
 
 admin.initializeApp();
 
 const database = admin.firestore();
-const app = express();
 
 exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(async (change, context) => {
   if(change.before.get('access_token') == change.after.get('access_token')) return null;
@@ -35,24 +32,18 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
     },
     body: JSON.stringify(data)
   });
-   const plaid_data = await response.json();
-
+  const plaid_data = await response.json();
   plaid_data.transactions.forEach(async transaction => {
-    if (transaction.category[0] == "Food and Drink") {
-      var co2e = await fetchclimatiqPlaid_Food(transaction.amount);
-      console.log('AMOUNT: ', transaction.amount)
-      var timestamp = new Date(transaction.date).getTime()/ 1000;
-      var category = transaction.category[0]
-      console.log('TIMESTAMP: ', timestamp);
-      await database.collection('users').doc(userid).collection('consum').add({
-       category : category,
-       co2e : co2e,
-       timestamp : timestamp
-     })
-    }
-  });   
+    var co2e = await fetchclimatiqPlaid_Food(transaction.amount);
+    var timestamp = new Date(transaction.date);
+    var category = transaction.category[0];
+    database.collection('users').doc(userid).collection('consum').add({
+      category : category,
+      co2e : co2e,
+      timestamp : timestamp
+    })
   return null;
-})
+})})
 
 const fetchclimatiqPlaid_Food = async (amount) => {
   
@@ -79,7 +70,6 @@ const fetchclimatiqPlaid_Food = async (amount) => {
   }); 
   if (!response.ok) { throw response };
   const data = await response.json();
-  console.log('CLIMATIQSTUFF: ', response)
   return data.co2e;
 }
 

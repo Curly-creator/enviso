@@ -17,7 +17,7 @@ class PrivacyPage extends StatelessWidget {
               ),
               Text(
                 'Datenschutzbedingungen',
-                style: headline1,
+                style: headline2,
               ),
             ],
           ),

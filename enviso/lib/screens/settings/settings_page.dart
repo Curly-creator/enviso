@@ -14,7 +14,7 @@ class SettingsPage extends StatelessWidget {
   static const keyDarkMode = 'key-dark-mode';
   static const keyName = 'key-name';
 
-  static const String email = 'test@email.de';
+  static const String email = 'name@mail.com';
   static const String name = 'Dein Name';
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -87,31 +87,6 @@ class SettingsPage extends StatelessWidget {
               Text('Email: $email'),
             ],
           ),
-          // const Expanded(
-          //   child: CircleAvatar(
-          //     radius: 25,
-          //     backgroundColor: colorGreen,
-          //     child: Icon(
-          //       Icons.person,
-          //       color: colorWhite,
-          //     ),
-          //   ),
-          // ),
-          // Expanded(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       TextInputSettingsTile(
-          //         title: 'Name',
-          //         titleTextStyle: headline6,
-          //         initialValue: keyName,
-          //         settingKey: 'key-name',
-          //         onChange: (name) => DatabaseService.updateUsername(name),
-          //       ),
-          //       const Text('E-Mail: $email'),
-          //     ],
-          //   ),
-          // )
         ],
       );
 

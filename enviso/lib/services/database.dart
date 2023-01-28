@@ -106,7 +106,6 @@ class DatabaseService {
             ifAbsent: () => data["co2e"]);
       }
     }
-    print('0000000::: 0000000');
     print(pieChartData);
     return pieChartData;
   }

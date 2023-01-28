@@ -113,7 +113,7 @@ class _OnboardingState extends State<Onboarding> {
         Step(
             state: currentStep > 0 ? StepState.complete : StepState.indexed,
             isActive: currentStep >= 0,
-            title: const Text('Account'),
+            title: const Text('Konto'),
             content: SettingsGroup(title: '', children: <Widget>[
               buildUserName(),
               buildFuelType(),

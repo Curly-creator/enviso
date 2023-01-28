@@ -21,9 +21,11 @@ class AccountPage extends StatelessWidget {
           children: [
             SettingsGroup(
               title: 'Profiinformationen', 
+              titleTextStyle: headline4,
               children: <Widget>[buildUsername()]),
             SettingsGroup(
                 title: 'weitere Informationen',
+                titleTextStyle: headline4,
                 children: <Widget>[buildFuelType(), buildEngineSize()])
           ],
         )),

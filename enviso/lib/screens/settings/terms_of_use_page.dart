@@ -17,7 +17,7 @@ class TermsOfUsePage extends StatelessWidget {
               ),
               Text(
                 'Nutzungsbedingungen',
-                style: headline1,
+                style: headline2,
               ),
             ],
           ),

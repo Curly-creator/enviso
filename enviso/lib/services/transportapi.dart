@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:enviso/services/transportdata.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 import 'database.dart';
@@ -34,7 +32,6 @@ class TransportApi {
   }
 
   static Future readTransportData() async {
-    //var transportDataList = <TransportData>[];
     final path = await FilePicker.platform.getDirectoryPath();
     for (var year in years) {
       for (var month in months) {
@@ -47,7 +44,6 @@ class TransportApi {
           for (var activity in jsonTimeline) {
             if (activity['activitySegment'] != null) {
               var vehicle = activity['activitySegment']['activityType'];
-              //print(vehicle);
               if (vehicle == 'IN_BUS' ||
                   vehicle == 'IN_TRAIN' ||
                   vehicle == 'IN_SUBWAY' ||
@@ -57,59 +53,15 @@ class TransportApi {
                   vehicle == 'FLYING') {
                 DatabaseService.updateTransportData(
                     TransportData.fromJson(activity['activitySegment']));
-                // TransportData transportData =
-                //     TransportData.fromJson(activity['activitySegment']);
-                // transportDataList.add(transportData);
+
               }
             }
           }
         } catch (e) {
           print(e);
         }
-        // for (var element in transportDataList) {
-        //   DatabaseService.updateTransportData(element);
-        //}
+
       }
     }
   }
-
-  // static Future getTransportData() async {
-  //   String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-  //   DatabaseService.updateFilePath(selectedDirectory!);
-  //   var transportDataList = <TransportData>[];
-  //   for (var year in years) {
-  //     for (var month in months) {
-  //       try {
-  //         var jsonString = '$selectedDirectory/$year/$year' '_$month.json';
-  //         final String response = await rootBundle.loadString(jsonString);
-  //         var data = jsonDecode(response);
-  //         var jsonTimeline = data['timelineObjects'];
-
-  //         for (var activity in jsonTimeline) {
-  //           if (activity['activitySegment'] != null) {
-  //             var vehicle = activity['activitySegment']['activityType'];
-
-  //             if (vehicle == 'IN_BUS' ||
-  //                 vehicle == 'IN_TRAIN' ||
-  //                 vehicle == 'IN_SUBWAY' ||
-  //                 vehicle == 'IN_TRAM' ||
-  //                 vehicle == 'IN_PASSENGER_VEHICLE' ||
-  //                 vehicle == 'IN_VEHICLE' ||
-  //                 vehicle == 'FLYING') {
-  //               TransportData transportData =
-  //                   TransportData.fromJson(activity['activitySegment']);
-  //               transportDataList.add(transportData);
-  //             }
-  //           }
-  //         }
-  //       } catch (e) {
-  //         print(e);
-  //         // JSON not found
-  //       }
-  //       for (var element in transportDataList) {
-  //         DatabaseService.updateTransportData(element);
-  //       }
-  //     }
-  //   }
-  // }
 }
