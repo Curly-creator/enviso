@@ -7,7 +7,7 @@ admin.initializeApp();
 const database = admin.firestore();
 
 exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(async (change, context) => {
-  if(change.before.get('access_token') == change.after.get('access_token')) return null;
+  if(change.before.get('access_token') === change.after.get('access_token')) return null;
 
   const userid = context.params.userid;
   
@@ -34,16 +34,31 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
   });
   const plaid_data = await response.json();
   plaid_data.transactions.forEach(async transaction => {
-    var co2e = await fetchclimatiqPlaid_Food(transaction.amount);
+    var amount = transaction.amount;
+    if(amount < 0){
+      amount *= -1;
+    }
     var timestamp = new Date(transaction.date);
     var category = transaction.category[0];
     database.collection('users').doc(userid).collection('Konsum').add({
       category : category,
-      co2e : co2e,
+      amount : amount,
+      co2e : 0,
       timestamp : timestamp
     })
   return null;
 })})
+
+exports.onKonsumCreate = functions.firestore.document('users/{userid}/Konsum/{konsumid}').onCreate(async (snap, context) => {
+  if (context.params.konsumid === null) return null;
+  const amount = snap.get('amount');
+  const userid = context.params.userid;
+  const konsumid = context.params.konsumid;
+
+  var plaidco2e = await fetchclimatiqPlaid_Food(amount);
+  
+  return database.collection('users').doc(userid).collection('Konsum').doc(konsumid).update({ co2e: plaidco2e });
+})
 
 const fetchclimatiqPlaid_Food = async (amount) => {
   

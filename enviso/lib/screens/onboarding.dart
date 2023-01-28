@@ -57,8 +57,9 @@ class _OnboardingState extends State<Onboarding> {
 
                     if (isLastStep) {
                       setState(() => isCompleted = true);
-                    
-                      //DATA TO DATABASE
+                      Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const HomePage()));
+
                     } else {
                       setState(() => currentStep += 1);
                     }
@@ -181,9 +182,10 @@ class _OnboardingState extends State<Onboarding> {
                     'Get Filepath',
                     style: websiteText,
                   ),
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                    await TransportApi.readTransportData();
+                  onPressed: () async {                 
+                    TransportApi.readTransportData();
+                    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const HomePage()));
                   },
                 ),
               ],

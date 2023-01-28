@@ -101,9 +101,17 @@ class DatabaseService {
       //timestamp und await future
       var queryResult = await categoryRef.get();
       for (var doc in queryResult.docs) {
-        var data = doc.data();
-        pieChartData.update(data["vehicle"], (value) => value + data["co2e"],
-            ifAbsent: () => data["co2e"]);
+        if (chosenCategory == 'Transport') {
+          print('Transport');
+          var data = doc.data();
+          pieChartData.update(data["vehicle"], (value) => value + data["co2e"],
+              ifAbsent: () => data["co2e"]);
+        } else {
+          print('Konsum');
+          var data = doc.data();
+          pieChartData.update(data["catagory"], (value) => value + data["co2e"],
+              ifAbsent: () => data["co2e"]);
+        }
       }
     }
     print(pieChartData);

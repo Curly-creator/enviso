@@ -18,24 +18,25 @@ class DatabasePieChart extends StatefulWidget {
   State<DatabasePieChart> createState() => _DatabasePieChartState();
 
   static final config = {
-    "FLYING":
-        PieSectionConfig("Flieger", const Color(0xff0293ee), 'assets/images/fly.svg'),
-    "IN_BUS":
-        PieSectionConfig("Bus", const Color(0xfff8b250), 'assets/images/bus.svg'),
+    "FLYING": PieSectionConfig("Flieger", colorGreen, 'assets/images/fly.svg'),
+    "IN_BUS": PieSectionConfig("Bus", colorGreen8, 'assets/images/bus.svg'),
     "IN_PASSENGER_VEHICLE":
-        PieSectionConfig("Auto", const Color(0xff13d38e), 'assets/images/car.svg'),
-    "IN_SUBWAY": PieSectionConfig(
-        "U_Bahn", const Color(0xff0293ee), 'assets/images/subway.svg'),
-    "IN_TRAIN":
-        PieSectionConfig("Zug", const Color(0xff0293ee), 'assets/images/train.svg'),
-    "IN_TRAM":
-        PieSectionConfig("Tram", const Color(0xffff82ab), 'assets/images/tram.svg'),
-    "transport": PieSectionConfig(
-        "Transport", const Color(0xffff82ab), 'assets/images/transport.svg'),
-    "consum": PieSectionConfig(
-        "Consum", const Color(0xffff82ab), 'assets/images/consum.svg'),
+      PieSectionConfig("Auto", colorGreen6, 'assets/images/car.svg'),
+    "IN_SUBWAY":
+      PieSectionConfig("U_Bahn", colorGreen4, 'assets/images/subway.svg'),
+    "IN_TRAIN": PieSectionConfig("Zug", colorGreen2, 'assets/images/train.svg'),
+    "IN_TRAM": PieSectionConfig("Tram", colorGreen1, 'assets/images/tram.svg'),
+    "Transport":
+      PieSectionConfig("Transport", colorGreen6, 'assets/images/google.svg'),
+    "Konsum": PieSectionConfig("Consum", colorGreen, 'assets/images/plaid.svg'),
+    "Payment": PieSectionConfig(
+      "Payment",colorGreen1, 'assets/images/payment.svg'),
+    "Transfer": PieSectionConfig(
+      "Transfer", colorGreen2, 'assets/images/payment.svg'),
+    "Travel": PieSectionConfig(
+      "Travel", colorGreen8, 'assets/images/payment.svg'),
     "Food and Drink": PieSectionConfig(
-        "Food and Drink", const Color(0xffff82ab), 'assets/images/food.svg')
+      "Food and Drink", colorGreen4, 'assets/images/payment.svg'),    
   };
 }
 
@@ -57,29 +58,19 @@ class _DatabasePieChartState extends State<DatabasePieChart> {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) return const Text("No data");
             return AspectRatio(
-              aspectRatio: 5,
-              child: PieChart(
-                PieChartData(
+                aspectRatio: 5,
+                child: PieChart(
+                  PieChartData(
                     sectionsSpace: 2,
                     centerSpaceRadius: 100,
                     sections: showingSections(snapshot.data!, context),
-              ),
-            ));
+                  ),
+                ));
           } else {
             return const Text("Loading Data.");
           }
         });
   }
-
-  static final config = {
-    "FLYING": PieSectionConfig("Flieger", colorGreen, 'images/fly.svg'),
-    "IN_BUS": PieSectionConfig("Bus", colorGreen8, 'images/bus.svg'),
-    "IN_PASSENGER_VEHICLE":
-        PieSectionConfig("Auto", colorGreen6, 'images/car.svg'),
-    "IN_SUBWAY": PieSectionConfig("U_Bahn", colorGreen4, 'images/subway.svg'),
-    "IN_TRAIN": PieSectionConfig("Zug", colorGreen2, 'images/train.svg'),
-    "IN_TRAM": PieSectionConfig("Tram", colorGreen1, 'images/tram.svg'),
-  };
 
   List<PieChartSectionData> showingSections(
       Map<String, double> data, BuildContext context) {
