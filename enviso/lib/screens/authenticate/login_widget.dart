@@ -20,7 +20,9 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  late FocusNode _focusNode = FocusNode();
+  bool _focused = false;
+  late FocusAttachment _nodeAttechment;
   bool _obscureText = true;
 
   @override
@@ -36,6 +38,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 40),
             Image.asset(
               'assets/images/zero.jpg',
               scale: 7.0,
@@ -68,14 +71,14 @@ class _LoginWidgetState extends State<LoginWidget> {
           controller: emailController,
           cursorColor: colorWhite,
           textInputAction: TextInputAction.next,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
               labelText: 'E-Mail eingeben',
               labelStyle: TextStyle(
-                color: colorBlackLight,
+                color: _focusNode.hasFocus ? colorBlackLight : colorBlackLight,
               ),
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: colorBlackLight)),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: colorGreen))),
         ),
       ],
@@ -98,8 +101,8 @@ class _LoginWidgetState extends State<LoginWidget> {
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
               labelText: 'Passwort eingeben',
-              labelStyle: const TextStyle(
-                color: colorBlackLight,
+              labelStyle: TextStyle(
+                color: _focusNode.hasFocus ? colorBlackLight : colorBlackLight,
               ),
               enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: colorBlackLight)),
@@ -137,14 +140,30 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Widget buildSignUpButton() {
-    return RichText(
-        text:
-            TextSpan(style: headline5, text: 'Du hast kein Konto? ', children: [
-      TextSpan(
-          recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignUp,
-          text: 'Registrieren',
-          style: startText)
-    ]));
+    return Row(children: [
+      const Text(
+        'Du hast kein Konto? ',
+        style: headline5,
+        textAlign: TextAlign.right,
+      ),
+      RichText(
+          text: TextSpan(
+              recognizer: TapGestureRecognizer()
+                ..onTap = widget.onClickedSignUp,
+              text: 'Registrieren',
+              style: startText))
+      // RichText(
+      //     text: TextSpan(
+      //         style: headline5,
+      //         text: 'Du hast kein Konto? ',
+      //         children: [
+      //       TextSpan(
+      //           recognizer: TapGestureRecognizer()
+      //             ..onTap = widget.onClickedSignUp,
+      //           text: 'Registrieren',
+      //           style: startText)
+      //     ]))
+    ]);
   }
 
   Future signIn() async {

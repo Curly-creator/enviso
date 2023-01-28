@@ -21,22 +21,22 @@ class DatabasePieChart extends StatefulWidget {
     "FLYING": PieSectionConfig("Flieger", colorGreen, 'assets/images/fly.svg'),
     "IN_BUS": PieSectionConfig("Bus", colorGreen8, 'assets/images/bus.svg'),
     "IN_PASSENGER_VEHICLE":
-      PieSectionConfig("Auto", colorGreen6, 'assets/images/car.svg'),
+        PieSectionConfig("Auto", colorGreen6, 'assets/images/car.svg'),
     "IN_SUBWAY":
-      PieSectionConfig("U_Bahn", colorGreen4, 'assets/images/subway.svg'),
+        PieSectionConfig("U_Bahn", colorGreen4, 'assets/images/subway.svg'),
     "IN_TRAIN": PieSectionConfig("Zug", colorGreen2, 'assets/images/train.svg'),
     "IN_TRAM": PieSectionConfig("Tram", colorGreen1, 'assets/images/tram.svg'),
     "Transport":
-      PieSectionConfig("Transport", colorGreen6, 'assets/images/google.svg'),
-    "Konsum": PieSectionConfig("Consum", colorGreen, 'assets/images/plaid.svg'),
-    "Payment": PieSectionConfig(
-      "Payment",colorGreen1, 'assets/images/payment.svg'),
-    "Transfer": PieSectionConfig(
-      "Transfer", colorGreen2, 'assets/images/payment.svg'),
-    "Travel": PieSectionConfig(
-      "Travel", colorGreen8, 'assets/images/payment.svg'),
+        PieSectionConfig("Transport", colorGreen6, 'assets/images/google.png'),
+    "Konsum": PieSectionConfig("Konsum", colorGreen, 'assets/images/plaid.svg'),
+    "Payment":
+        PieSectionConfig("Payment", colorGreen1, 'assets/images/payment.svg'),
+    "Transfer":
+        PieSectionConfig("Transfer", colorGreen2, 'assets/images/payment.svg'),
+    "Travel":
+        PieSectionConfig("Travel", colorGreen8, 'assets/images/payment.svg'),
     "Food and Drink": PieSectionConfig(
-      "Food and Drink", colorGreen4, 'assets/images/payment.svg'),    
+        "Food and Drink", colorGreen4, 'assets/images/payment.svg'),
   };
 }
 
@@ -83,7 +83,7 @@ class _DatabasePieChartState extends State<DatabasePieChart> {
               titleStyle: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Color(0xffffffff),
+                color: colorBlack,
               ),
               badgeWidget: _Badge(
                 DatabasePieChart.config[entry.key]!.picture,

@@ -42,6 +42,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 40),
               Image.asset('assets/images/zero.jpg', scale: 7.0),
               const SizedBox(height: 40),
               buildEmail(),
@@ -83,9 +84,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
         textInputAction: TextInputAction.next,
         decoration: const InputDecoration(
             labelText: 'E-Mail eingeben',
-            labelStyle: TextStyle(
-              color: colorBlackLight,
-            ),
+            labelStyle: TextStyle(color: colorBlackLight),
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: colorBlackLight)),
             focusedBorder: UnderlineInputBorder(
@@ -113,9 +112,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
               labelText: 'Passwort eingeben',
-              labelStyle: const TextStyle(
-                color: colorBlackLight,
-              ),
+              labelStyle: const TextStyle(color: colorBlackLight),
               enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: colorBlackLight)),
               focusedBorder: const UnderlineInputBorder(
@@ -131,7 +128,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
                   });
                 },
               )),
-          obscureText: true,
+          obscureText: _obscureText,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (password) {
             if (password!.isEmpty) return 'Bitte gib ein Passwort ein.';
@@ -160,9 +157,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
           textInputAction: TextInputAction.next,
           decoration: const InputDecoration(
               labelText: 'Passwort eingeben',
-              labelStyle: TextStyle(
-                color: colorBlackLight,
-              ),
+              labelStyle: TextStyle(color: colorBlackLight),
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: colorBlackLight)),
               focusedBorder: UnderlineInputBorder(

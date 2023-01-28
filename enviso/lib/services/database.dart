@@ -109,7 +109,7 @@ class DatabaseService {
         } else {
           print('Konsum');
           var data = doc.data();
-          pieChartData.update(data["catagory"], (value) => value + data["co2e"],
+          pieChartData.update(data["category"], (value) => value + data["co2e"],
               ifAbsent: () => data["co2e"]);
         }
       }

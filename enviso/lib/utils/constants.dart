@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 const colorGreen = Color.fromRGBO(30, 201, 105, 1.0);
-const colorGreen8 = Color.fromRGBO(30, 201, 105, 0.8);
-const colorGreen6 = Color.fromRGBO(30, 201, 105, 0.6);
-const colorGreen4 = Color.fromRGBO(30, 201, 105, 0.4);
-const colorGreen2 = Color.fromRGBO(30, 201, 105, 0.2);
-const colorGreen1 = Color.fromRGBO(30, 201, 105, 0.1);
+const colorGreen8 = Color.fromRGBO(30, 201, 105, 0.9);
+const colorGreen6 = Color.fromRGBO(30, 201, 105, 0.7);
+const colorGreen4 = Color.fromRGBO(30, 201, 105, 0.5);
+const colorGreen2 = Color.fromRGBO(30, 201, 105, 0.3);
+const colorGreen1 = Color.fromRGBO(30, 201, 105, 0.2);
 const colorBlack = Color.fromRGBO(48, 47, 48, 1.0);
 const colorBlackLight = Color.fromRGBO(48, 47, 48, 0.8);
 const colorWhite = Colors.white;

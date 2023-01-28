@@ -1,16 +1,15 @@
 {
   "project_info": {
     "project_number": "281535895651",
-    "firebase_url": "https://enviso-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "enviso",
     "storage_bucket": "enviso.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:281535895651:android:9fca6d467c3fd6dbbec056",
+        "mobilesdk_app_id": "1:281535895651:android:a0e1f0e41d2dd048bec056",
         "android_client_info": {
-          "package_name": "com.example.enviso"
+          "package_name": "com.contra.enviso"
         }
       },
       "oauth_client": [
@@ -44,9 +43,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:281535895651:android:82df93c625982d3ebec056",
+        "mobilesdk_app_id": "1:281535895651:android:9fca6d467c3fd6dbbec056",
         "android_client_info": {
-          "package_name": "com.plaid.enviso"
+          "package_name": "com.example.enviso"
         }
       },
       "oauth_client": [

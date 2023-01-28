@@ -57,9 +57,8 @@ class _OnboardingState extends State<Onboarding> {
 
                     if (isLastStep) {
                       setState(() => isCompleted = true);
-                      Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const HomePage()));
-
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const HomePage()));
                     } else {
                       setState(() => currentStep += 1);
                     }
@@ -145,6 +144,8 @@ class _OnboardingState extends State<Onboarding> {
             isActive: currentStep >= 2,
             title: const Text('Google'),
             content: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
                   'Wie kann ich meine Daten von Google Maps herunterladen?',
@@ -157,35 +158,48 @@ class _OnboardingState extends State<Onboarding> {
                 RichText(
                   text: TextSpan(
                     children: [
-                      const TextSpan(
-                          style: headline4,
-                          text:
-                              "1. Du musst dich mit deinem Google-Konto anmelden.\n\n2. "),
+                      const TextSpan(style: headline4, text: "1. Öffne "),
                       TextSpan(
                           style: websiteText,
-                          text: "Google Takeout",
+                          text: "Google Takeout.",
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               final Uri url =
                                   Uri.parse('https://takeout.google.com/');
                               launchUrl(url);
                             }),
-                      const TextSpan(
-                          style: headline4,
-                          text:
-                              " öffnen.\n\n3. Location History auswählen.\n\n4. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Lade die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
+                      // const TextSpan(
+                      //     style: headline4,
+                      //     text:
+                      //         "\n\n2. Wähle Maps und Maps (Meine Orte) aus.\n\n3. Next step klicken.\n\n5. Create export klicken. \n\n6. Der Standortverlauf wird in einer ZIP-Datei gespeichert. Lade die Daten aus der JSON-Datei im Verzeichnis Semantic Location History hoch."),
                     ],
                   ),
+                ),
+                const Text(
+                  '2. Wähle Maps und Maps (Meine Orte) aus.',
+                  style: headline4,
+                ),
+                const Text(
+                  '3. Nächsten Schritt auswählen.',
+                  style: headline4,
+                ),
+                const Text(
+                  '4. Als ZIP-Datei mit gewünschter Häufigkeit exportieren.',
+                  style: headline4,
+                ),
+                const Text(
+                  '5.  Lade die Daten aus dem Verzeichnis Semantic Location History hoch.',
+                  style: headline4,
                 ),
                 TextButton(
                   child: const Text(
                     'Get Filepath',
                     style: websiteText,
                   ),
-                  onPressed: () async {                 
+                  onPressed: () async {
                     TransportApi.readTransportData();
-                    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const HomePage()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomePage()));
                   },
                 ),
               ],
@@ -195,7 +209,7 @@ class _OnboardingState extends State<Onboarding> {
   Widget buildUserName() => TextInputSettingsTile(
       settingKey: keyName,
       title: 'Dein Name',
-      titleTextStyle: headline4,
+      titleTextStyle: headline5,
       //onChange: ((value) => username = value),
       onChange: ((value) => DatabaseService.updateUsername(value)));
 

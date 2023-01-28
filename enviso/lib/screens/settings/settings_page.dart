@@ -83,8 +83,8 @@ class SettingsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
-              Text('Name: $name'),
-              Text('Email: $email'),
+              Text('Name: $name', textAlign: TextAlign.left),
+              Text('Email: $email', textAlign: TextAlign.left),
             ],
           ),
         ],

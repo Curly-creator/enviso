@@ -16,8 +16,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 List<String> items = ['Alle', 'Transport', 'Konsum'];
 String? selectedItem = 'Alle';
-const defaultText = TextStyle(color: Colors.white);
-const linkText = TextStyle(color: Colors.blue);
+const defaultText = TextStyle(color: colorBlack);
+const linkText = TextStyle(color: colorGreen);
 
 const List<Widget> buttonItems = <Widget>[
   Text('Gesamt'),
@@ -58,12 +58,12 @@ class _HomePageState extends State<HomePage> {
               },
               borderRadius: const BorderRadius.all(Radius.circular(50)),
               selectedBorderColor: colorGreen,
-              selectedColor: colorBlack,
+              selectedColor: colorWhite,
               fillColor: colorGreen,
               textStyle: headline5,
               constraints: const BoxConstraints(
-                minHeight: 30.0,
-                minWidth: 60.0,
+                minHeight: 40.0,
+                minWidth: 70.0,
               ),
               isSelected: _selectedItems,
               children: buttonItems,
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/images/zero.jpg', scale: 15.0),
+          Image.asset('assets/images/zero.jpg', scale: 10.0),
           CircleAvatar(
             radius: 25,
             backgroundColor: colorGreen,
