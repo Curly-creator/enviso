@@ -1,5 +1,4 @@
 import 'package:enviso/main.dart';
-import 'package:enviso/screens/home/home_page.dart';
 import 'package:enviso/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -20,9 +19,7 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  late FocusNode _focusNode = FocusNode();
-  bool _focused = false;
-  late FocusAttachment _nodeAttechment;
+  late final FocusNode _focusNode = FocusNode();
   bool _obscureText = true;
 
   @override
@@ -140,11 +137,10 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Widget buildSignUpButton() {
-    return Row(children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       const Text(
-        'Du hast kein Konto? ',
+        'Du hast kein Konto?    ',
         style: headline5,
-        textAlign: TextAlign.right,
       ),
       RichText(
           text: TextSpan(

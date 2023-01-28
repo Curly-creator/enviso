@@ -13,16 +13,19 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Profil bearbeiten', style: headline5,),
+          title: const Text(
+            'Profil bearbeiten',
+            style: headline3,
+          ),
         ),
         body: SafeArea(
             child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
             SettingsGroup(
-              title: 'Profiinformationen', 
-              titleTextStyle: headline4,
-              children: <Widget>[buildUsername()]),
+                title: 'Profilinformationen',
+                titleTextStyle: headline4,
+                children: <Widget>[buildUsername()]),
             SettingsGroup(
                 title: 'weitere Informationen',
                 titleTextStyle: headline4,
@@ -32,11 +35,11 @@ class AccountPage extends StatelessWidget {
       );
 
   Widget buildUsername() => TextInputSettingsTile(
-      title: 'Name',
-      titleTextStyle: headline6,
-      initialValue: keyName,
-      settingKey: 'key-name',
-      onChange: (name) => DatabaseService.updateUsername(name),
+        title: 'Name',
+        titleTextStyle: headline6,
+        initialValue: keyName,
+        settingKey: 'key-name',
+        onChange: (name) => DatabaseService.updateUsername(name),
       );
 
   Widget buildFuelType() => DropDownSettingsTile(

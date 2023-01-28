@@ -19,7 +19,10 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Einstellungen'),
+          title: const Text(
+            'Einstellungen',
+            style: headline3,
+          ),
         ),
         body: SafeArea(
             child: ListView(
@@ -80,7 +83,7 @@ class SettingsPage extends StatelessWidget {
           ),
           const SizedBox(width: 15),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
               Text('Name: $name', textAlign: TextAlign.left),

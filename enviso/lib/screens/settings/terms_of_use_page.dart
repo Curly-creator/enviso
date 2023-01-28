@@ -7,7 +7,10 @@ class TermsOfUsePage extends StatelessWidget {
   @override
   build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Nutzungsbedingungen'),
+          title: const Text(
+            'Nutzungsbedingungen',
+            style: headline3,
+          ),
         ),
         body: SafeArea(
           child: Column(

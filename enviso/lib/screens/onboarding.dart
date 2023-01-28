@@ -145,15 +145,14 @@ class _OnboardingState extends State<Onboarding> {
             title: const Text('Google'),
             content: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Wie kann ich meine Daten von Google Maps herunterladen?',
+                  'Wie kann ich meine Daten von Google Maps laden?',
                   style: headline3,
-                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  width: 32,
+                  height: 32,
                 ),
                 RichText(
                   text: TextSpan(
@@ -175,21 +174,36 @@ class _OnboardingState extends State<Onboarding> {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 const Text(
                   '2. Wähle Maps und Maps (Meine Orte) aus.',
                   style: headline4,
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 const Text(
                   '3. Nächsten Schritt auswählen.',
                   style: headline4,
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 const Text(
                   '4. Als ZIP-Datei mit gewünschter Häufigkeit exportieren.',
                   style: headline4,
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 const Text(
                   '5.  Lade die Daten aus dem Verzeichnis Semantic Location History hoch.',
                   style: headline4,
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 TextButton(
                   child: const Text(
@@ -219,11 +233,11 @@ class _OnboardingState extends State<Onboarding> {
         titleTextStyle: headline4,
         selected: 1,
         values: const <int, String>{
-          1: 'diesel',
-          2: 'petrol',
-          3: 'cng',
-          4: 'hydrogen',
-          5: 'electric',
+          1: 'Diesel',
+          2: 'Benzin',
+          3: 'CNG',
+          4: 'Wasserstoff',
+          5: 'Elektrisch',
         },
         //onChange: (value) => fuelType = value,
         onChange: (value) => DatabaseService.updateFuelType(value),
@@ -235,9 +249,9 @@ class _OnboardingState extends State<Onboarding> {
         titleTextStyle: headline4,
         selected: 1,
         values: const <int, String>{
-          1: 'small',
-          2: 'medium',
-          3: 'large',
+          1: 'klein',
+          2: 'mittel',
+          3: 'groß',
         },
         //onChange: (value) => engineSize = value,
         onChange: (value) => DatabaseService.updateEngineSize(value),

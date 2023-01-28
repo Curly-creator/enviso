@@ -1,4 +1,3 @@
-import 'package:enviso/main.dart';
 import 'package:enviso/screens/onboarding.dart';
 import 'package:enviso/services/database.dart';
 import 'package:enviso/utils/constants.dart';
@@ -24,7 +23,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  final bool _obscureText = true;
+  bool _obscureText = true;
 
   @override
   void dispose() {
@@ -124,7 +123,7 @@ class _LoginWidgetState extends State<SignUpWidget> {
                     : const Icon(Icons.visibility_off),
                 onPressed: () {
                   setState(() {
-                    _obscureText != _obscureText;
+                    _obscureText = !_obscureText;
                   });
                 },
               )),
@@ -192,17 +191,18 @@ class _LoginWidgetState extends State<SignUpWidget> {
   }
 
   Widget buildSignInButton() {
-    return RichText(
-        text: TextSpan(
-            style: headline5,
-            text: 'Du hast schon ein Konto? ',
-            children: [
-          TextSpan(
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      const Text(
+        'Du hast schon ein Konto?   ',
+        style: headline5,
+      ),
+      RichText(
+          text: TextSpan(
               recognizer: TapGestureRecognizer()
                 ..onTap = widget.onClickedSignIn,
               text: 'Login',
-              style: startText)
-        ]));
+              style: startText))
+    ]);
   }
 
   Future signUp() async {

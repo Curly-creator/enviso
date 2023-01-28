@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
         value: selectedItem,
         icon: const Icon(Icons.arrow_drop_down),
         elevation: 16,
-        borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(40.0)),
         onChanged: (item) => setState(() {
           selectedItem = item;
           chosenCategory = item!;
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/images/zero.jpg', scale: 10.0),
+          Image.asset('assets/images/zero.jpg', scale: 20.0),
           CircleAvatar(
             radius: 25,
             backgroundColor: colorGreen,

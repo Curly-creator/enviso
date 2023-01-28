@@ -7,7 +7,10 @@ class PrivacyPage extends StatelessWidget {
   @override
   build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Datenschutzbedingungen'),
+          title: const Text(
+            'Datenschutzbedingungen',
+            style: headline3,
+          ),
         ),
         body: SafeArea(
           child: Column(
