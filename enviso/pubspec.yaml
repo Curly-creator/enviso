@@ -86,6 +86,12 @@ flutter:
     - assets/images/subway.svg
     - assets/images/train.svg
     - assets/images/tram.svg
+    - assets/images/plaid.svg
+    - assets/images/google.svg
+    - assets/images/payment.svg
+    - assets/images/foodanddrink.svg
+    - assets/images/travel.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

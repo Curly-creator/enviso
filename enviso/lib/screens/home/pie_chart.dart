@@ -27,16 +27,16 @@ class DatabasePieChart extends StatefulWidget {
     "IN_TRAIN": PieSectionConfig("Zug", colorGreen2, 'assets/images/train.svg'),
     "IN_TRAM": PieSectionConfig("Tram", colorGreen1, 'assets/images/tram.svg'),
     "Transport":
-        PieSectionConfig("Transport", colorGreen6, 'assets/images/google.png'),
+        PieSectionConfig("Transport", colorGreen6, 'assets/images/google.svg'),
     "Konsum": PieSectionConfig("Konsum", colorGreen, 'assets/images/plaid.svg'),
     "Payment":
         PieSectionConfig("Payment", colorGreen1, 'assets/images/payment.svg'),
     "Transfer":
-        PieSectionConfig("Transfer", colorGreen2, 'assets/images/payment.svg'),
+        PieSectionConfig("Transfer", colorGreen2, 'assets/images/transfer.svg'),
     "Travel":
-        PieSectionConfig("Travel", colorGreen8, 'assets/images/payment.svg'),
+        PieSectionConfig("Travel", colorGreen8, 'assets/images/travel.svg'),
     "Food and Drink": PieSectionConfig(
-        "Food and Drink", colorGreen4, 'assets/images/payment.svg'),
+        "Food and Drink", colorGreen4, 'assets/images/foodanddrink.svg'),
   };
 }
 
