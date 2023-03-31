@@ -13,18 +13,13 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
   
   const accessToken = await change.after.get('access_token');
   
-  const startDate = '2020-01-01';
-  const endDate = '2023-01-01';
-  
   const data = {
     'access_token': accessToken,
     'client_id':'635fb7749f143e0013c8b0b0',
-    'secret':'4677ec60b05fb453e0b629a6f0df50',
-    'start_date': startDate,
-    'end_date': endDate
+    'secret':'4677ec60b05fb453e0b629a6f0df50'
   }
 
-  const url = "https://sandbox.plaid.com/transactions/get";
+  const url = "https://sandbox.plaid.com/transactions/sync";
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -33,18 +28,20 @@ exports.onTokenUpdate = functions.firestore.document('users/{userid}').onUpdate(
     body: JSON.stringify(data)
   });
   const plaid_data = await response.json();
-  plaid_data.transactions.forEach(async transaction => {
+  plaid_data.added.forEach(async transaction => {
     var amount = transaction.amount;
     if(amount < 0){
       amount *= -1;
     }
     var timestamp = new Date(transaction.date);
     var category = transaction.category[0];
+    var categoryid = transaction.category_id;
     database.collection('users').doc(userid).collection('Konsum').add({
       category : category,
       amount : amount,
       co2e : 0,
-      timestamp : timestamp
+      timestamp : timestamp,
+      categoryid : categoryid
     })
   return null;
 })})
